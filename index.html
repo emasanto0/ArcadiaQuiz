@@ -116,8 +116,8 @@ body{
 .res-pct{font-size:.95rem;font-weight:700;font-family:sans-serif;min-width:36px;text-align:right}
 .star{font-size:1rem;margin-left:3px}
 .res-note{font-size:.76rem;color:#aaa;font-style:italic;margin-top:16px;margin-bottom:20px;line-height:1.5;border-top:1px solid #f0e6e6;padding-top:12px}
-.share-btn{width:100%;padding:14px;background:linear-gradient(135deg,#c0392b,#922b21);color:#fff;border:none;border-radius:14px;font-size:1rem;font-family:'Lora',serif;font-weight:700;cursor:pointer;margin-top:14px;box-shadow:0 4px 16px rgba(192,57,43,.35);letter-spacing:.3px}
-.share-btn:active{transform:scale(.98)}
+.share-btn{width:100%;padding:13px 16px;background:linear-gradient(90deg,#f9ce34 0%,#f08235 25%,#ee2a7b 55%,#9b2fae 80%,#6228d7 100%);color:#fff;border:none;border-radius:14px;font-size:.95rem;font-family:'Lora',serif;font-weight:700;cursor:pointer;margin-top:14px;margin-bottom:4px;box-shadow:0 4px 18px rgba(238,42,123,.38);letter-spacing:.2px;text-shadow:0 1px 3px rgba(0,0,0,.18)}
+.share-btn:active{transform:scale(.98);opacity:.92}
 /* Contraddizione */
 .contradiction{background:#fffbeb;border:1px solid #f6d860;border-radius:12px;padding:12px 15px;margin-bottom:14px;font-size:.85rem;color:#7a5c00;line-height:1.5}
 .contradiction strong{display:block;margin-bottom:3px;font-size:.87rem}
@@ -193,13 +193,11 @@ body{
 const SP = {
   chir_gen:   {name:"Chirurgia Generale",            icon:"🔪",group:"Chirurgico",
     mix:"🔪 Sala op. 70% · 🏥 Reparto 20% · 🏃 Ambulatorio 10%",
-    mix:"🔪 Sala op. 70% · 🏥 Reparto 20% · 🏃 Ambulatorio 10%",
     profile:"Sei un problem-solver concreto: risolvi problemi tangibili con le mani, hai alta tolleranza allo stress e non ti spaventa la complessità operatoria. Ami vedere il risultato immediato del tuo intervento.",
     why:["abilità manuale","decisione rapida","risultato immediato","alta tolleranza allo stress"],
     pro:["Ampia varietà di casi e patologie","Soddisfazione immediata: operi e vedi il risultato","Base per molte sottospecialità chirurgiche"],
     con:["Turni pesanti e guardie frequenti","Formazione molto lunga e selettiva","Elevata responsabilità e pressione costante"]},
   chir_vasc:  {name:"Chirurgia Vascolare",           icon:"🩸",group:"Chirurgico",
-    mix:"🔪 Sala op. 50% · 💊 Clinica 30% · 🎯 Interventistica 20%",
     mix:"🔪 Sala op. 50% · 💊 Clinica 30% · 🎯 Interventistica 20%",
     profile:"Sei preciso, metodico e affascinato dai sistemi complessi. Ti piace l'idea di riparare l'impianto idraulico del corpo con approccio ingegneristico: arterie, bypass, protesi vascolari.",
     why:["pensiero sistemico","precisione tecnica","interesse per sistemi complessi","approccio ingegneristico"],
@@ -213,20 +211,17 @@ const SP = {
     con:["Turni pesanti nei PS","Guardie frequenti per traumi","Fisicamente molto impegnativo nel tempo"]},
   neurochir:  {name:"Neurochirurgia",                icon:"🧠",group:"Chirurgico",
     mix:"🔪 Sala op. 65% · 🏥 Reparto 25% · 🏃 Ambulatorio 10%",
-    mix:"🔪 Sala op. 65% · 🏥 Reparto 25% · 🏃 Ambulatorio 10%",
     profile:"Sei una persona di grande precisione e altissima concentrazione, con tendenza al perfezionismo. Affronti le sfide più difficili con calma e determinazione assoluta.",
     why:["precisione millimetrica","alta tolleranza allo stress","perfezionismo","voglia di sfide estreme"],
     pro:["Prestigio altissimo","Casi di frontiera: tumori cerebrali, aneurismi","Innovazione continua con robot e neuronavigazione"],
     con:["Formazione lunghissima e molto selettiva","Stress psicologico elevato","Pochi posti nelle scuole di specializzazione"]},
   chir_plast: {name:"Chirurgia Plastica",            icon:"✨",group:"Chirurgico",
     mix:"🔪 Sala op. 60% · 🏃 Ambulatorio 35% · 🏥 Reparto 5%",
-    mix:"🔪 Sala op. 60% · 🏃 Ambulatorio 35% · 🏥 Reparto 5%",
     profile:"Hai un forte senso estetico, curi i dettagli come pochi altri e hai una visione quasi artistica del corpo. Ami trasformare, migliorare e ridare forma.",
     why:["senso estetico","precisione manuale","voglia di libera professione","risultati visibili"],
     pro:["Libera professione molto remunerativa","Grande varietà: estetica, ricostruttiva, ustioni","Alta soddisfazione del paziente"],
     con:["Formazione molto competitiva","In ambito pubblico sbocchi limitati","Aspettative dei pazienti molto elevate"]},
   chir_card:  {name:"Cardiochirurgia",               icon:"🫀",group:"Chirurgico",
-    mix:"🔪 Sala op. 70% · 🏥 Reparto 25% · 🏃 Ambulatorio 5%",
     mix:"🔪 Sala op. 70% · 🏥 Reparto 25% · 🏃 Ambulatorio 5%",
     profile:"Sei freddo sotto pressione estrema, con resistenza fisica e psicologica fuori dal comune. Ami operare al limite assoluto, dove ogni gesto conta più che in qualsiasi altra specialità.",
     why:["resistenza allo stress massima","abilità manuale d'élite","voglia di prestigio","decisione fulminea"],
@@ -318,7 +313,6 @@ const SP = {
     con:["Rischio biologico professionale","Guardie frequenti","Spesso sottovalutata economicamente"]},
   med_sport:  {name:"Medicina dello Sport",          icon:"🏃",group:"Medico",
     mix:"🏃 Ambulatorio 80% · 🏟️ Campo 15% · 🏥 Reparto 5%",
-    mix:"🏃 Ambulatorio 80% · 🏟️ Campo 15% · 🏥 Reparto 5%",
     profile:"Sei attivo, positivo e vedi la medicina come strumento di benessere e prevenzione. Ti piace lavorare con persone motivate che vogliono stare meglio, non con pazienti cronici in crisi.",
     why:["stile di vita attivo","interesse per la prevenzione","pazienti motivati","equilibrio vita-lavoro"],
     pro:["Ottimo equilibrio vita-lavoro","Pazienti motivati e collaborativi","Alta libera professione"],
@@ -397,7 +391,6 @@ const SP = {
     con:["Specialità di nicchia con sbocchi limitati","Pochi posti nelle scuole","Rischio da radiazioni con protocolli di sicurezza"]},
   rad_onco:   {name:"Radioterapia Oncologica",       icon:"🎯",group:"Diagnostico",
     mix:"🎯 Trattamenti 55% · 🏃 Ambulatorio 30% · 💻 Pianificazione 15%",
-    mix:"🎯 Trattamenti 55% · 🏃 Ambulatorio 30% · 💻 Pianificazione 15%",
     profile:"Sei preciso come un fisico e hai la sensibilità del medico oncologo. Ti affascina l'idea di usare le radiazioni come strumento terapeutico di precisione assoluta contro il cancro.",
     why:["precisione fisica","impatto oncologico","tecnologia d'avanguardia","approccio scientifico"],
     pro:["Tecnologia all'avanguardia: adroterapia, IMRT","Buon equilibrio vita-lavoro","Impatto reale sulla sopravvivenza oncologica"],
@@ -435,8 +428,8 @@ const SP = {
 };
 
 const GC = {
-"Chirurgico":"#1a6b3a","Medico":"#1a3f6b","Urgenza":"#8b0000",
-"Diagnostico":"#4a3a7a","Non clinico":"#5a6b1a"
+“Chirurgico”:”#1a6b3a”,“Medico”:”#1a3f6b”,“Urgenza”:”#8b0000”,
+“Diagnostico”:”#4a3a7a”,“Non clinico”:”#5a6b1a”
 };
 
 // ── DOMANDE SULLA PERSONA, non sui libri ────────────────────────────────────
@@ -445,258 +438,404 @@ const GC = {
 const POOL = [
 
 // ══ DOMANDA 0: ESCLUSIONE ATTIVA — penalizza interi gruppi subito ══════════
-{ id:"esclusione", type:"multiselect",
-text:"C'è qualcosa che sai già con certezza di NON voler fare? (opzionale — salta se non sei sicuro)",
+{ id:“esclusione”, type:“multiselect”,
+text:“C’è qualcosa che sai già con certezza di NON voler fare? (opzionale — salta se non sei sicuro)”,
 options:[
-{label:"Non voglio mai operare né fare procedure invasive",
+{label:“Non voglio mai operare né fare procedure invasive”,
 scores:{chir_gen:-12,ortop:-12,neurochir:-12,chir_plast:-12,chir_card:-12,uro:-12,orl:-10,ocu:-10,gyn:-10,chir_vasc:-12}},
-{label:"Non voglio turni notturni, guardie né reperibilità",
+{label:“Non voglio turni notturni, guardie né reperibilità”,
 scores:{emerg:-12,anest:-12,chir_card:-8,ped:-6,neo:-6}},
-{label:"Non voglio stare dietro a una scrivania o in un ufficio",
+{label:“Non voglio stare dietro a una scrivania o in un ufficio”,
 scores:{med_leg:-12,med_lav:-12,ig_san:-12,rad:-6,anapat:-6,lab:-6}},
-{label:"Non voglio lavorare su immagini, dati o referti senza vedere i pazienti",
+{label:“Non voglio lavorare su immagini, dati o referti senza vedere i pazienti”,
 scores:{rad:-12,anapat:-12,lab:-12,nuc:-10,rad_onco:-8}},
-{label:"Non voglio avere a che fare con urgenze o situazioni critiche",
+{label:“Non voglio avere a che fare con urgenze o situazioni critiche”,
 scores:{emerg:-12,anest:-10,chir_card:-6,chir_gen:-4}},
-{label:"Non voglio lavorare solo con bambini o anziani",
+{label:“Non voglio lavorare solo con bambini o anziani”,
 scores:{ped:-8,neo:-8,npi:-6,ger:-6}},
-{label:"Il guadagno economico non è una priorità per me — preferisco missione e qualità di vita",
+{label:“Il guadagno economico non è una priorità per me — preferisco missione e qualità di vita”,
 scores:{chir_plast:-8,ocu:-8,orl:-7,neurochir:-7,chir_card:-7,cardio:-5,uro:-5,gyn:-5}},
-{label:"Voglio poter guadagnare bene — le specialità mal retribuite non mi interessano",
+{label:“Voglio poter guadagnare bene — le specialità mal retribuite non mi interessano”,
 scores:{pal:-10,ger:-8,psich:-7,npi:-7,neo:-7,med_gen:-6,ig_san:-6,med_leg:-5,anapat:-5,lab:-5}},
-{label:"Non voglio una specialità dove si lavora quasi sempre da soli o in silenzio",
+{label:“Non voglio una specialità dove si lavora quasi sempre da soli o in silenzio”,
 scores:{rad:-8,anapat:-8,lab:-8,med_leg:-6,nuc:-6}},
-{label:"Non voglio mai dover accompagnare pazienti terminali o gestire il fine vita",
+{label:“Non voglio mai dover accompagnare pazienti terminali o gestire il fine vita”,
 scores:{pal:-12,ger:-6,onco:-5,psich:-4}},
-{label:"Non mi interessa la libera professione — voglio il pubblico e basta",
+{label:“Non mi interessa la libera professione — voglio il pubblico e basta”,
 scores:{chir_plast:-6,ocu:-6,orl:-5,uro:-5,gyn:-5,neurochir:-5}},
-{label:"Non voglio una specialità con alta responsabilità medico-legale e rischio di errori gravi",
+{label:“Non voglio una specialità con alta responsabilità medico-legale e rischio di errori gravi”,
 scores:{chir_card:-8,neurochir:-7,anest:-7,emerg:-6,chir_gen:-5,gyn:-5,ocu:-5}},
 ]},
 
 // ══ MACRO-FILTRI ══════════════════════════════════════════════════════════
 
-{ id:"macro_mani", items:[
-{stmt:"Operare con le mani, fare procedure tecniche precise: è questa la medicina che voglio",
-tag:"vuole-chirurgia", excludes:["macro_dati","macro_ufficio"],
+{ id:“macro_mani”, items:[
+{stmt:“Operare con le mani, fare procedure tecniche precise: è questa la medicina che voglio”,
+tag:“vuole-chirurgia”, excludes:[“macro_dati”,“macro_ufficio”],
 scores:{chir_gen:6,ortop:8,neurochir:9,chir_plast:14,ocu:10,orl:9,gyn:8,uro:11,chir_vasc:8,chir_card:12}},
 ]},
 
-{ id:"macro_dati", items:[
-{stmt:"Preferisco lavorare su referti, immagini o dati: il contatto diretto col paziente non è essenziale",
-tag:"vuole-diagnostica", excludes:["macro_mani","macro_urgenza","macro_persone"],
+{ id:“macro_dati”, items:[
+{stmt:“Preferisco lavorare su referti, immagini o dati: il contatto diretto col paziente non è essenziale”,
+tag:“vuole-diagnostica”, excludes:[“macro_mani”,“macro_urgenza”,“macro_persone”],
 scores:{rad:6,anapat:9,lab:7,nuc:19,rad_onco:13}},
 ]},
 
-{ id:"macro_urgenza", items:[
-{stmt:"L'adrenalina delle emergenze è ciò che mi attrae di più: voglio lavorare dove ogni secondo conta",
-tag:"vuole-urgenza", excludes:["macro_dati","macro_ufficio"],
+{ id:“macro_urgenza”, items:[
+{stmt:“L’adrenalina delle emergenze è ciò che mi attrae di più: voglio lavorare dove ogni secondo conta”,
+tag:“vuole-urgenza”, excludes:[“macro_dati”,“macro_ufficio”],
 scores:{emerg:13,anest:9,chir_card:5}},
 ]},
 
-{ id:"macro_ufficio", items:[
-{stmt:"Non voglio turni, guardie né reperibilità: cerco una medicina con orari d'ufficio certi",
-tag:"vuole-ufficio", excludes:["macro_mani","macro_urgenza","macro_persone"],
+{ id:“macro_ufficio”, items:[
+{stmt:“Non voglio turni, guardie né reperibilità: cerco una medicina con orari d’ufficio certi”,
+tag:“vuole-ufficio”, excludes:[“macro_mani”,“macro_urgenza”,“macro_persone”],
 scores:{med_leg:11,med_lav:18,ig_san:14,rad:2,anapat:4,lab:4}},
 ]},
 
-{ id:"macro_persone", items:[
-{stmt:"Le relazioni umane profonde con i pazienti sono il cuore del mio lavoro ideale",
-tag:"vuole-relazione", excludes:["macro_dati","macro_ufficio"],
+{ id:“macro_persone”, items:[
+{stmt:“Le relazioni umane profonde con i pazienti sono il cuore del mio lavoro ideale”,
+tag:“vuole-relazione”, excludes:[“macro_dati”,“macro_ufficio”],
 scores:{psich:10,pal:7,med_gen:8,ped:11,ger:7,npi:12,neo:10}},
 ]},
 
 // ══ STILE DI VITA ════════════════════════════════════════════════════════
 
-{ id:"wlb_turni", items:[
-{stmt:"Accetto turni pesanti e notti in ospedale se il lavoro è stimolante",
-tag:"accetta-turni", excludes:["wlb_no_turni"],
+{ id:“wlb_turni”, items:[
+{stmt:“Accetto turni pesanti e notti in ospedale se il lavoro è stimolante”,
+tag:“accetta-turni”, excludes:[“wlb_no_turni”],
 scores:{emerg:7,anest:7,chir_card:8,chir_gen:3,neurochir:5,ped:4,neo:8}},
-{stmt:"Turni notturni e reperibilità sono un costo che non sono disposto a pagare",
-tag:"no-turni", excludes:["wlb_turni","macro_urgenza"],
+{stmt:“Turni notturni e reperibilità sono un costo che non sono disposto a pagare”,
+tag:“no-turni”, excludes:[“wlb_turni”,“macro_urgenza”],
 scores:{rad:4,lab:6,anapat:4,med_leg:6,med_lav:9,ig_san:7,med_gen:4}},
-{stmt:"Mi va bene un lavoro programmato: sala operatoria al mattino, ambulatorio al pomeriggio",
-tag:"lavoro-programmato", excludes:["macro_urgenza","macro_dati","macro_ufficio"],
+{stmt:“Mi va bene un lavoro programmato: sala operatoria al mattino, ambulatorio al pomeriggio”,
+tag:“lavoro-programmato”, excludes:[“macro_urgenza”,“macro_dati”,“macro_ufficio”],
 scores:{chir_gen:3,ortop:6,gyn:8,uro:8,orl:6,ocu:6,chir_plast:9}},
 ]},
 
-{ id:"wlb_ritmo", items:[
-{stmt:"Preferisco la cronicità: seguire gli stessi pazienti nel tempo, con ritmo prevedibile",
-tag:"cronicita", excludes:["wlb_acuto"],
+{ id:“wlb_ritmo”, items:[
+{stmt:“Preferisco la cronicità: seguire gli stessi pazienti nel tempo, con ritmo prevedibile”,
+tag:“cronicita”, excludes:[“wlb_acuto”],
 scores:{med_gen:8,ger:7,psich:7,pal:6,ped:10,endo:14,diab:11,cardio:3,nefro:11}},
-{stmt:"Preferisco casi acuti: risolvo il problema e passo al prossimo",
-tag:"acuto", excludes:["wlb_ritmo","macro_persone"],
+{stmt:“Preferisco casi acuti: risolvo il problema e passo al prossimo”,
+tag:“acuto”, excludes:[“wlb_ritmo”,“macro_persone”],
 scores:{chir_gen:5,ortop:7,emerg:8,chir_vasc:7,uro:8,orl:6,ocu:6,anest:6}},
 ]},
 
 // ══ GUADAGNO E CARRIERA ══════════════════════════════════════════════════
 
-{ id:"economia_libprof", items:[
-{stmt:"La libera professione con alto guadagno è tra i miei obiettivi principali",
-tag:"vuole-libprof", excludes:["economia_missione","economia_ricerca"],
+{ id:“economia_libprof”, items:[
+{stmt:“La libera professione con alto guadagno è tra i miei obiettivi principali”,
+tag:“vuole-libprof”, excludes:[“economia_missione”,“economia_ricerca”],
 scores:{chir_plast:17,ocu:10,orl:9,chir_gen:3,gyn:7,uro:8,neurochir:5,cardio:3,emerg:-8,anest:-5,pal:-6,ger:-5,med_gen:-4}},
-{stmt:"Fare qualcosa di significativo per le persone conta molto più del guadagno",
-tag:"vuole-missione", excludes:["economia_libprof"],
+{stmt:“Fare qualcosa di significativo per le persone conta molto più del guadagno”,
+tag:“vuole-missione”, excludes:[“economia_libprof”],
 scores:{pal:7,ped:11,npi:12,neo:13,psich:6,med_gen:5,ger:6,onco:6}},
-{stmt:"Un contratto pubblico stabile con stipendio fisso è quello che cerco",
-tag:"vuole-pubblico", excludes:["economia_libprof"],
+{stmt:“Un contratto pubblico stabile con stipendio fisso è quello che cerco”,
+tag:“vuole-pubblico”, excludes:[“economia_libprof”],
 scores:{med_leg:6,med_lav:8,ig_san:7,emerg:5,anest:4,med_gen:4}},
 ]},
 
-{ id:"economia_ricerca", items:[
-{stmt:"La carriera accademica e la ricerca mi interessano più del guadagno immediato",
-tag:"vuole-ricerca", excludes:["economia_libprof"],
+{ id:“economia_ricerca”, items:[
+{stmt:“La carriera accademica e la ricerca mi interessano più del guadagno immediato”,
+tag:“vuole-ricerca”, excludes:[“economia_libprof”],
 scores:{anapat:5,lab:6,neuro:11,onco:11,rad:4,nuc:13,rad_onco:13,emo:16,ig_san:4}},
-{stmt:"Il prestigio e il riconoscimento tra i colleghi sono importanti per me",
-tag:"vuole-prestigio",
+{stmt:“Il prestigio e il riconoscimento tra i colleghi sono importanti per me”,
+tag:“vuole-prestigio”,
 scores:{neurochir:7,chir_card:10,cardio:5,onco:7,anest:5,chir_vasc:5,rad:2}},
 ]},
 
 // ══ COME TI VEDI TRA 10 ANNI ════════════════════════════════════════════
 
-{ id:"futuro_ambiente", items:[
-{stmt:"Tra 10 anni mi vedo in un reparto ospedaliero ad alta intensità con casi complessi",
-tag:"futuro-ospedale", excludes:["futuro_territorio","futuro_laboratorio","futuro_ufficio"],
+{ id:“futuro_ambiente”, items:[
+{stmt:“Tra 10 anni mi vedo in un reparto ospedaliero ad alta intensità con casi complessi”,
+tag:“futuro-ospedale”, excludes:[“futuro_territorio”,“futuro_laboratorio”,“futuro_ufficio”],
 scores:{med_int:11,cardio:6,neuro:10,emo:16,reum:13,mal_inf:13,onco:11,nefro:14,pneumo:15}},
-{stmt:"Tra 10 anni mi vedo sul territorio: ambulatorio, pazienti noti, continuità di cura",
-tag:"futuro-territorio", excludes:["futuro_ospedale","futuro_laboratorio","futuro_ufficio","macro_urgenza"],
+{stmt:“Tra 10 anni mi vedo sul territorio: ambulatorio, pazienti noti, continuità di cura”,
+tag:“futuro-territorio”, excludes:[“futuro_ospedale”,“futuro_laboratorio”,“futuro_ufficio”,“macro_urgenza”],
 scores:{med_gen:9,ger:7,psich:6,pal:6,endo:14,diab:11}},
-{stmt:"Tra 10 anni mi vedo in sala operatoria ogni giorno",
-tag:"futuro-sala-op", excludes:["futuro_territorio","futuro_laboratorio","futuro_ufficio","macro_dati"],
+{stmt:“Tra 10 anni mi vedo in sala operatoria ogni giorno”,
+tag:“futuro-sala-op”, excludes:[“futuro_territorio”,“futuro_laboratorio”,“futuro_ufficio”,“macro_dati”],
 scores:{chir_gen:7,ortop:8,neurochir:9,chir_card:12,chir_vasc:8,gyn:8,uro:10,orl:6,ocu:6,chir_plast:10}},
-{stmt:"Tra 10 anni mi vedo in laboratorio, sala refertazione o davanti a uno schermo",
-tag:"futuro-laboratorio", excludes:["futuro_ospedale","futuro_territorio","futuro_sala-op","macro_persone","macro_urgenza"],
+{stmt:“Tra 10 anni mi vedo in laboratorio, sala refertazione o davanti a uno schermo”,
+tag:“futuro-laboratorio”, excludes:[“futuro_ospedale”,“futuro_territorio”,“futuro_sala-op”,“macro_persone”,“macro_urgenza”],
 scores:{rad:6,anapat:9,lab:7,nuc:19,rad_onco:13}},
-{stmt:"Tra 10 anni mi vedo in un ufficio, un ente pubblico o una sede istituzionale",
-tag:"futuro-ufficio", excludes:["futuro_ospedale","futuro_territorio","futuro_sala-op","futuro_laboratorio","macro_persone","macro_urgenza","macro_mani"],
+{stmt:“Tra 10 anni mi vedo in un ufficio, un ente pubblico o una sede istituzionale”,
+tag:“futuro-ufficio”, excludes:[“futuro_ospedale”,“futuro_territorio”,“futuro_sala-op”,“futuro_laboratorio”,“macro_persone”,“macro_urgenza”,“macro_mani”],
 scores:{med_leg:10,med_lav:11,ig_san:12}},
 ]},
 
 // ══ CARATTERE ═════════════════════════════════════════════════════════════
 
-{ id:"carattere_pressione", items:[
-{stmt:"Sono al massimo sotto pressione: le crisi mi attivano invece di bloccarmi",
-tag:"ama-pressione", excludes:["carattere_calma","macro_ufficio"],
+{ id:“carattere_pressione”, items:[
+{stmt:“Sono al massimo sotto pressione: le crisi mi attivano invece di bloccarmi”,
+tag:“ama-pressione”, excludes:[“carattere_calma”,“macro_ufficio”],
 scores:{emerg:9,anest:8,chir_card:9,chir_gen:3,chir_vasc:5,neurochir:5}},
-{stmt:"Preferisco lavorare con calma e metodo: l'urgenza cronica non fa per me",
-tag:"ama-calma", excludes:["carattere_pressione","macro_urgenza"],
+{stmt:“Preferisco lavorare con calma e metodo: l’urgenza cronica non fa per me”,
+tag:“ama-calma”, excludes:[“carattere_pressione”,“macro_urgenza”],
 scores:{rad:4,anapat:4,lab:6,med_leg:5,med_gen:4,ger:6,psich:4}},
-{stmt:"Mi piace la precisione millimetrica: essere il migliore in qualcosa di molto specifico",
-tag:"ama-precisione", excludes:["carattere_generalista"],
+{stmt:“Mi piace la precisione millimetrica: essere il migliore in qualcosa di molto specifico”,
+tag:“ama-precisione”, excludes:[“carattere_generalista”],
 scores:{neurochir:9,ocu:10,chir_plast:11,rad:4,anapat:4,lab:6,orl:6}},
-{stmt:"Preferisco essere un generalista: capire tutto il paziente",
-tag:"ama-generalismo", excludes:["carattere_precisione"],
+{stmt:“Preferisco essere un generalista: capire tutto il paziente”,
+tag:“ama-generalismo”, excludes:[“carattere_precisione”],
 scores:{med_int:12,med_gen:7,ger:6,pal:4,onco:6}},
 ]},
 
-{ id:"carattere_errore", items:[
-{stmt:"Dopo un errore mi faccio carico subito e vado avanti: la resilienza è il mio punto di forza",
-tag:"resiliente", excludes:["carattere_evita-rischio"],
+{ id:“carattere_errore”, items:[
+{stmt:“Dopo un errore mi faccio carico subito e vado avanti: la resilienza è il mio punto di forza”,
+tag:“resiliente”, excludes:[“carattere_evita-rischio”],
 scores:{emerg:7,chir_gen:4,anest:6,chir_vasc:5,ortop:5,cardio:3}},
-{stmt:"Preferisco ambienti dove le conseguenze degli errori sono limitate e gestibili",
-tag:"evita-rischio", excludes:["carattere_resiliente","macro_urgenza","macro_mani"],
+{stmt:“Preferisco ambienti dove le conseguenze degli errori sono limitate e gestibili”,
+tag:“evita-rischio”, excludes:[“carattere_resiliente”,“macro_urgenza”,“macro_mani”],
 scores:{rad:4,lab:6,med_leg:6,med_lav:9,ig_san:7,anapat:4}},
 ]},
 
-{ id:"carattere_relazione", items:[
-{stmt:"Capisco intuitivamente le persone: il loro stato d'animo e le loro paure",
-tag:"intelligenza-emotiva", excludes:["macro_dati","macro_ufficio"],
+{ id:“carattere_relazione”, items:[
+{stmt:“Capisco intuitivamente le persone: il loro stato d’animo e le loro paure”,
+tag:“intelligenza-emotiva”, excludes:[“macro_dati”,“macro_ufficio”],
 scores:{psich:10,npi:12,pal:6,med_gen:5,ped:7,ger:6}},
-{stmt:"Sono più una persona da dati e logica che da emozioni e relazioni",
-tag:"logico-analitico", excludes:["macro_persone","carattere_relazione"],
+{stmt:“Sono più una persona da dati e logica che da emozioni e relazioni”,
+tag:“logico-analitico”, excludes:[“macro_persone”,“carattere_relazione”],
 scores:{rad:4,lab:6,anapat:4,neuro:9,med_leg:5,nuc:11}},
-{stmt:"Il cervello e il midollo spinale come territorio chirurgico mi affascinano più di qualsiasi altro organo: tumori cerebrali, aneurismi, ernie del disco — la neurochirurgia come sfida tecnica assoluta",
-tag:"ama-neurochir",
+{stmt:“Il cervello e il midollo spinale come territorio chirurgico mi affascinano più di qualsiasi altro organo: tumori cerebrali, aneurismi, ernie del disco — la neurochirurgia come sfida tecnica assoluta”,
+tag:“ama-neurochir”,
 scores:{neurochir:22,chir_plast:-10,chir_gen:-4,chir_card:-4}},
-{stmt:"Mi affascina interpretare immagini diagnostiche — TAC, RMN, ecografie, angiografie — più di qualsiasi altra attività medica",
-tag:"ama-radiologia",
+{stmt:“Mi affascina interpretare immagini diagnostiche — TAC, RMN, ecografie, angiografie — più di qualsiasi altra attività medica”,
+tag:“ama-radiologia”,
 scores:{rad:10,nuc:-5,anapat:-5,lab:-5}},
 ]},
 
 // ══ ITEM MIRATI — separatori precoci per specialità bloccate ══════════════
 
-{ id:"mirati_chir_gen", items:[
-{stmt:"Mi affascina l'addome come territorio chirurgico: resezioni intestinali, gastrectomie, colecistectomia laparoscopica, chirurgia oncologica addominale — il ventre come campo operatorio quotidiano",
-tag:"ama-chir-gen",
+// Blocco ad altissimo IG: separa chirurgia/urgenza/diagnostica/non-clinico
+// dal cluster medico-internistico in un solo item, accelerando Q4
+{ id:“macro_split_ospedale”, items:[
+{stmt:“Mi immagino in corsia o in ambulatorio a gestire pazienti complessi con diagnosi difficili: il reparto di medicina interna come habitat naturale”,
+tag:“vuole-corsia-medica”,
+scores:{med_int:15,pneumo:8,nefro:8,cardio:7,neuro:7,reum:8,mal_inf:8,emo:9,onco:8,
+chir_gen:-8,emerg:-4,rad:-6,lab:-6,anapat:-6,med_leg:-8,med_lav:-8,ig_san:-8}},
+{stmt:“Non mi vedo in corsia a gestire pazienti per giorni: voglio procedure, tecnica, risultati immediati e visibili”,
+tag:“vuole-tecnica-procedurale”,
+scores:{chir_gen:8,ortop:9,neurochir:9,chir_plast:10,chir_card:10,uro:9,orl:9,ocu:9,gyn:7,
+chir_vasc:8,emerg:6,anest:7,
+med_int:-10,pneumo:-5,neuro:-5,reum:-5,mal_inf:-5,emo:-5}},
+{stmt:“Non mi vedo né in corsia né in sala operatoria: voglio lavorare su immagini, campioni, dati o fuori dall’ospedale clinico”,
+tag:“vuole-extraclinico”,
+scores:{rad:10,anapat:11,lab:11,nuc:12,rad_onco:10,med_leg:10,med_lav:11,ig_san:11,
+med_int:-8,chir_gen:-8,emerg:-8,cardio:-5,neuro:-5}},
+]},
+
+{ id:“mirati_chir_gen”, items:[
+{stmt:“Mi affascina l’addome come territorio chirurgico: resezioni intestinali, gastrectomie, colecistectomia laparoscopica, chirurgia oncologica addominale — il ventre come campo operatorio quotidiano”,
+tag:“ama-chir-gen”,
 scores:{chir_gen:22,chir_plast:-10,uro:-5,orl:-5,ocu:-5}},
 ]},
 
-{ id:"mirati_ocu_orl", items:[
-{stmt:"L'occhio come organo mi affascina in modo viscerale: la sua ottica, la sua fragilità, la microchirurgia retinica — operare su qualcosa di così delicato e prezioso",
-tag:"ama-oculistica",
-scores:{ocu:12,orl:-5,chir_plast:-3}},
-{stmt:"La testa e il collo come territorio chirurgico mi attraggono più di qualsiasi altro: orecchio, naso, gola, laringe, tiroide — un distretto ricco e complesso",
-tag:"ama-orl",
-scores:{orl:11,ocu:-5,chir_plast:-3}},
+{ id:“mirati_ocu_orl”, items:[
+{stmt:“L’occhio come organo mi affascina in modo viscerale: la sua ottica, la sua fragilità, la microchirurgia retinica — operare su qualcosa di così delicato e prezioso. Non estetica, non corpo intero: solo l’occhio”,
+tag:“ama-oculistica”,
+scores:{ocu:22,orl:-5,chir_plast:-12,chir_gen:-5}},
+{stmt:“La testa e il collo come territorio chirurgico mi attraggono più di qualsiasi altro: orecchio, naso, gola, laringe, tiroide — un distretto ricco e complesso. Non chirurgia estetica, non addome”,
+tag:“ama-orl”,
+scores:{orl:22,ocu:-5,chir_plast:-12,chir_gen:-5}},
 ]},
 
-{ id:"mirati_mente", items:[
-{stmt:"Quello che mi affascina di più è il modo in cui il linguaggio, i pensieri e i comportamenti rivelano qualcosa di rotto dentro: interpretare la mente umana è la sfida più profonda che conosco",
-tag:"ama-psichiatria",
+{ id:“mirati_gyn”, items:[
+{stmt:“La salute della donna attraverso tutte le fasi della vita — ciclo, fertilità, gravidanza, parto, menopausa — è il campo in cui voglio diventare il punto di riferimento. La sala operatoria per la laparoscopia e il reparto per il parto: questa varietà mi entusiasma”,
+tag:“ama-ginecologia”,
+scores:{gyn:22,uro:-4,chir_gen:-4,ocu:-3,orl:-3}},
+]},
+
+{ id:“mirati_mente”, items:[
+{stmt:“Quello che mi affascina di più è il modo in cui il linguaggio, i pensieri e i comportamenti rivelano qualcosa di rotto dentro: interpretare la mente umana è la sfida più profonda che conosco”,
+tag:“ama-psichiatria”,
 scores:{psich:12,npi:7,neuro:3}},
-{stmt:"I misteri del sistema nervoso mi tengono sveglio di notte: perché questa persona non riesce più a muovere la mano, a ricordare il nome di sua figlia, a mantenere l'equilibrio",
-tag:"ama-neurologia",
+{stmt:“I misteri del sistema nervoso mi tengono sveglio di notte: perché questa persona non riesce più a muovere la mano, a ricordare il nome di sua figlia, a mantenere l’equilibrio”,
+tag:“ama-neurologia”,
 scores:{neuro:16,neurochir:4,psich:2}},
 ]},
 
-{ id:"mirati_immunologia", items:[
-{stmt:"Mi attraggono i casi che nessuno riesce a inquadrare: una febbre di origine sconosciuta, un dolore che migra da un'articolazione all'altra, una diagnosi che arriva dopo mesi di iter — quello è il territorio che voglio esplorare",
-tag:"ama-reumatologia",
+{ id:“mirati_immunologia”, items:[
+{stmt:“Mi attraggono i casi che nessuno riesce a inquadrare: una febbre di origine sconosciuta, un dolore che migra da un’articolazione all’altra, una diagnosi che arriva dopo mesi di iter — quello è il territorio che voglio esplorare”,
+tag:“ama-reumatologia”,
 scores:{reum:27,mal_inf:11,med_int:6}},
-{stmt:"Batteri, virus, funghi, resistenze agli antibiotici: capire come i microrganismi evolvono e come il corpo risponde è la biologia più affascinante che esista",
-tag:"ama-infettivologia",
+{stmt:“Batteri, virus, funghi, resistenze agli antibiotici: capire come i microrganismi evolvono e come il corpo risponde è la biologia più affascinante che esista”,
+tag:“ama-infettivologia”,
 scores:{mal_inf:25,reum:8,lab:2}},
 ]},
 
-{ id:"mirati_respiro_metabolismo", items:[
-{stmt:"Il respiro come funzione vitale — la spirometria, l'apnea notturna, il suono dei polmoni all'auscultazione — mi affascina più di qualsiasi altro sistema d'organo",
-tag:"ama-pneumologia",
+{ id:“mirati_respiro_metabolismo”, items:[
+{stmt:“Il respiro come funzione vitale — la spirometria, l’apnea notturna, il suono dei polmoni all’auscultazione — mi affascina più di qualsiasi altro sistema d’organo”,
+tag:“ama-pneumologia”,
 scores:{pneumo:28,anest:4,med_int:2}},
-{stmt:"Mi affascina l'idea di usare tecnologia indossabile per seguire in tempo reale il metabolismo di una persona: sensori glicemici, microinfusori, algoritmi che adattano la terapia ora per ora",
-tag:"ama-diabetologia",
+{stmt:“Mi affascina l’idea di usare tecnologia indossabile per seguire in tempo reale il metabolismo di una persona: sensori glicemici, microinfusori, algoritmi che adattano la terapia ora per ora”,
+tag:“ama-diabetologia”,
 scores:{diab:24,endo:9,med_sport:6}},
 ]},
 
-{ id:"mirati_sport_rene", items:[
-{stmt:"Lo sport è parte centrale della mia vita e voglio che lo sia anche del mio lavoro: performance, prevenzione degli infortuni, idoneità atletica, medicina dello sport ad alto livello",
-tag:"ama-med-sport",
+{ id:“mirati_sport_rene”, items:[
+{stmt:“Lo sport è parte centrale della mia vita e voglio che lo sia anche del mio lavoro: performance, prevenzione degli infortuni, idoneità atletica, medicina dello sport ad alto livello”,
+tag:“ama-med-sport”,
 scores:{med_sport:21,ortop:3,cardio:2}},
-{stmt:"Mi affascina la complessità dell'equilibrio interno: i reni come regolatori silenziosi del corpo — la dialisi, il trapianto, gli squilibri elettrolitici che cambiano tutto",
-tag:"ama-nefrologia",
+{stmt:“Mi affascina la complessità dell’equilibrio interno: i reni come regolatori silenziosi del corpo — la dialisi, il trapianto, gli squilibri elettrolitici che cambiano tutto”,
+tag:“ama-nefrologia”,
 scores:{nefro:26,med_int:6,cardio:2}},
 ]},
 
-{ id:"mirati_nonclinico_precoce", items:[
-{stmt:"Ho un forte senso della giustizia e mi attrae l'idea di usare la medicina come strumento per stabilire la verità in un'aula di tribunale o in una perizia assicurativa",
-tag:"vuole-med-legale",
+{ id:“mirati_nonclinico_precoce”, items:[
+{stmt:“Ho un forte senso della giustizia e mi attrae l’idea di usare la medicina come strumento per stabilire la verità in un’aula di tribunale o in una perizia assicurativa”,
+tag:“vuole-med-legale”,
 scores:{med_leg:10,ig_san:4,med_lav:3}},
-{stmt:"Mi interessa più proteggere la salute di chi lavora che curare chi si ammala: prevenire i rischi professionali, entrare nelle fabbriche e negli uffici, costruire ambienti più sicuri",
-tag:"vuole-med-lavoro",
+{stmt:“Mi interessa più proteggere la salute di chi lavora che curare chi si ammala: prevenire i rischi professionali, entrare nelle fabbriche e negli uffici, costruire ambienti più sicuri”,
+tag:“vuole-med-lavoro”,
 scores:{med_lav:11,ig_san:4,med_leg:3}},
-{stmt:"Mi affascina la salute come fenomeno collettivo: vaccinazioni, epidemie, sistemi sanitari, allocazione delle risorse — la responsabilità sulla popolazione intera più che sul singolo",
-tag:"vuole-igiene",
+{stmt:“Mi affascina la salute come fenomeno collettivo: vaccinazioni, epidemie, sistemi sanitari, allocazione delle risorse — la responsabilità sulla popolazione intera più che sul singolo”,
+tag:“vuole-igiene”,
 scores:{ig_san:12,med_lav:4,med_leg:3}},
+]},
+
+// ══ IDENTITY FIX BLOCKS ═══════════════════════════════════════════════════
+
+{ id:“mirati_chir_card”, items:[
+{stmt:“Operare sul cuore è la sfida tecnica più alta che esista: bypass aortocoronarico, sostituzione valvolare, ECMO — cardiochirurgia come scelta estrema, non estetica né plastica”,
+tag:“ama-cardiochirurgia”,
+scores:{chir_card:22,chir_plast:-14,chir_gen:-4,ocu:-4}},
+]},
+
+{ id:“mirati_chir_vasc”, items:[
+{stmt:“Le arterie e le vene come territorio chirurgico mi affascinano: aneurismi aortici, bypass degli arti, stenosi carotidea — la chirurgia vascolare è tecnica pura al servizio della circolazione”,
+tag:“ama-chir-vasc”,
+scores:{chir_vasc:22,chir_card:-8,cardio:-3,uro:-4,orl:-4}},
+]},
+
+{ id:“mirati_uro”, items:[
+{stmt:“L’urologia mi attira per la sua unicità: chirurgia mini-invasiva, endoscopia, robot, oncologia — un campo che unisce tecnica operatoria raffinata a follow-up ambulatoriale con gli stessi pazienti”,
+tag:“ama-urologia”,
+scores:{uro:22,chir_plast:-10,chir_gen:-5,ocu:-4,orl:-4}},
+]},
+
+{ id:“mirati_ortop”, items:[
+{stmt:“L’apparato muscolo-scheletrico è il mio territorio: fratture, protesi d’anca e di ginocchio, artroscopia, colonna vertebrale — chirurgia concreta dove si vedono i risultati sulla mobilità del paziente. Non voglio fare il medico sportivo: voglio operare”,
+tag:“ama-ortopedia”,
+scores:{ortop:22,med_sport:-14,chir_gen:-4,chir_plast:-4}},
+]},
+
+{ id:“mirati_psich_adulti”, items:[
+{stmt:“La psicopatologia dell’adulto mi affascina: schizofrenia, disturbi dell’umore, personalità borderline — voglio lavorare con adulti e anziani in crisi, non con bambini”,
+tag:“ama-psichiatria-adulti”,
+scores:{psich:22,npi:-10,neuro:2,ger:2}},
+]},
+
+{ id:“mirati_npi_bambini”, items:[
+{stmt:“La mente dei bambini e degli adolescenti è il mio territorio: autismo, ADHD, disturbi del neurosviluppo, psicosi ad esordio precoce — neuropsichiatria infantile come scelta identitaria, non pediatria generalista”,
+tag:“ama-npi”,
+scores:{npi:22,ped:-12,psich:-4,neuro:2}},
+]},
+
+{ id:“mirati_geriatria”, items:[
+{stmt:“L’anziano fragile con polipatologia è il paziente più complesso e più umano: gestire cinque malattie croniche insieme, decifrare il delirium, accompagnare la perdita di autonomia — geriatria come vocazione, non psichiatria”,
+tag:“ama-geriatria”,
+scores:{ger:22,psich:-10,pal:-4,med_gen:-3}},
+]},
+
+{ id:“mirati_anapat”, items:[
+{stmt:“Guardare al microscopio i tessuti e riconoscere la malattia nelle cellule è la forma di medicina che mi affascina di più: anatomia patologica, istopatologia, citodiagnostica — non analisi di laboratorio su sangue o urine”,
+tag:“ama-anapat”,
+scores:{anapat:22,lab:-12,nuc:-4,rad:-3}},
+]},
+
+{ id:“mirati_med_leg”, items:[
+{stmt:“Usare la medicina per stabilire la verità giuridica mi entusiasma: autopsie, perizie, lesioni personali, valutazione dell’invalidità — la medicina legale come ponte tra scienza e giustizia”,
+tag:“ama-medicina-legale”,
+scores:{med_leg:22,med_lav:-8,ig_san:-4}},
+]},
+
+{ id:“mirati_cardio”, items:[
+{stmt:“Il cuore come organo mi affascina in modo unico: le sue aritmie, la sua meccanica, l’ecocardiogramma che mostra tutto in tempo reale — cardiologia clinica e interventistica, non chirurgia cardiaca”,
+tag:“ama-cardiologia”,
+scores:{cardio:22,nefro:-8,chir_card:-5,med_int:-3}},
+]},
+
+{ id:“mirati_pal”, items:[
+{stmt:“Accompagnare una persona verso la fine della vita con dignità e senza dolore è per me la forma più alta di medicina: cure palliative come scelta vocazionale, non come ripiego”,
+tag:“ama-palliativa”,
+scores:{pal:22,ger:-8,med_gen:-4,onco:-2}},
+]},
+
+{ id:“mirati_ped_bambini”, items:[
+{stmt:“I bambini sono i miei pazienti: dalla prima infanzia all’adolescenza, non i neonati nelle terapie intensive. Pediatria clinica, ambulatorio, emergenza pediatrica — tutto tranne la neonatologia intensiva”,
+tag:“ama-pediatria”,
+scores:{ped:22,neo:-10,npi:3}},
+]},
+
+{ id:“mirati_rad”, items:[
+{stmt:“Interpretare immagini diagnostiche è la mia vocazione: TAC, risonanza magnetica, ecografia — leggere il corpo attraverso le immagini e refertare con precisione, non medicina nucleare né radioterapia”,
+tag:“ama-radiodiagnostica”,
+scores:{rad:22,nuc:-8,rad_onco:-4,anapat:-3}},
+]},
+
+{ id:“mirati_lab”, items:[
+{stmt:“Il laboratorio è il mio mondo: analisi di campioni biologici, microbiologia, ematologia di laboratorio, diagnosi molecolare — la medicina senza il paziente diretto ma con impatto enorme su ogni diagnosi. Non guardo al microscopio i tessuti: lavoro su dati e campioni liquidi”,
+tag:“ama-laboratorio”,
+scores:{lab:22,nuc:-8,rad:-4,anapat:-12}},
+]},
+
+{ id:“mirati_neuro_org”, items:[
+{stmt:“La neurologia organica mi affascina più di qualsiasi altra branca: ictus, epilessia, sclerosi multipla, Parkinson — capire il danno neurologico attraverso clinica, imaging e neurofisiologia”,
+tag:“ama-neurologia-org”,
+scores:{neuro:22,emo:-8,psich:-3,neurochir:2}},
+]},
+
+{ id:“mirati_endo_ormoni”, items:[
+{stmt:“Gli ormoni come regolatori silenziosi del corpo mi affascinano: tiroide, surrene, ipofisi, gonadi — endocrinologia classica con patologie rare e complesse, distinta dalla diabetologia quotidiana”,
+tag:“ama-endocrinologia”,
+scores:{endo:22,diab:-10,med_int:2,onco:2}},
+]},
+
+{ id:“mirati_onco”, items:[
+{stmt:“L’oncologia medica è la specialità che voglio: prendere in carico pazienti oncologici, scegliere la chemioterapia giusta, seguirli nel percorso terapeutico — non radioterapia, non ematologia, ma oncologia clinica”,
+tag:“ama-oncologia”,
+scores:{onco:22,emo:-10,rad_onco:-8,med_int:-3}},
+]},
+
+{ id:“mirati_emerg”, items:[
+{stmt:“Il pronto soccorso è il mio ambiente ideale: ogni paziente è una sfida nuova, le diagnosi si fanno in pochi minuti, non c’è spazio per la noia — emergenza-urgenza come scelta di vita, non come ripiego”,
+tag:“ama-emergenza”,
+scores:{emerg:22,anest:-5,chir_gen:-4,med_int:-8,ger:-5,pal:-5}},
+]},
+
+{ id:“mirati_med_gen”, items:[
+{stmt:“Il medico di famiglia è la figura a cui voglio assomigliare: conoscere il paziente nel tempo, gestire tutto senza specializzarsi su nulla, essere il primo riferimento di una comunità — medicina generale come vocazione”,
+tag:“ama-med-gen”,
+scores:{med_gen:22,psich:-5,ger:-5,med_int:-6,emerg:-6,chir_gen:-5}},
+]},
+
+{ id:“mirati_med_int”, items:[
+{stmt:“Il reparto di medicina interna è il mio territorio ideale: paziente anziano con cinque patologie, diagnosi differenziale complessa, ragionamento clinico puro — la sfida intellettuale più alta dell’ospedale”,
+tag:“ama-medicina-interna”,
+scores:{med_int:22,emerg:-6,chir_gen:-6,rad:-6,lab:-6,med_gen:-5}},
 ]},
 
 // ══ MULTI-SELECT PAZIENTI ═════════════════════════════════════════════════
 
-{ id:"vocazione_pazienti", type:"multiselect",
-text:"Con quale tipologia di paziente ti immagini di lavorare? (puoi scegliere più di una)",
+{ id:“vocazione_pazienti”, type:“multiselect”,
+text:“Con quale tipologia di paziente ti immagini di lavorare? (puoi scegliere più di una)”,
 options:[
-{label:"Donne — salute riproduttiva, maternità, menopausa",
+{label:“Donne — salute riproduttiva, maternità, menopausa”,
 scores:{gyn:13,endo:9,onco:4}},
-{label:"Bambini e neonati — dalla nascita all'adolescenza",
+{label:“Bambini e neonati — dalla nascita all’adolescenza”,
 scores:{ped:14,neo:17,npi:12}},
-{label:"Anziani — fragilità, cronicità, fine vita",
+{label:“Anziani — fragilità, cronicità, fine vita”,
 scores:{ger:10,pal:7,med_gen:4}},
-{label:"Adulti con patologie acute o croniche — senza preferenza di età",
+{label:“Adulti con patologie acute o croniche — senza preferenza di età”,
 scores:{med_int:8,emerg:5,chir_gen:2,mal_inf:8,cardio:3}},
-{label:"Pazienti oncologici — in ogni fase della malattia",
+{label:“Pazienti oncologici — in ogni fase della malattia”,
 scores:{onco:13,emo:16,pal:4,rad_onco:7}},
-{label:"Sportivi e persone sane — prevenzione e performance",
+{label:“Sportivi e persone sane — prevenzione e performance”,
 scores:{med_sport:17,ortop:3}},
-{label:"Nessuna preferenza — mi interessa la sfida clinica indipendentemente da chi",
-scores:{med_int:6,emerg:2,chir_gen:2,rad:1,anapat:3}},
+{label:“Nessuna preferenza — mi interessa la sfida clinica indipendentemente da chi”,
+scores:{med_int:6,emerg:2,chir_gen:2,rad:1,anapat:3,med_leg:5,med_lav:5,ig_san:5}},
 ]},
 
 // ══ GIORNATA IDEALE — costruisci la tua giornata tipo (multiselect) ════════
@@ -704,264 +843,281 @@ scores:{med_int:6,emerg:2,chir_gen:2,rad:1,anapat:3}},
 // Più ne seleziona, più il sistema capisce che vuole varietà (specialità ibride).
 // Il peso di ogni opzione viene scalato per 1/sqrt(n) come gli altri multiselect.
 
-{ id:"giornata_ideale", type:"multiselect",
-text:"Come vorresti che fosse la tua giornata lavorativa ideale? Seleziona tutte le attività che vorresti fare",
+{ id:“giornata_ideale”, type:“multiselect”,
+text:“Come vorresti che fosse la tua giornata lavorativa ideale? Seleziona tutte le attività che vorresti fare”,
 options:[
-{label:"🔪 Operare — sala operatoria, procedure chirurgiche, tecnica manuale",
+{label:“🔪 Operare — sala operatoria, procedure chirurgiche, tecnica manuale”,
 scores:{chir_gen:8,ortop:9,neurochir:9,chir_plast:11,chir_card:10,uro:8,orl:7,ocu:8,gyn:8,chir_vasc:6,anest:5}},
-{label:"🏥 Reparto — seguire pazienti ricoverati, visite, gestione terapia",
+{label:“🏥 Reparto — seguire pazienti ricoverati, visite, gestione terapia”,
 scores:{med_int:11,cardio:5,neuro:7,emo:9,onco:8,mal_inf:8,ped:7,neo:8,pneumo:7,nefro:8,reum:6,psich:6,ger:6}},
-{label:"🏃 Ambulatorio — visite programmate, follow-up, pazienti cronici",
+{label:“🏃 Ambulatorio — visite programmate, follow-up, pazienti cronici”,
 scores:{med_gen:9,ger:9,psich:9,endo:10,diab:10,reum:8,med_sport:9,npi:8,pal:7,cardio:4,ocu:5,orl:5,gyn:5}},
-{label:"🎯 Procedure / Interventistica — cateterismo, endoscopia, embolizzazione, ablazione",
+{label:“🎯 Procedure / Interventistica — cateterismo, endoscopia, embolizzazione, ablazione”,
 scores:{cardio:8,chir_vasc:8,rad:7,gastro:96,pneumo:7,neuro:5,uro:6,anest:5}},
-{label:"🚨 Urgenze — gestire emergenze, codici rossi, pazienti critici",
+{label:“🚨 Urgenze — gestire emergenze, codici rossi, pazienti critici”,
 scores:{emerg:14,anest:9,chir_card:6,chir_gen:4,ped:5,neo:4}},
-{label:"🖥️ Refertazione / Laboratorio — analizzare immagini, campioni o dati lontano dal letto del paziente",
+{label:“🖥️ Refertazione / Laboratorio — analizzare immagini, campioni o dati lontano dal letto del paziente”,
 scores:{rad:8,anapat:13,lab:13,nuc:-4,rad_onco:8}},
-{label:"🏠 Territorio / Domicilio — pazienti a casa, continuità di cura, relazione nel tempo",
+{label:“🏠 Territorio / Domicilio — pazienti a casa, continuità di cura, relazione nel tempo”,
 scores:{med_gen:11,pal:10,ger:8,psich:6,npi:5}},
 ]},
 
 // ══ DISCRIMINATORI GEMELLE ════════════════════════════════════════════════
 
-{ id:"disc_anapat_lab", targets:["anapat","lab","rad"],
+{ id:“disc_anapat_lab”, targets:[“anapat”,“lab”,“rad”],
 items:[
-{stmt:"Tra anatomia patologica e laboratorio, mi attrae di più guardare al microscopio: istologia, biopsia, diagnosi morfologica del tumore",
+{stmt:“Tra anatomia patologica e laboratorio, mi attrae di più guardare al microscopio: istologia, biopsia, diagnosi morfologica del tumore”,
 scores:{anapat:9,lab:-4}},
-{stmt:"Tra anatomia patologica e laboratorio, mi attrae di più il laboratorio clinico: biochimica, genomica, coagulazione, diagnostica molecolare",
+{stmt:“Tra anatomia patologica e laboratorio, mi attrae di più il laboratorio clinico: biochimica, genomica, coagulazione, diagnostica molecolare”,
 scores:{lab:7,anapat:-4}},
-{stmt:"Mi affascina la diagnosi molecolare dei tumori: fusioni geniche, NGS, immunoistochimica",
+{stmt:“Mi affascina la diagnosi molecolare dei tumori: fusioni geniche, NGS, immunoistochimica”,
 scores:{anapat:7,lab:2,onco:4}},
 ]},
 
-{ id:"disc_urgenza", targets:["emerg","anest"],
+{ id:“disc_urgenza”, targets:[“emerg”,“anest”],
 items:[
-{stmt:"Tra PS e rianimazione, mi attrae di più essere il primo a vedere il paziente: triage, diagnosi rapida, gestione del politrauma",
+{stmt:“Tra PS e rianimazione, mi attrae di più essere il primo a vedere il paziente: triage, diagnosi rapida, gestione del politrauma”,
 scores:{emerg:15,anest:-5}},
-{stmt:"Tra PS e rianimazione, mi attrae di più la sala operatoria e la ICU: intubazione, sedazione, gestione critica prolungata",
+{stmt:“Tra PS e rianimazione, mi attrae di più la sala operatoria e la ICU: intubazione, sedazione, gestione critica prolungata”,
 scores:{anest:14,emerg:-5}},
-{stmt:"Mi entusiasma l'idea di salvare una vita con una procedura tecnica in pochi secondi",
+{stmt:“Mi entusiasma l’idea di salvare una vita con una procedura tecnica in pochi secondi”,
 scores:{anest:8,emerg:8,chir_card:5}},
 ]},
 
-{ id:"disc_neo_ped", targets:["neo","ped","npi"],
+{ id:“disc_neo_ped”, targets:[“neo”,“ped”,“npi”],
 items:[
-{stmt:"Tra pediatria e neonatologia, mi attrae di più il neonato prematuro: TIN, ventilazione, criticità neonatale",
+{stmt:“Tra pediatria e neonatologia, mi attrae di più il neonato prematuro: TIN, ventilazione, criticità neonatale”,
 scores:{neo:20,ped:-3}},
-{stmt:"Tra pediatria e neonatologia, mi attrae di più il bambino dai mesi all'adolescenza: patologie croniche, acuto, relazione con le famiglie",
+{stmt:“Tra pediatria e neonatologia, mi attrae di più il bambino dai mesi all’adolescenza: patologie croniche, acuto, relazione con le famiglie”,
 scores:{ped:18,neo:-3}},
-{stmt:"Il momento della nascita e le prime ore di vita di un neonato mi emozionano più di tutto il resto",
+{stmt:“Il momento della nascita e le prime ore di vita di un neonato mi emozionano più di tutto il resto”,
 scores:{neo:16,ped:4,gyn:4}},
 ]},
 
-{ id:"disc_pal_ger", targets:["pal","ger"],
+{ id:“disc_pal_ger”, targets:[“pal”,“ger”],
 items:[
-{stmt:"Tra geriatria e cure palliative, mi attrae di più accompagnare il paziente terminale: controllo del dolore, cure domiciliari, fine vita",
+{stmt:“Tra geriatria e cure palliative, mi attrae di più accompagnare il paziente terminale: controllo del dolore, cure domiciliari, fine vita”,
 scores:{pal:8,ger:-3}},
-{stmt:"Tra geriatria e cure palliative, mi attrae di più l'anziano fragile con polipatologia: demenze, cadute, polifarmacoterapia",
+{stmt:“Tra geriatria e cure palliative, mi attrae di più l’anziano fragile con polipatologia: demenze, cadute, polifarmacoterapia”,
 scores:{ger:12,pal:-3}},
-{stmt:"Saper dire 'non c'è più niente da fare sul piano curativo, ma possiamo fare molto sul piano umano' è la frase che mi rappresenta di più",
+{stmt:“Saper dire ‘non c’è più niente da fare sul piano curativo, ma possiamo fare molto sul piano umano’ è la frase che mi rappresenta di più”,
 scores:{pal:7,ger:3,psich:3}},
 ]},
 
-{ id:"disc_radonco_nuc", targets:["rad_onco","nuc"],
+{ id:“disc_radonco_nuc”, targets:[“rad_onco”,“nuc”],
 items:[
-{stmt:"Tra medicina nucleare e radioterapia, mi attrae di più la radioterapia: pianificazione RT, acceleratori, radiobiologia oncologica",
+{stmt:“Tra medicina nucleare e radioterapia, mi attrae di più la radioterapia: pianificazione RT, acceleratori, radiobiologia oncologica”,
 scores:{rad_onco:16,nuc:-4}},
-{stmt:"Tra medicina nucleare e radioterapia, mi attrae di più la medicina nucleare: PET, scintigrafia, teragnostica con radiofarmaci",
+{stmt:“Tra medicina nucleare e radioterapia, mi attrae di più la medicina nucleare: PET, scintigrafia, teragnostica con radiofarmaci”,
 scores:{nuc:19,rad_onco:-4}},
-{stmt:"Mi affascina l'idea di usare la fisica delle radiazioni per CURARE il cancro in modo mirato",
+{stmt:“Mi affascina l’idea di usare la fisica delle radiazioni per CURARE il cancro in modo mirato”,
 scores:{rad_onco:11,nuc:6}},
 ]},
 
-{ id:"disc_non_clinico", targets:["med_leg","med_lav","ig_san"],
+{ id:“disc_non_clinico”, targets:[“med_leg”,“med_lav”,“ig_san”],
 items:[
-{stmt:"Mi attrae l'idea di dare voce a chi non ce l'ha più: ricostruire la verità su una morte, valutare un danno, portare giustizia attraverso la medicina",
+{stmt:“Mi attrae l’idea di dare voce a chi non ce l’ha più: ricostruire la verità su una morte, valutare un danno, portare giustizia attraverso la medicina”,
 scores:{med_leg:14,med_lav:-3,ig_san:-3}},
-{stmt:"Mi piace l'idea di entrare nelle aziende, conoscere i rischi reali dei lavoratori e fare in modo che tornino a casa interi ogni giorno",
+{stmt:“Mi piace l’idea di entrare nelle aziende, conoscere i rischi reali dei lavoratori e fare in modo che tornino a casa interi ogni giorno”,
 scores:{med_lav:20,med_leg:-3,ig_san:-3}},
-{stmt:"Preferisco avere la salute di una popolazione come responsabilità piuttosto che quella del singolo: organizzare risorse, prevenire epidemie, coordinare sistemi",
+{stmt:“Preferisco avere la salute di una popolazione come responsabilità piuttosto che quella del singolo: organizzare risorse, prevenire epidemie, coordinare sistemi”,
 scores:{ig_san:17,med_leg:-3,med_lav:-3}},
-{stmt:"Mi affascina l'idea di imparare a fondo normative, articoli di legge e linee guida per applicarle con rigore in contesti tecnici e istituzionali",
+{stmt:“Mi affascina l’idea di imparare a fondo normative, articoli di legge e linee guida per applicarle con rigore in contesti tecnici e istituzionali”,
 scores:{med_leg:9,ig_san:6,med_lav:4}},
 ]},
 
-{ id:"disc_med_onco", targets:["onco","emo","rad_onco"],
+{ id:“disc_med_onco”, targets:[“onco”,“emo”,“rad_onco”],
 items:[
-{stmt:"Tra oncologia, ematologia e radioterapia, mi attrae di più l'ematologia: leucemie, linfomi, trapianto, CAR-T",
+{stmt:“Tra oncologia, ematologia e radioterapia, mi attrae di più l’ematologia: leucemie, linfomi, trapianto, CAR-T”,
 scores:{emo:21,onco:-2,rad_onco:-2}},
-{stmt:"Tra oncologia, ematologia e radioterapia, mi attrae di più l'oncologia medica solida: immunoterapia, targeted therapy",
+{stmt:“Tra oncologia, ematologia e radioterapia, mi attrae di più l’oncologia medica solida: immunoterapia, targeted therapy”,
 scores:{onco:15,emo:-2,rad_onco:-2}},
-{stmt:"Mi affascina più la fisica e la precisione balistica che la farmacologia: radioterapia oncologica",
+{stmt:“Mi affascina più la fisica e la precisione balistica che la farmacologia: radioterapia oncologica”,
 scores:{rad_onco:14,nuc:5,onco:-3,emo:-3}},
 ]},
 
-{ id:"disc_reum_malinf", targets:["reum","mal_inf","pneumo","med_int"],
+{ id:“disc_reum_malinf”, targets:[“reum”,“mal_inf”,“pneumo”,“med_int”],
 items:[
-{stmt:"Mi affascina il sistema immunitario che attacca sé stesso: artrite, lupus, vasculiti, biologici anti-TNF",
+{stmt:“Mi affascina il sistema immunitario che attacca sé stesso: artrite, lupus, vasculiti, biologici anti-TNF”,
 scores:{reum:24,mal_inf:-3,pneumo:-2}},
-{stmt:"Mi affascina la battaglia tra microrganismi e organismo: sepsi, HIV, resistenze, microbiota",
+{stmt:“Mi affascina la battaglia tra microrganismi e organismo: sepsi, HIV, resistenze, microbiota”,
 scores:{mal_inf:26,reum:-3,pneumo:-2}},
-{stmt:"I polmoni, la fisiopatologia respiratoria, la broncoscopia e l'apnea notturna mi interessano più di tutto",
+{stmt:“I polmoni, la fisiopatologia respiratoria, la broncoscopia e l’apnea notturna mi interessano più di tutto”,
 scores:{pneumo:23,mal_inf:-2,reum:-2,med_int:2}},
-{stmt:"La medicina interna pura — paziente complesso, diagnosi differenziale, comorbidità multiple — è il mio ideale",
+{stmt:“La medicina interna pura — paziente complesso, diagnosi differenziale, comorbidità multiple — è il mio ideale”,
 scores:{med_int:14,pneumo:3,reum:5,mal_inf:5}},
 ]},
 
-{ id:"disc_med_mente", targets:["neuro","psich","npi"],
+{ id:“disc_med_mente”, targets:[“neuro”,“psich”,“npi”],
 items:[
-{stmt:"Tra neurologia e psichiatria, mi attrae di più la neurologia organica: ictus, epilessia, Parkinson, SLA",
+{stmt:“Tra neurologia e psichiatria, mi attrae di più la neurologia organica: ictus, epilessia, Parkinson, SLA”,
 scores:{neuro:18,psich:-4,npi:2}},
-{stmt:"Tra neurologia e psichiatria, mi attrae di più la psichiatria: psicosi, disturbi dell'umore, psicofarmacologia",
+{stmt:“Tra neurologia e psichiatria, mi attrae di più la psichiatria: psicosi, disturbi dell’umore, psicofarmacologia”,
 scores:{psich:14,neuro:-4,npi:5}},
-{stmt:"Mi interessa la neuropsichiatria infantile: autismo, ADHD, disturbi del neurosviluppo in età evolutiva",
+{stmt:“Mi interessa la neuropsichiatria infantile: autismo, ADHD, disturbi del neurosviluppo in età evolutiva”,
 scores:{npi:21,psich:2,neuro:2}},
 ]},
 
-{ id:"disc_metabolico", targets:["nefro","diab","endo","pneumo"],
+{ id:“disc_metabolico”, targets:[“nefro”,“diab”,“endo”,“pneumo”],
 items:[
-{stmt:"Tra nefro, endo e diabetologia, mi affascinano di più i reni: dialisi, trapianto, equilibrio acido-base",
+{stmt:“Tra nefro, endo e diabetologia, mi affascinano di più i reni: dialisi, trapianto, equilibrio acido-base”,
 scores:{nefro:24,diab:-3,endo:-2}},
-{stmt:"Tra nefro, endo e diabetologia, mi affascinano di più ormoni e metabolismo: tiroide, surrene, ipofisi, osteoporosi",
+{stmt:“Tra nefro, endo e diabetologia, mi affascinano di più ormoni e metabolismo: tiroide, surrene, ipofisi, osteoporosi”,
 scores:{endo:20,diab:4,nefro:-3}},
-{stmt:"Tra nefro, endo e diabetologia, mi affascinano di più il diabete e l'obesità: tecnologia wearable, prevenzione cardiovascolare",
+{stmt:“Tra nefro, endo e diabetologia, mi affascinano di più il diabete e l’obesità: tecnologia wearable, prevenzione cardiovascolare”,
 scores:{diab:15,endo:7,nefro:-2}},
 ]},
 
-{ id:"disc_med_sport", targets:["med_sport","ortop"],
+{ id:“disc_med_sport”, targets:[“med_sport”,“ortop”],
 items:[
-{stmt:"Mi vedo come medico di squadra o medico sportivo: performance, idoneità atletica, prevenzione negli atleti",
+{stmt:“Mi vedo come medico di squadra o medico sportivo: performance, idoneità atletica, prevenzione negli atleti”,
 scores:{med_sport:14,ortop:2}},
-{stmt:"Tra medicina dello sport e ortopedia, preferisco la chirurgia: artroscopie, protesi, fratture",
+{stmt:“Tra medicina dello sport e ortopedia, preferisco la chirurgia: artroscopie, protesi, fratture”,
 scores:{ortop:6,med_sport:-4}},
-{stmt:"Lo sport fa parte della mia vita personale e voglio che sia al centro del mio lavoro professionale",
+{stmt:“Lo sport fa parte della mia vita personale e voglio che sia al centro del mio lavoro professionale”,
 scores:{med_sport:11,ortop:3,cardio:2}},
 ]},
 
 // ══ MULTI-SELECT CHIRURGIA ════════════════════════════════════════════════
 
-{ id:"disc_chir_tipo", type:"multiselect",
-targets:["chir_gen","ortop","neurochir","chir_card","chir_vasc","ocu","orl","chir_plast","gyn","uro","cardio"],
-text:"Sei orientato verso la chirurgia. Quali di questi ambiti senti più tuoi? (anche più di uno)",
+{ id:“disc_chir_tipo”, type:“multiselect”,
+targets:[“chir_gen”,“ortop”,“neurochir”,“chir_card”,“chir_vasc”,“ocu”,“orl”,“chir_plast”,“gyn”,“uro”,“cardio”],
+text:“Sei orientato verso la chirurgia. Quali di questi ambiti senti più tuoi? (anche più di uno)”,
 options:[
-{label:"Addome, visceri, apparato digerente, laparoscopia oncologica",
-scores:{chir_gen:10}},
-{label:"Ossa, articolazioni, colonna vertebrale, protesi",
-scores:{ortop:8,med_sport:3}},
-{label:"Cervello, midollo spinale, tumori cerebrali, nervi",
-scores:{neurochir:15,neuro:2}},
-{label:"Cuore aperto: bypass, valvole, trapianto cardiaco",
-scores:{chir_card:16,cardio:-3}},
-{label:"Cuore per via medica: ECG, cateterismo, elettrofisiologia, device",
-scores:{cardio:7,chir_card:-3}},
-{label:"Arterie, vene, bypass vascolari, ischemie degli arti",
-scores:{chir_vasc:14,cardio:2}},
-{label:"Occhio — chirurgia microscopica, retina, cataratta, laser",
-scores:{ocu:18}},
-{label:"Orecchio, naso, gola, laringe, tiroide, collo",
-scores:{orl:16}},
-{label:"Ricostruzione, estetica, microchirurgia plastica, ustioni",
-scores:{chir_plast:24}},
-{label:"Salute della donna — ginecologia, parto, laparoscopia pelvica",
-scores:{gyn:16,uro:-3}},
-{label:"Urologia — prostata, vescica, calcoli, andrologia",
-scores:{uro:19,gyn:-3}},
+{label:“Addome, visceri, apparato digerente, laparoscopia oncologica”,
+scores:{chir_gen:18}},
+{label:“Ossa, articolazioni, colonna vertebrale, protesi”,
+scores:{ortop:18,med_sport:2}},
+{label:“Cervello, midollo spinale, tumori cerebrali, nervi”,
+scores:{neurochir:20,neuro:2}},
+{label:“Cuore aperto: bypass, valvole, trapianto cardiaco”,
+scores:{chir_card:22}},
+{label:“Cuore per via medica: ECG, cateterismo, elettrofisiologia, device”,
+scores:{cardio:14}},
+{label:“Arterie, vene, bypass vascolari, ischemie degli arti”,
+scores:{chir_vasc:20}},
+{label:“Occhio — chirurgia microscopica, retina, cataratta, laser”,
+scores:{ocu:24}},
+{label:“Orecchio, naso, gola, laringe, tiroide, collo”,
+scores:{orl:22}},
+{label:“Ricostruzione, estetica, microchirurgia plastica, ustioni”,
+scores:{chir_plast:26}},
+{label:“Salute della donna — ginecologia, parto, laparoscopia pelvica”,
+scores:{gyn:22}},
+{label:“Urologia — prostata, vescica, calcoli, andrologia”,
+scores:{uro:24}},
 ]},
+
+// ══ MULTI-SELECT NON CLINICO ══════════════════════════════════════════════
+
+{ id:“disc_non_clinico_ms”, type:“multiselect”,
+targets:[“med_leg”,“med_lav”,“ig_san”],
+text:“Stai esplorando la medicina non clinica. Quale ambito ti rappresenta meglio?”,
+options:[
+{label:“🏛️ Medicina Legale — perizie, autopsie, giustizia, assicurazioni”,
+scores:{med_leg:22,med_lav:-6,ig_san:-6}},
+{label:“🏭 Medicina del Lavoro — rischi professionali, aziende, prevenzione occupazionale”,
+scores:{med_lav:22,med_leg:-6,ig_san:-4}},
+{label:“🌍 Igiene e Sanità Pubblica — vaccinazioni, epidemie, politiche sanitarie, sistemi sanitari”,
+scores:{ig_san:22,med_lav:-4,med_leg:-6}},
+{label:“Non sono sicuro — voglio vedere entrambe le opzioni”,
+scores:{med_leg:4,med_lav:4,ig_san:4}},
+]},
+
 // ── Discriminatori aggiuntivi ────────────────────────────────────────────
 
-{ id:"disc_cardio_nefro", targets:["cardio","nefro","med_int"],
+{ id:“disc_cardio_nefro”, targets:[“cardio”,“nefro”,“med_int”],
 items:[
-{stmt:"Tra cardiologia, nefrologia e medicina interna, mi affascina di più il cuore: ECG, scompenso, aritmie, cateterismo",
+{stmt:“Tra cardiologia, nefrologia e medicina interna, mi affascina di più il cuore: ECG, scompenso, aritmie, cateterismo”,
 scores:{cardio:6,nefro:-4,med_int:2}},
-{stmt:"Tra cardiologia, nefrologia e medicina interna, mi affascinano di più i reni: dialisi, trapianto, equilibri idroelettrolitici",
+{stmt:“Tra cardiologia, nefrologia e medicina interna, mi affascinano di più i reni: dialisi, trapianto, equilibri idroelettrolitici”,
 scores:{nefro:14,cardio:-4,med_int:2}},
 ]},
 
-{ id:"disc_pal_medgen", targets:["pal","med_gen","ger"],
+{ id:“disc_pal_medgen”, targets:[“pal”,“med_gen”,“ger”],
 items:[
-{stmt:"Tra medicina generale e cure palliative, mi sento più vicino all'accompagnamento del morente che alla gestione della salute quotidiana di una famiglia",
+{stmt:“Tra medicina generale e cure palliative, mi sento più vicino all’accompagnamento del morente che alla gestione della salute quotidiana di una famiglia”,
 scores:{pal:11,med_gen:-5,ger:3}},
-{stmt:"Tra medicina generale e cure palliative, mi vedo più come medico di famiglia: visite, cronicità, riferimento nel tempo per persone sane o con malattie comuni",
+{stmt:“Tra medicina generale e cure palliative, mi vedo più come medico di famiglia: visite, cronicità, riferimento nel tempo per persone sane o con malattie comuni”,
 scores:{med_gen:11,pal:-4,ger:3}},
 ]},
 
-{ id:"disc_lab_rad", targets:["lab","rad"],
+{ id:“disc_lab_rad”, targets:[“lab”,“rad”],
 items:[
-{stmt:"Se dovessi scegliere tra refertare immagini tutto il giorno e analizzare campioni biologici tutto il giorno, sceglierei senza dubbio i campioni",
+{stmt:“Se dovessi scegliere tra refertare immagini tutto il giorno e analizzare campioni biologici tutto il giorno, sceglierei senza dubbio i campioni”,
 scores:{lab:11,rad:-5,anapat:4}},
-{stmt:"Se dovessi scegliere tra refertare immagini tutto il giorno e analizzare campioni biologici tutto il giorno, sceglierei senza dubbio le immagini",
+{stmt:“Se dovessi scegliere tra refertare immagini tutto il giorno e analizzare campioni biologici tutto il giorno, sceglierei senza dubbio le immagini”,
 scores:{rad:8,lab:-5,anapat:2}},
 ]},
 
-{ id:"disc_medint_pneumo", targets:["med_int","pneumo"],
+{ id:“disc_medint_pneumo”, targets:[“med_int”,“pneumo”],
 items:[
-{stmt:"Tra medicina interna generale e pneumologia, mi affascina di più il paziente con sette patologie diverse da tenere in equilibrio — non un organo specifico",
+{stmt:“Tra medicina interna generale e pneumologia, mi affascina di più il paziente con sette patologie diverse da tenere in equilibrio — non un organo specifico”,
 scores:{med_int:13,pneumo:-4}},
-{stmt:"Tra medicina interna generale e pneumologia, mi affascina di più il respiro come sistema: la spirometria, la broncoscopia, l'ipertensione polmonare",
+{stmt:“Tra medicina interna generale e pneumologia, mi affascina di più il respiro come sistema: la spirometria, la broncoscopia, l’ipertensione polmonare”,
 scores:{pneumo:12,med_int:-4}},
 ]},
 
 // ── Discriminatori da luoghi comuni / stile di vita / carattere ───────────
 
-{ id:"disc_endo_diab", targets:["endo","diab"],
+{ id:“disc_endo_diab”, targets:[“endo”,“diab”],
 items:[
-{stmt:"Mi dà soddisfazione lavorare con pazienti che non cambiano mai le loro abitudini nonostante tutto — trovo significato nel continuare ad aiutarli comunque, senza frustrarmi",
+{stmt:“Mi dà soddisfazione lavorare con pazienti che non cambiano mai le loro abitudini nonostante tutto — trovo significato nel continuare ad aiutarli comunque, senza frustrarmi”,
 scores:{diab:10,endo:-5,med_gen:4}},
-{stmt:"Preferisco la rarità alla routine: un caso ogni tanto che nessuno sa spiegare vale più di cento visite uguali",
+{stmt:“Preferisco la rarità alla routine: un caso ogni tanto che nessuno sa spiegare vale più di cento visite uguali”,
 scores:{endo:13,diab:-5,reum:4}},
-{stmt:"Educare un paziente — insegnargli a gestire la propria malattia giorno per giorno — mi sembra un atto medico altrettanto importante quanto prescrivere una terapia",
+{stmt:“Educare un paziente — insegnargli a gestire la propria malattia giorno per giorno — mi sembra un atto medico altrettanto importante quanto prescrivere una terapia”,
 scores:{diab:10,endo:-4,med_gen:5,ped:4}},
 ]},
 
-{ id:"disc_onco_emo", targets:["onco","emo"],
+{ id:“disc_onco_emo”, targets:[“onco”,“emo”],
 items:[
-{stmt:"Il lato che mi affascina di più nell'oncologia è il rapporto con il paziente e la famiglia nel tempo: accompagnarli attraverso la malattia",
+{stmt:“Il lato che mi affascina di più nell’oncologia è il rapporto con il paziente e la famiglia nel tempo: accompagnarli attraverso la malattia”,
 scores:{onco:13,emo:-5,pal:4}},
-{stmt:"Il lato che mi affascina di più nell'oncologia è la biologia molecolare: la cellula che sfugge al controllo, i target terapeutici, i meccanismi di resistenza",
+{stmt:“Il lato che mi affascina di più nell’oncologia è la biologia molecolare: la cellula che sfugge al controllo, i target terapeutici, i meccanismi di resistenza”,
 scores:{emo:11,onco:-5,lab:3,nuc:4}},
-{stmt:"Preferisco lavorare su una patologia specifica in profondità — conoscere ogni variante, ogni mutazione, ogni protocollo — piuttosto che avere una casistica ampia e varia",
+{stmt:“Preferisco lavorare su una patologia specifica in profondità — conoscere ogni variante, ogni mutazione, ogni protocollo — piuttosto che avere una casistica ampia e varia”,
 scores:{emo:8,anapat:9,lab:6,onco:-4}},
 ]},
 
-{ id:"disc_cardio_style", targets:["cardio","ortop","med_sport"],
+{ id:“disc_cardio_style”, targets:[“cardio”,“ortop”,“med_sport”],
 items:[
-{stmt:"Nella vita fuori dal lavoro tendo ad essere rigoroso, preciso, formale: tengo i conti, seguo le regole, odio l'approssimazione",
+{stmt:“Nella vita fuori dal lavoro tendo ad essere rigoroso, preciso, formale: tengo i conti, seguo le regole, odio l’approssimazione”,
 scores:{cardio:6,med_leg:6,rad:2,ortop:-3,med_sport:-4}},
-{stmt:"Nella vita fuori dal lavoro sono fisico e concreto: faccio sport, lavoro con le mani, mi piace riparare cose — più pratico che teorico",
+{stmt:“Nella vita fuori dal lavoro sono fisico e concreto: faccio sport, lavoro con le mani, mi piace riparare cose — più pratico che teorico”,
 scores:{ortop:8,chir_gen:4,med_sport:3,cardio:-4}},
-{stmt:"La mia vita personale ruota intorno allo sport — alleno, gareggio, seguo squadre, leggo di performance atletica — ed è difficile immaginare un lavoro che non la tocchi",
+{stmt:“La mia vita personale ruota intorno allo sport — alleno, gareggio, seguo squadre, leggo di performance atletica — ed è difficile immaginare un lavoro che non la tocchi”,
 scores:{med_sport:11,ortop:2,cardio:-5}},
-{stmt:"Riparare qualcosa di rotto mi dà una soddisfazione che ottimizzare qualcosa di sano non mi darà mai",
+{stmt:“Riparare qualcosa di rotto mi dà una soddisfazione che ottimizzare qualcosa di sano non mi darà mai”,
 scores:{ortop:8,chir_gen:6,med_sport:-5,cardio:2}},
 ]},
 
 // ══ ITEM IBRIDI — specialità che mischiano più modalità ═══════════════════
 
-{ id:"ibrido_varieta", items:[
-{stmt:"Non mi basta fare solo una cosa: voglio operare ma anche seguire i pazienti nel tempo, non solo in sala",
-tag:"vuole-ibrido",
+{ id:“ibrido_varieta”, items:[
+{stmt:“Non mi basta fare solo una cosa: voglio operare ma anche seguire i pazienti nel tempo, non solo in sala”,
+tag:“vuole-ibrido”,
 scores:{gyn:10,uro:8,orl:7,cardio:6,chir_vasc:5,ortop:8,chir_gen:5,ocu:6}},
-{stmt:"Mi affascina la medicina interventistica: fare qualcosa di concreto e tecnico sul paziente senza essere un chirurgo puro",
-tag:"vuole-interventistica",
+{stmt:“Mi affascina la medicina interventistica: fare qualcosa di concreto e tecnico sul paziente senza essere un chirurgo puro”,
+tag:“vuole-interventistica”,
 scores:{cardio:8,chir_vasc:7,rad:7,neuro:4,anest:5,chir_card:5}},
-{stmt:"Voglio una specialità dove una giornata non assomiglia mai all'altra: sala operatoria, ambulatorio, reparto, urgenza — tutto nello stesso lavoro",
-tag:"vuole-varieta",
+{stmt:“Voglio una specialità dove una giornata non assomiglia mai all’altra: sala operatoria, ambulatorio, reparto, urgenza — tutto nello stesso lavoro”,
+tag:“vuole-varieta”,
 scores:{gyn:8,uro:8,orl:6,cardio:5,chir_vasc:5,ortop:7,chir_gen:5,emerg:6}},
 ]},
 
 // ══ DISCRIMINATORE INTERVENTISTICA ════════════════════════════════════════
 // Attivato quando cardio, chir_vasc, rad sono tutti nei top candidati
 
-{ id:"disc_interventistica", targets:["cardio","chir_vasc","rad","neuro"],
+{ id:“disc_interventistica”, targets:[“cardio”,“chir_vasc”,“rad”,“neuro”],
 items:[
-{stmt:"Tra cardiologia interventistica, chirurgia vascolare e radiologia interventistica, mi attrae di più il cuore: cateterismo, angioplastica coronarica, ablazione delle aritmie",
+{stmt:“Tra cardiologia interventistica, chirurgia vascolare e radiologia interventistica, mi attrae di più il cuore: cateterismo, angioplastica coronarica, ablazione delle aritmie”,
 scores:{cardio:9,chir_vasc:-4,rad:-4}},
-{stmt:"Tra cardiologia interventistica, chirurgia vascolare e radiologia interventistica, mi attraggono di più arterie e vene: endoprotesi aortiche, angioplastica periferica, bypass",
+{stmt:“Tra cardiologia interventistica, chirurgia vascolare e radiologia interventistica, mi attraggono di più arterie e vene: endoprotesi aortiche, angioplastica periferica, bypass”,
 scores:{chir_vasc:9,cardio:-4,rad:-3}},
-{stmt:"Tra cardiologia interventistica, chirurgia vascolare e radiologia interventistica, mi attrae di più la radiologia interventistica: embolizzazioni, drenaggi, biopsie TC-guidate",
+{stmt:“Tra cardiologia interventistica, chirurgia vascolare e radiologia interventistica, mi attrae di più la radiologia interventistica: embolizzazioni, drenaggi, biopsie TC-guidate”,
 scores:{rad:9,chir_vasc:-3,cardio:-4,nuc:-2}},
-{stmt:"Mi affascina la neuroradiologia interventistica: trattare aneurismi cerebrali e ictus ischemici per via endovascolare",
+{stmt:“Mi affascina la neuroradiologia interventistica: trattare aneurismi cerebrali e ictus ischemici per via endovascolare”,
 scores:{neuro:9,rad:5,neurochir:4,chir_vasc:2}},
 ]},
 
@@ -970,10 +1126,10 @@ scores:{neuro:9,rad:5,neurochir:4,chir_vasc:2}},
 // ═══════════════════════════════════════════════════════════════════════════
 // MOTORE BAYESIANO con EXCLUDE LOGIC
 //
-// Ogni item può dichiarare "excludes": lista di block_id da saltare se
+// Ogni item può dichiarare “excludes”: lista di block_id da saltare se
 // questo item riceve risposta >= 4. Questo evita domande ridondanti.
-// Es: se dici "voglio chirurgia", non verranno mai mostrati item su
-// "preferisco lavorare su dati" o "voglio orari d'ufficio".
+// Es: se dici “voglio chirurgia”, non verranno mai mostrati item su
+// “preferisco lavorare su dati” o “voglio orari d’ufficio”.
 //
 // Logica di selezione:
 // 1. Ogni round mostra 4 item scelti per massimo information gain bayesiano
@@ -984,22 +1140,22 @@ scores:{neuro:9,rad:5,neurochir:4,chir_vasc:2}},
 
 // Cluster di specialità per attivare i discriminatori fini
 const CLUSTERS = {
-chir_maggiore: ['chir_gen','ortop','neurochir','chir_card','chir_vasc'],
-chir_minore:   ['ocu','orl','chir_plast','gyn','uro'],
-med_mente:     ['neuro','psich','npi'],
-med_onco:      ['onco','emo','rad_onco'],
-med_imm:       ['reum','mal_inf'],
-diagnostica:   ['rad','anapat','lab','nuc'],
-urgenza:       ['emerg','anest'],
-non_clinico:   ['med_leg','med_lav','ig_san'],
-med_organi:    ['cardio','pneumo','nefro','endo','diab','med_int'],
+chir_maggiore: [‘chir_gen’,‘ortop’,‘neurochir’,‘chir_card’,‘chir_vasc’],
+chir_minore:   [‘ocu’,‘orl’,‘chir_plast’,‘gyn’,‘uro’],
+med_mente:     [‘neuro’,‘psich’,‘npi’],
+med_onco:      [‘onco’,‘emo’,‘rad_onco’],
+med_imm:       [‘reum’,‘mal_inf’],
+diagnostica:   [‘rad’,‘anapat’,‘lab’,‘nuc’],
+urgenza:       [‘emerg’,‘anest’],
+non_clinico:   [‘med_leg’,‘med_lav’,‘ig_san’],
+med_organi:    [‘cardio’,‘pneumo’,‘nefro’,‘endo’,‘diab’,‘med_int’],
 };
 const DISC_BLOCKS = {
-chir_maggiore:'disc_chir_tipo', chir_minore:'disc_chir_tipo',
-med_mente:'disc_med_mente',     med_onco:'disc_med_onco',
-med_imm:'disc_reum_malinf',     diagnostica:'disc_anapat_lab',
-urgenza:'disc_urgenza',         non_clinico:'disc_non_clinico',
-med_organi:'disc_metabolico',
+chir_maggiore:‘disc_chir_tipo’, chir_minore:‘disc_chir_tipo’,
+med_mente:‘disc_med_mente’,     med_onco:‘disc_med_onco’,
+med_imm:‘disc_reum_malinf’,     diagnostica:‘disc_anapat_lab’,
+urgenza:‘disc_urgenza’,         non_clinico:‘disc_non_clinico’,
+med_organi:‘disc_metabolico’,
 };
 
 const MAX_Q = 8;
@@ -1021,12 +1177,12 @@ let pendingContradiction = null;
 let answerTags = [];
 
 const CONTRADICTIONS = [
-{a:"vuole-chirurgia",  b:"vuole-diagnostica", msg:"Hai indicato sia interesse per la chirurgia che per il lavoro su dati/immagini. Quale dei due è davvero prioritario?"},
-{a:"vuole-chirurgia",  b:"vuole-ufficio",      msg:"Chirurgia e lavoro d'ufficio sono difficilmente conciliabili. Quale scenario ti rappresenta di più?"},
-{a:"accetta-turni",    b:"no-turni",           msg:"Hai risposto in modo contrastante su turni e orari. Conta di più la flessibilità o la prevedibilità?"},
-{a:"cronicita",        b:"acuto",              msg:"Seguire pazienti nel tempo vs risolvere e passare oltre: quale approccio ti appartiene davvero?"},
-{a:"vuole-libprof",    b:"vuole-missione",     msg:"Guadagno e significato sono spesso in tensione. Qual è la tua priorità reale?"},
-{a:"intelligenza-emotiva", b:"logico-analitico", msg:"Hai descritto sia un profilo empatico che uno analitico-riservato. Quale ti rappresenta meglio?"},
+{a:“vuole-chirurgia”,  b:“vuole-diagnostica”, msg:“Hai indicato sia interesse per la chirurgia che per il lavoro su dati/immagini. Quale dei due è davvero prioritario?”},
+{a:“vuole-chirurgia”,  b:“vuole-ufficio”,      msg:“Chirurgia e lavoro d’ufficio sono difficilmente conciliabili. Quale scenario ti rappresenta di più?”},
+{a:“accetta-turni”,    b:“no-turni”,           msg:“Hai risposto in modo contrastante su turni e orari. Conta di più la flessibilità o la prevedibilità?”},
+{a:“cronicita”,        b:“acuto”,              msg:“Seguire pazienti nel tempo vs risolvere e passare oltre: quale approccio ti appartiene davvero?”},
+{a:“vuole-libprof”,    b:“vuole-missione”,     msg:“Guadagno e significato sono spesso in tensione. Qual è la tua priorità reale?”},
+{a:“intelligenza-emotiva”, b:“logico-analitico”, msg:“Hai descritto sia un profilo empatico che uno analitico-riservato. Quale ti rappresenta meglio?”},
 ];
 
 function initLogP() {
@@ -1036,7 +1192,7 @@ KEYS.forEach(k => logP[k] = u);
 initLogP();
 
 function getProbs() {
-const mx = Math.max(...KEYS.map(k=>logP[k]));
+const mx = Math.max(…KEYS.map(k=>logP[k]));
 const raw = {}; let s = 0;
 KEYS.forEach(k => { raw[k]=Math.exp(logP[k]-mx); s+=raw[k]; });
 const p = {}; KEYS.forEach(k => p[k]=raw[k]/s);
@@ -1051,10 +1207,10 @@ return h;
 
 function topN(n) {
 const p=getProbs();
-return KEYS.map(k=>({key:k,prob:p[k],...SP[k]})).sort((a,b)=>b.prob-a.prob).slice(0,n);
+return KEYS.map(k=>({key:k,prob:p[k],…SP[k]})).sort((a,b)=>b.prob-a.prob).slice(0,n);
 }
 
-function topProb() { return Math.max(...Object.values(getProbs())); }
+function topProb() { return Math.max(…Object.values(getProbs())); }
 
 function updateBayes(scores, mult) {
 KEYS.forEach(k => { logP[k]+=((scores[k]||0)*mult)/10.0; });
@@ -1066,7 +1222,7 @@ let wH=0;
 for(const [,mult] of Object.entries(LIKERT_SCALE)){
 const sim={};
 KEYS.forEach(k=>{ sim[k]=logP[k]+((item.scores[k]||0)*mult)/10.0; });
-const simMx=Math.max(...KEYS.map(k=>sim[k]));
+const simMx=Math.max(…KEYS.map(k=>sim[k]));
 let ss=0; const sr={};
 KEYS.forEach(k=>{ sr[k]=Math.exp(sim[k]-simMx); ss+=sr[k]; });
 const sp={}; KEYS.forEach(k=>sp[k]=sr[k]/ss);
@@ -1100,23 +1256,41 @@ const activeDisc=tp>0.05?getActiveDiscriminators():new Set();
 const ITEMS_PER_ROUND=4;
 
 // Round 0: esclusione attiva
-const msExcl=POOL.find(b=>b.type==='multiselect'&&b.id==='esclusione'&&!askedItems.has(b.id+':ms'));
-if(msExcl&&qCount===0) return [{isMsBlock:true,block:msExcl,itemKey:msExcl.id+':ms'}];
+const msExcl=POOL.find(b=>b.type===‘multiselect’&&b.id===‘esclusione’&&!askedItems.has(b.id+’:ms’));
+if(msExcl&&qCount===0) return [{isMsBlock:true,block:msExcl,itemKey:msExcl.id+’:ms’}];
 
 // Round 1: multi-select pazienti
-const msPat=POOL.find(b=>b.type==='multiselect'&&b.id==='vocazione_pazienti'&&!askedItems.has(b.id+':ms'));
-if(msPat&&qCount===1) return [{isMsBlock:true,block:msPat,itemKey:msPat.id+':ms'}];
+const msPat=POOL.find(b=>b.type===‘multiselect’&&b.id===‘vocazione_pazienti’&&!askedItems.has(b.id+’:ms’));
+if(msPat&&qCount===1) return [{isMsBlock:true,block:msPat,itemKey:msPat.id+’:ms’}];
 
 // Round 2: giornata ideale
-const msGiornata=POOL.find(b=>b.type==='multiselect'&&b.id==='giornata_ideale'&&!askedItems.has(b.id+':ms'));
-if(msGiornata&&qCount===2) return [{isMsBlock:true,block:msGiornata,itemKey:msGiornata.id+':ms'}];
+const msGiornata=POOL.find(b=>b.type===‘multiselect’&&b.id===‘giornata_ideale’&&!askedItems.has(b.id+’:ms’));
+if(msGiornata&&qCount===2) return [{isMsBlock:true,block:msGiornata,itemKey:msGiornata.id+’:ms’}];
 
-// Quando emerge profilo chirurgico: multi-select chirurgia
-const msChir=POOL.find(b=>b.type==='multiselect'&&b.id==='disc_chir_tipo'&&!askedItems.has(b.id+':ms'));
+// Round 3: se chirurgia è in top3, porta subito il disc_chir_tipo
+const msChirEarly=POOL.find(b=>b.type===‘multiselect’&&b.id===‘disc_chir_tipo’&&!askedItems.has(b.id+’:ms’));
+if(msChirEarly&&qCount===3){
+const top3keys=topN(3).map(e=>e.key);
+const chirKeys=[‘chir_gen’,‘ortop’,‘neurochir’,‘chir_plast’,‘chir_card’,‘uro’,‘orl’,‘ocu’,‘gyn’,‘chir_vasc’];
+const chirInTop3=top3keys.some(k=>chirKeys.includes(k));
+if(chirInTop3) return [{isMsBlock:true,block:msChirEarly,itemKey:msChirEarly.id+’:ms’}];
+}
+
+// Round 3: se non-clinico in top5, porta subito il disc_non_clinico_ms
+const msNonClin=POOL.find(b=>b.type===‘multiselect’&&b.id===‘disc_non_clinico_ms’&&!askedItems.has(b.id+’:ms’));
+if(msNonClin&&qCount===3){
+const top5keys=topN(5).map(e=>e.key);
+const ncKeys=[‘med_leg’,‘med_lav’,‘ig_san’];
+const ncInTop5=top5keys.some(k=>ncKeys.includes(k));
+if(ncInTop5) return [{isMsBlock:true,block:msNonClin,itemKey:msNonClin.id+’:ms’}];
+}
+
+// Quando emerge profilo chirurgico: multi-select chirurgia (fallback)
+const msChir=POOL.find(b=>b.type===‘multiselect’&&b.id===‘disc_chir_tipo’&&!askedItems.has(b.id+’:ms’));
 const top1=topN(1)[0];
-const topIsChir=top1&&SP[top1.key]&&SP[top1.key].group==='Chirurgico';
-if(msChir&&activeDisc.has('disc_chir_tipo')&&topIsChir)
-return [{isMsBlock:true,block:msChir,itemKey:msChir.id+':ms'}];
+const topIsChir=top1&&SP[top1.key]&&SP[top1.key].group===‘Chirurgico’;
+if(msChir&&activeDisc.has(‘disc_chir_tipo’)&&topIsChir)
+return [{isMsBlock:true,block:msChir,itemKey:msChir.id+’:ms’}];
 
 // ── FASE ESTESA: forza tutti i discriminatori attivi, inclusi quelli sotto soglia ──
 // Nella fase 2 abbassa la soglia di attivazione a 0 — qualsiasi disc non ancora
@@ -1125,6 +1299,7 @@ if(extendedPhase){
 const allP=getProbs();
 const top2keys=Object.entries(allP).sort((a,b)=>b[1]-a[1]).slice(0,3).map(e=>e[0]);
 
+```
 // Trova discriminatori che coinvolgono le top specialità e non sono stati visti
 const forcedDisc=new Set();
 for(const [cluster,keys] of Object.entries(CLUSTERS)){
@@ -1158,15 +1333,16 @@ if(discCandidates.length>0){
   return discCandidates.slice(0,ITEMS_PER_ROUND);
 }
 // Se non ci sono disc specifici, cade nel pool generale
+```
 
 }
 
 // Tutti gli altri item Likert
 let candidates=[];
 for(const block of POOL){
-if(block.type==='multiselect') continue;
+if(block.type===‘multiselect’) continue;
 if(excludedBlocks.has(block.id)) continue;
-if(block.id.startsWith('disc_')&&!activeDisc.has(block.id)&&!extendedPhase) continue;
+if(block.id.startsWith(‘disc_’)&&!activeDisc.has(block.id)&&!extendedPhase) continue;
 for(let i=0;i<block.items.length;i++){
 const itemKey=`${block.id}:${i}`;
 if(askedItems.has(itemKey)) continue;
@@ -1190,8 +1366,8 @@ const confPct=Math.round(topProb()*100);
 const STOP_PCT=Math.round(STOP_PROB*100);
 likertValues={}; msSelected=new Set();
 
-document.getElementById('result-view').style.display='none';
-document.getElementById('quiz-view').style.display='';
+document.getElementById(‘result-view’).style.display=‘none’;
+document.getElementById(‘quiz-view’).style.display=’’;
 
 const topBar=` <div class="top-bar"> <span class="q-num">Domanda ${qCount+1}</span> ${qCount>=2&&t1?`<span class="hint-badge">${t1.icon} Candidata: <b>${t1.name}</b></span>`:''} </div> ${qCount>=1?`<div class="conf-row">
 <div class="conf-track">
@@ -1205,16 +1381,16 @@ const topBar=` <div class="top-bar"> <span class="q-num">Domanda ${qCount+1}</sp
 if(pendingContradiction){
 const contrMsg=pendingContradiction;
 pendingContradiction=null;
-document.getElementById('quiz-view').innerHTML=`${topBar} <div class="card" style="border-left:4px solid #e67e22;padding:20px 18px;margin-bottom:16px"> <div style="font-size:1.4rem;margin-bottom:8px">🤔</div> <h3 style="font-size:.95rem;color:#7a4800;margin-bottom:8px;font-family:'Playfair Display',serif"> Aspetta un momento </h3> <p style="font-size:.85rem;color:#666;line-height:1.6;margin-bottom:16px">${contrMsg}</p> <div style="display:flex;flex-direction:column;gap:8px"> <button class="btn" onclick="resolveContradiction('keep')" style="background:#e67e22"> Hai ragione — rivaluto quella scelta iniziale </button> <button class="restart-btn" onclick="resolveContradiction('ignore')" style="font-size:.82rem"> No, sono coerente — continua il quiz </button> </div> </div>`;
+document.getElementById(‘quiz-view’).innerHTML=`${topBar} <div class="card" style="border-left:4px solid #e67e22;padding:20px 18px;margin-bottom:16px"> <div style="font-size:1.4rem;margin-bottom:8px">🤔</div> <h3 style="font-size:.95rem;color:#7a4800;margin-bottom:8px;font-family:'Playfair Display',serif"> Aspetta un momento </h3> <p style="font-size:.85rem;color:#666;line-height:1.6;margin-bottom:16px">${contrMsg}</p> <div style="display:flex;flex-direction:column;gap:8px"> <button class="btn" onclick="resolveContradiction('keep')" style="background:#e67e22"> Hai ragione — rivaluto quella scelta iniziale </button> <button class="restart-btn" onclick="resolveContradiction('ignore')" style="font-size:.82rem"> No, sono coerente — continua il quiz </button> </div> </div>`;
 return;
 }
 if(selected.length===1&&selected[0].isMsBlock){
 const block=selected[0].block;
-const isEscl=block.id==='esclusione';
+const isEscl=block.id===‘esclusione’;
 const hint=isEscl
-? 'Seleziona ciò che escluderesti — o salta se non sei ancora sicuro di nulla'
-: 'Seleziona tutte quelle che senti tue — anche più di una';
-document.getElementById('quiz-view').innerHTML=topBar+` <div class="question">${block.text}</div> <p class="ms-hint">${hint}</p> <div class="ms-options"> ${block.options.map((opt,i)=>`
+? ‘Seleziona ciò che escluderesti — o salta se non sei ancora sicuro di nulla’
+: ‘Seleziona tutte quelle che senti tue — anche più di una’;
+document.getElementById(‘quiz-view’).innerHTML=topBar+` <div class="question">${block.text}</div> <p class="ms-hint">${hint}</p> <div class="ms-options"> ${block.options.map((opt,i)=>`
 <button class="ms-option" id="ms-${i}" onclick="toggleMs(${i})">
 <span class="ms-check" id="msc-${i}">✓</span>
 <span>${opt.label}</span>
@@ -1224,13 +1400,13 @@ return;
 }
 
 // ── Likert render ────────────────────────────────────────────────────────
-document.getElementById('quiz-view').innerHTML=topBar+` <div class="question">Quanto ti riconosci in queste affermazioni? <span style="font-size:.78rem;color:#aaa;font-weight:400;display:block;margin-top:3px">1 = per niente · 5 = moltissimo</span> </div> <div id="likert-items"> ${currentItems.map((c,i)=>`
+document.getElementById(‘quiz-view’).innerHTML=topBar+` <div class="question">Quanto ti riconosci in queste affermazioni? <span style="font-size:.78rem;color:#aaa;font-weight:400;display:block;margin-top:3px">1 = per niente · 5 = moltissimo</span> </div> <div id="likert-items"> ${currentItems.map((c,i)=>`
 <div class="likert-item" id="litem-${i}">
 <div class="likert-stmt">${c.item.stmt}</div>
 <div class="likert-scale">
 <span class="likert-label">Per niente</span>
 <div class="likert-dots">
-${[1,2,3,4,5].map(v=>`<button class="likert-dot" id="ldot-${i}-${v}" onclick="setLikert(${i},${v})">${v}</button>`).join('')}
+${[1,2,3,4,5].map(v=>`<button class="likert-dot" id="ldot-${i}-${v}" onclick="setLikert(${i},${v})">${v}</button>`).join(’’)}
 </div>
 <span class="likert-label">Moltissimo</span>
 </div>
@@ -1243,15 +1419,15 @@ const btn=document.getElementById(`ms-${i}`);
 const chk=document.getElementById(`msc-${i}`);
 if(msSelected.has(i)){
 msSelected.delete(i);
-btn.classList.remove('ms-sel');
+btn.classList.remove(‘ms-sel’);
 } else {
 msSelected.add(i);
-btn.classList.add('ms-sel');
+btn.classList.add(‘ms-sel’);
 }
 }
 
 function resolveContradiction(choice){
-if(choice==='keep'){
+if(choice===‘keep’){
 // Lo studente rivede la scelta iniziale — rimuove le hard exclusion più recenti
 // e resetta le penalizzazioni eccessive abbassandole a -3 invece di -999
 KEYS.forEach(k=>{
@@ -1259,17 +1435,17 @@ if(logP[k]===-999) logP[k]=Math.log(1/N)-3; // ri-abilita ma con penalità
 });
 }
 // In entrambi i casi prosegue il quiz
-const card=document.getElementById('card');
-card.classList.add('fade');
-setTimeout(()=>{ card.classList.remove('fade'); render(); },280);
+const card=document.getElementById(‘card’);
+card.classList.add(‘fade’);
+setTimeout(()=>{ card.classList.remove(‘fade’); render(); },280);
 }
 function skipMs(){
 if(currentItems.length===1&&currentItems[0].isMsBlock){
 askedItems.add(currentItems[0].itemKey);
 qCount++;
-const card=document.getElementById('card');
-card.classList.add('fade');
-setTimeout(()=>{ card.classList.remove('fade'); render(); },280);
+const card=document.getElementById(‘card’);
+card.classList.add(‘fade’);
+setTimeout(()=>{ card.classList.remove(‘fade’); render(); },280);
 }
 }
 
@@ -1277,11 +1453,11 @@ function setLikert(idx,val){
 likertValues[idx]=val;
 [1,2,3,4,5].forEach(v=>{
 const d=document.getElementById(`ldot-${idx}-${v}`);
-if(d) d.className='likert-dot'+(v===val?` sel-${v}`:'');
+if(d) d.className=‘likert-dot’+(v===val?` sel-${v}`:’’);
 });
-document.getElementById(`litem-${idx}`).classList.add('answered');
+document.getElementById(`litem-${idx}`).classList.add(‘answered’);
 if(Object.keys(likertValues).length===currentItems.length)
-document.getElementById('cb').disabled=false;
+document.getElementById(‘cb’).disabled=false;
 }
 
 function go(){
@@ -1293,6 +1469,7 @@ if(currentItems.length===1&&currentItems[0].isMsBlock){
 const block=currentItems[0].block;
 askedItems.add(currentItems[0].itemKey);
 
+```
 if(block.id==='esclusione'){
   // HARD EXCLUSION: azzera completamente le specialità escluse (logP = -999)
   const EXCL_MAP = {
@@ -1351,6 +1528,7 @@ setTimeout(()=>{
   } else { render(); }
 },280);
 return;
+```
 
 }
 
@@ -1362,7 +1540,7 @@ updateBayes(c.item.scores,mult);
 askedItems.add(c.itemKey);
 if(val!==3&&Math.abs(mult)>0.1){
 const pA=getProbs();
-let maxD=0,maxSp='';
+let maxD=0,maxSp=’’;
 KEYS.forEach(k=>{ const d=(pA[k]-pBefore[k])*100; if(d>maxD){maxD=d;maxSp=k;} });
 if(maxD>0.3) itemContributions.push({stmt:c.item.stmt,value:val,topSp:maxSp,deltaTop:Math.round(maxD*10)/10});
 }
@@ -1375,9 +1553,9 @@ answerTags.push(c.item.tag);
 // Fix 3: rileva contraddizione tra esclusione hard e risposta Likert forte
 if(val>=4&&!pendingContradiction){
 const EXCL_CONTR=[
-{excl:['emerg','anest'],trig:['emerg','anest'],msg:"Hai escluso le urgenze all'inizio, ma alcune risposte mostrano che ami adrenalina e situazioni critiche. Sei sicuro di voler escludere PS e rianimazione?"},
-{excl:['chir_gen','ortop','neurochir','chir_plast','chir_card'],trig:['chir_gen','ortop','neurochir','chir_card'],msg:"Hai escluso la chirurgia, ma alcune risposte suggeriscono interesse per il lavoro tecnico e manuale. Potresti rivalutare la tua esclusione."},
-{excl:['rad','anapat','lab'],trig:['rad','anapat','lab'],msg:"Hai escluso il lavoro su dati e immagini, ma alcune risposte mostrano attrazione per precisione e analisi solitaria. Considera anche le specialità diagnostiche."},
+{excl:[‘emerg’,‘anest’],trig:[‘emerg’,‘anest’],msg:“Hai escluso le urgenze all’inizio, ma alcune risposte mostrano che ami adrenalina e situazioni critiche. Sei sicuro di voler escludere PS e rianimazione?”},
+{excl:[‘chir_gen’,‘ortop’,‘neurochir’,‘chir_plast’,‘chir_card’],trig:[‘chir_gen’,‘ortop’,‘neurochir’,‘chir_card’],msg:“Hai escluso la chirurgia, ma alcune risposte suggeriscono interesse per il lavoro tecnico e manuale. Potresti rivalutare la tua esclusione.”},
+{excl:[‘rad’,‘anapat’,‘lab’],trig:[‘rad’,‘anapat’,‘lab’],msg:“Hai escluso il lavoro su dati e immagini, ma alcune risposte mostrano attrazione per precisione e analisi solitaria. Considera anche le specialità diagnostiche.”},
 ];
 for(const ec of EXCL_CONTR){
 if(ec.excl.some(sp=>logP[sp]===-999)&&ec.trig.some(sp=>(c.item.scores[sp]||0)>5)){
@@ -1387,10 +1565,10 @@ pendingContradiction=ec.msg; break;
 }
 });
 qCount++;
-const card=document.getElementById('card');
-card.classList.add('fade');
+const card=document.getElementById(‘card’);
+card.classList.add(‘fade’);
 setTimeout(()=>{
-card.classList.remove('fade');
+card.classList.remove(‘fade’);
 const tp2=topProb();
 const stopProb2 = extendedPhase ? STOP_PROB_EXTENDED : STOP_PROB;
 const maxQ2 = extendedPhase ? MAX_Q_EXTENDED : MAX_Q;
@@ -1410,52 +1588,52 @@ const allP=getProbs();
 const top2=Object.entries(allP).sort((a,b)=>b[1]-a[1]).slice(0,2);
 const sp1=SP[top2[0][0]]; const sp2=SP[top2[0][0]!==top2[1][0]?top2[1][0]:top2[0][0]];
 const pct1=Math.round(top2[0][1]*100); const pct2=Math.round(top2[1][1]*100);
-const col1=GC[sp1?.group]||'#c0392b'; const col2=GC[sp2?.group]||'#c0392b';
+const col1=GC[sp1?.group]||’#c0392b’; const col2=GC[sp2?.group]||’#c0392b’;
 
-document.getElementById('quiz-view').innerHTML=`<div class="card" style="text-align:center;padding:28px 22px"> <div style="font-size:2rem;margin-bottom:10px">🤔</div> <h2 style="font-family:'Playfair Display',serif;font-size:1.2rem;color:#2c1810;margin-bottom:8px"> Il tuo profilo è ancora un po' ambiguo </h2> <p style="font-size:.88rem;color:#666;line-height:1.6;margin-bottom:18px"> Le tue risposte non hanno ancora chiarito con certezza la tua specialità ideale.  In questo momento sei a metà tra <strong style="color:${col1}">${sp1?.icon} ${sp1?.name}</strong> (${pct1}%)  e <strong style="color:${col2}">${sp2?.icon} ${sp2?.name}</strong> (${pct2}%). </p> <p style="font-size:.85rem;color:#888;line-height:1.6;margin-bottom:22px"> Abbi pazienza — ti faccio <strong>4-5 domande più precise</strong> per capire meglio  dove ti trovi. Rispondi con la massima onestà e vedrai un risultato molto più netto. </p> <div style="display:flex;gap:10px;justify-content:center;margin-bottom:8px"> <div style="background:${col1}15;border:1px solid ${col1}40;border-radius:10px;padding:10px 16px;font-size:.82rem;color:${col1};font-weight:700">${sp1?.icon} ${sp1?.name}</div> <div style="font-size:1.2rem;color:#bbb;padding:10px 4px">vs</div> <div style="background:${col2}15;border:1px solid ${col2}40;border-radius:10px;padding:10px 16px;font-size:.82rem;color:${col2};font-weight:700">${sp2?.icon} ${sp2?.name}</div> </div> <button class="btn" style="margin-top:18px;width:100%" onclick="startExtendedPhase()"> Continua con le domande finali → </button> <button class="restart-btn" style="margin-top:10px;width:100%;font-size:.8rem" onclick="showResult()"> Mostra comunque il risultato → </button> </div>`;
+document.getElementById(‘quiz-view’).innerHTML=`<div class="card" style="text-align:center;padding:28px 22px"> <div style="font-size:2rem;margin-bottom:10px">🤔</div> <h2 style="font-family:'Playfair Display',serif;font-size:1.2rem;color:#2c1810;margin-bottom:8px"> Il tuo profilo è ancora un po' ambiguo </h2> <p style="font-size:.88rem;color:#666;line-height:1.6;margin-bottom:18px"> Le tue risposte non hanno ancora chiarito con certezza la tua specialità ideale.  In questo momento sei a metà tra <strong style="color:${col1}">${sp1?.icon} ${sp1?.name}</strong> (${pct1}%)  e <strong style="color:${col2}">${sp2?.icon} ${sp2?.name}</strong> (${pct2}%). </p> <p style="font-size:.85rem;color:#888;line-height:1.6;margin-bottom:22px"> Abbi pazienza — ti faccio <strong>4-5 domande più precise</strong> per capire meglio  dove ti trovi. Rispondi con la massima onestà e vedrai un risultato molto più netto. </p> <div style="display:flex;gap:10px;justify-content:center;margin-bottom:8px"> <div style="background:${col1}15;border:1px solid ${col1}40;border-radius:10px;padding:10px 16px;font-size:.82rem;color:${col1};font-weight:700">${sp1?.icon} ${sp1?.name}</div> <div style="font-size:1.2rem;color:#bbb;padding:10px 4px">vs</div> <div style="background:${col2}15;border:1px solid ${col2}40;border-radius:10px;padding:10px 16px;font-size:.82rem;color:${col2};font-weight:700">${sp2?.icon} ${sp2?.name}</div> </div> <button class="btn" style="margin-top:18px;width:100%" onclick="startExtendedPhase()"> Continua con le domande finali → </button> <button class="restart-btn" style="margin-top:10px;width:100%;font-size:.8rem" onclick="showResult()"> Mostra comunque il risultato → </button> </div>`;
 }
 
 function startExtendedPhase(){
 extendedPhase=true;
-const card=document.getElementById('card');
-card.classList.add('fade');
-setTimeout(()=>{ card.classList.remove('fade'); render(); },280);
+const card=document.getElementById(‘card’);
+card.classList.add(‘fade’);
+setTimeout(()=>{ card.classList.remove(‘fade’); render(); },280);
 }
 
 function showResult(){
 const allP=getProbs();
-const sorted=KEYS.map(k=>({key:k,prob:allP[k],...SP[k]})).sort((a,b)=>b.prob-a.prob);
+const sorted=KEYS.map(k=>({key:k,prob:allP[k],…SP[k]})).sort((a,b)=>b.prob-a.prob);
 const top=sorted[0];
 const spData=SP[top.key];
-const col=GC[top.group]||'#c0392b';
-const topC=[...itemContributions].filter(c=>c.topSp===top.key&&c.deltaTop>0)
+const col=GC[top.group]||’#c0392b’;
+const topC=[…itemContributions].filter(c=>c.topSp===top.key&&c.deltaTop>0)
 .sort((a,b)=>b.deltaTop-a.deltaTop).slice(0,4);
 const groups={};
 sorted.forEach(sp=>{ if(!groups[sp.group]) groups[sp.group]=[]; groups[sp.group].push(sp); });
-const gOrder=['Chirurgico','Medico','Urgenza','Diagnostico','Non clinico'];
+const gOrder=[‘Chirurgico’,‘Medico’,‘Urgenza’,‘Diagnostico’,‘Non clinico’];
 
 // Calcola incertezza: se il top è sotto il 20% il profilo è poco definito
 const isUncertain = top.prob < 0.20;
 const uncertaintyMsg = isUncertain
 ? `<div class="uncertainty-badge">⚠️ Profilo poco definito — le tue risposte non indicano una preferenza netta. Il risultato è orientativo: considera di rifare il quiz essendo più deciso nelle risposte.</div>`
-: '';
+: ‘’;
 
 // Rileva contraddizioni tra esclusioni hard e risposte Likert
 const hardExcluded = new Set(
-[...Array(12).keys()].flatMap(i => {
+[…Array(12).keys()].flatMap(i => {
 const EMAP = {
-0:['chir_gen','ortop','neurochir','chir_plast','chir_card','uro','orl','ocu','gyn','chir_vasc'],
-1:['emerg','anest','chir_card','ped','neo'],
-4:['emerg','anest','chir_card','chir_gen'],
+0:[‘chir_gen’,‘ortop’,‘neurochir’,‘chir_plast’,‘chir_card’,‘uro’,‘orl’,‘ocu’,‘gyn’,‘chir_vasc’],
+1:[‘emerg’,‘anest’,‘chir_card’,‘ped’,‘neo’],
+4:[‘emerg’,‘anest’,‘chir_card’,‘chir_gen’],
 };
 return allP[Object.keys(allP)[0]] !== undefined && logP[Object.keys(logP)[0]] === -999
 ? (EMAP[i]||[]) : [];
 })
 );
 
-document.getElementById('quiz-view').style.display='none';
-document.getElementById('result-view').style.display='';
-document.getElementById('result-view').innerHTML=` <button class="share-btn" onclick="generateStory('${top.key}',${Math.round(top.prob*100)},'${spData.name}','${spData.icon}','${top.group}')"> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="white" style="vertical-align:middle;margin-right:8px"> <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/> </svg> Condividi su Instagram Stories </button> <div class="${isUncertain?'uncertain-badge':'ok-badge'}">${isUncertain?'⚠️':'✅'} Analisi in ${qCount} domande · ${askedItems.size} affermazioni${extendedPhase?' · fase approfondimento':''}</div> ${uncertaintyMsg} <h2 class="res-title">Ho indovinato?</h2> <p class="res-intro">Le tue 5 specialità più probabili:</p> ${sorted.slice(0,5).map((sp,i)=>{ const pct=Math.round(sp.prob*100); const c=GC[sp.group]||'#c0392b'; return`<div class="res-item" style="border-left-color:${c};background:${i===0?'#fff8f8':'#fafafa'}">
+document.getElementById(‘quiz-view’).style.display=‘none’;
+document.getElementById(‘result-view’).style.display=’’;
+document.getElementById(‘result-view’).innerHTML=` <button class="share-btn" onclick="generateStory('${top.key}',${Math.round(top.prob*100)},'${spData.name}','${spData.icon}','${top.group}')"> <span style="display:inline-flex;align-items:center;gap:10px"> <span style="display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,#f9ce34 0%,#ee2a7b 50%,#6228d7 100%);flex-shrink:0"> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="17" height="17" fill="white"> <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/> </svg> </span> <span>Condividi su Instagram Stories</span> </span> </button> <div class="${isUncertain?'uncertain-badge':'ok-badge'}">${isUncertain?'⚠️':'✅'} Analisi in ${qCount} domande · ${askedItems.size} affermazioni${extendedPhase?' · fase approfondimento':''}</div> ${uncertaintyMsg} <h2 class="res-title">Ho indovinato?</h2> <p class="res-intro">Le tue 5 specialità più probabili:</p> ${sorted.slice(0,5).map((sp,i)=>{ const pct=Math.round(sp.prob*100); const c=GC[sp.group]||'#c0392b'; return`<div class="res-item" style="border-left-color:${c};background:${i===0?'#fff8f8':'#fafafa'}">
 <div class="res-rank">#${i+1}</div><div class="res-icon">${sp.icon}</div>
 <div class="res-info">
 <div class="res-name">${sp.name}</div>
@@ -1463,18 +1641,19 @@ document.getElementById('result-view').innerHTML=` <button class="share-btn" onc
 <div class="bar-track"><div class="bar-fill" style="width:${Math.min(pct*2.5,100)}%;background:${c}"></div></div>
 </div>
 <div class="res-pct" style="color:${c}">${pct}%</div>
-${i===0?'<span class="star">⭐</span>':''}
+${i===0?’<span class="star">⭐</span>’:’’}
 </div>`; }).join('')} <div class="profile-box" style="border-color:${col}20;background:linear-gradient(135deg,${col}08,${col}04)"> <h3 style="color:${col}">👤 ${spData.name}</h3> <p class="profile-text">${spData.profile}</p> </div> ${topC.length>0?`
 <div class="why-box">
 <h3>🔍 Perché ${spData.name}? Le affermazioni più decisive</h3>
-${topC.map(c=>`<div class="contrib-item"> <div class="contrib-stmt">"${c.stmt}"</div> <div class="contrib-meta">Hai risposto <strong>${c.value}/5</strong> · contributo: <span class="contrib-delta">+${c.deltaTop}%</span></div> </div>`).join('')}
+${topC.map(c=>`<div class="contrib-item"> <div class="contrib-stmt">"${c.stmt}"</div> <div class="contrib-meta">Hai risposto <strong>${c.value}/5</strong> · contributo: <span class="contrib-delta">+${c.deltaTop}%</span></div> </div>`).join(’’)}
 </div>`:`
 <div class="why-box">
 <h3>🧠 Perché ${spData.name}?</h3>
-${spData.why.map(w=>`<span class="why-tag">✓ ${w}</span>`).join('')}
-</div>`} <div class="procon"> <div class="pro-box"><h4>✅ Punti di forza</h4><ul>${spData.pro.map(p=>`<li>${p}</li>`).join('')}</ul></div> <div class="con-box"><h4>⚠️ Da considerare</h4><ul>${spData.con.map(c=>`<li>${c}</li>`).join('')}</ul></div>
+${spData.why.map(w=>`<span class="why-tag">✓ ${w}</span>`).join(’’)}
+</div>`} <div class="procon"> <div class="pro-box"><h4>✅ Punti di forza</h4><ul>${spData.pro.map(p=>`<li>${p}</li>`).join('')}</ul></div> <div class="con-box"><h4>⚠️ Da considerare</h4><ul>${spData.con.map(c=>`<li>${c}</li>`).join(’’)}</ul></div>
 </div>
 
+```
 <!-- Confronto primo vs secondo -->
 ${sorted.length>1&&sorted[1].prob>0.05?`
 <div class="vs-box">
@@ -1512,38 +1691,40 @@ ${sorted.length>1&&sorted[1].prob>0.05?`
 </div>
 <p class="res-note">Risultato orientativo · inferenza bayesiana · ${qCount} domande. Confrontati con i tuoi tutor.</p>
 <button class="restart-btn" onclick="restart()">↩ Ricomincia</button>
+```
 
 `;
 }
 
 function toggleDist(){
-const b=document.getElementById('full-dist-body');
-const a=document.getElementById('dist-arrow');
-b.style.display=b.style.display==='none'?'block':'none';
-a.textContent=b.style.display==='none'?'▼':'▲';
+const b=document.getElementById(‘full-dist-body’);
+const a=document.getElementById(‘dist-arrow’);
+b.style.display=b.style.display===‘none’?‘block’:‘none’;
+a.textContent=b.style.display===‘none’?‘▼’:‘▲’;
 }
 
 // ── Story generator ──────────────────────────────────────────────────────────
 function generateStory(spKey, pct, spName, icon, group){
 const W=1080, H=1920;
-const canvas=document.createElement('canvas');
+const canvas=document.createElement(‘canvas’);
 canvas.width=W; canvas.height=H;
-const ctx=canvas.getContext('2d');
+const ctx=canvas.getContext(‘2d’);
 
 const groupColors={
-'Chirurgico':'#1a6b3a','Medico':'#1a3f6b','Urgenza':'#8b0000',
-'Diagnostico':'#4a3a7a','Non clinico':'#5a4a1a'
+‘Chirurgico’:’#1a6b3a’,‘Medico’:’#1a3f6b’,‘Urgenza’:’#8b0000’,
+‘Diagnostico’:’#4a3a7a’,‘Non clinico’:’#5a4a1a’
 };
-const accent=groupColors[group]||'#c0392b';
+const accent=groupColors[group]||’#c0392b’;
 
 function drawCard(logoImg){
 // Sfondo gradiente
 const grad=ctx.createLinearGradient(0,0,W,H);
-grad.addColorStop(0,'#2c1810');
-grad.addColorStop(0.45,'#7a1a0e');
-grad.addColorStop(1,'#c0392b');
+grad.addColorStop(0,’#2c1810’);
+grad.addColorStop(0.45,’#7a1a0e’);
+grad.addColorStop(1,’#c0392b’);
 ctx.fillStyle=grad; ctx.fillRect(0,0,W,H);
 
+```
 // Cerchi decorativi sfumati
 ctx.globalAlpha=0.06;
 [[W*0.85,H*0.08,280],[W*0.1,H*0.55,200],[W*0.9,H*0.75,160]].forEach(([x,y,r])=>{
@@ -1645,19 +1826,20 @@ link.href=canvas.toDataURL('image/png',0.95);
 document.body.appendChild(link);
 link.click();
 document.body.removeChild(link);
+```
 
 }
 
 // Carica logo in modo affidabile
-const logoEl=document.getElementById('logo');
+const logoEl=document.getElementById(‘logo’);
 if(logoEl && logoEl.src){
 const img=new Image();
-img.crossOrigin='anonymous';
+img.crossOrigin=‘anonymous’;
 img.onload=()=>drawCard(img);
 img.onerror=()=>drawCard(null);
 img.src=logoEl.src;
-// fallback se già in cache
-if(img.complete && img.naturalWidth>0) drawCard(img);
+// se già in cache onload non scatta — forziamo
+if(img.complete && img.naturalWidth>0) { drawCard(img); img.onload=null; }
 } else {
 drawCard(null);
 }
