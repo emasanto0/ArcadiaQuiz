@@ -2006,7 +2006,7 @@ function renderLifestyle(block) {
     <button class="btn" style="margin-top:18px" onclick="this.disabled=true;this.textContent='→ ';goLifestyle()">
       Applica e continua →
     </button>
-    <button class="restart-btn" style="margin-top:8px;width:100%;font-size:.78rem" onclick="skipLifestyle()">
+    <button class="restart-btn" id="skip-ls-btn" style="margin-top:8px;width:100%;font-size:.78rem" onclick="this.disabled=true;skipLifestyle()">
       Salta questo filtro →
     </button>
   `;
@@ -2129,6 +2129,7 @@ function applyLifestyleExclusions(prefs) {
   }
 }
 let _lifestyleProcessing = false;
+let _goRunning = false;
 function goLifestyle() {
   if (_lifestyleProcessing) return;  // guard: previene doppio tap
   _lifestyleProcessing = true;
@@ -2227,7 +2228,7 @@ const topBar=` <div class="top-bar"> <span class="q-num">Domanda ${qCount+1} / $
 if(pendingContradiction){
 const contrMsg=pendingContradiction;
 pendingContradiction=null;
-document.getElementById('quiz-view').innerHTML=`${topBar} <div class="card" style="border-left:4px solid #e67e22;padding:20px 18px;margin-bottom:16px"> <div style="font-size:1.4rem;margin-bottom:8px">🤔</div> <h3 style="font-size:.95rem;color:#7a4800;margin-bottom:8px;font-family:'Playfair Display',serif"> Aspetta un momento </h3> <p style="font-size:.85rem;color:#666;line-height:1.6;margin-bottom:16px">${contrMsg}</p> <div style="display:flex;flex-direction:column;gap:8px"> <button class="btn" onclick="resolveContradiction('keep')" style="background:#e67e22"> Hai ragione -- rivaluto quella scelta iniziale </button> <button class="restart-btn" onclick="resolveContradiction('ignore')" style="font-size:.82rem"> No, sono coerente -- continua il quiz </button> </div> </div>`;
+document.getElementById('quiz-view').innerHTML=`${topBar} <div class="card" style="border-left:4px solid #e67e22;padding:20px 18px;margin-bottom:16px"> <div style="font-size:1.4rem;margin-bottom:8px">🤔</div> <h3 style="font-size:.95rem;color:#7a4800;margin-bottom:8px;font-family:'Playfair Display',serif"> Aspetta un momento </h3> <p style="font-size:.85rem;color:#666;line-height:1.6;margin-bottom:16px">${contrMsg}</p> <div style="display:flex;flex-direction:column;gap:8px"> <button class="btn" onclick="this.disabled=true;resolveContradiction('keep')" style="background:#e67e22"> Hai ragione -- rivaluto quella scelta iniziale </button> <button class="restart-btn" onclick="this.disabled=true;resolveContradiction('ignore')" style="font-size:.82rem"> No, sono coerente -- continua il quiz </button> </div> </div>`;
 return;
 }
 if(selected.length===1&&selected[0].isMsBlock){
@@ -2240,7 +2241,7 @@ document.getElementById('quiz-view').innerHTML=topBar+` <div class="question">${
 <button class="ms-option" id="ms-${i}" onclick="toggleMs(${i})">
 <span class="ms-check" id="msc-${i}">✓</span>
 <span>${opt.label}</span>
-</button>`).join('')} </div> <div style="display:flex;gap:10px"> ${isEscl?`<button class="restart-btn" style="flex:1" onclick="skipMs()">Salta →</button>`:''} <button class="btn" style="flex:2" id="cb" onclick="go()">Continua →</button> </div> `;
+</button>`).join('')} </div> <div style="display:flex;gap:10px"> ${isEscl?`<button class="restart-btn" style="flex:1" onclick="this.disabled=true;skipMs()">Salta →</button>`:''} <button class="btn" style="flex:2" id="cb" onclick="this.disabled=true;go()">Continua →</button> </div> `;
 pendingContradiction=null;
 return;
 }
@@ -2273,6 +2274,8 @@ btn.classList.add('ms-sel');
 }
 
 function resolveContradiction(choice){
+if(_goRunning) return;
+_goRunning=true;
 if(choice==='keep'){
 // Lo studente rivede la scelta iniziale -- rimuove le hard exclusion più recenti
 // e resetta le penalizzazioni eccessive abbassandole a -3 invece di -999
@@ -2283,15 +2286,17 @@ if(logP[k]===-999) logP[k]=Math.log(1/N)-3; // ri-abilita ma con penalità
 // In entrambi i casi prosegue il quiz
 const card=document.getElementById('card');
 card.classList.add('fade');
-setTimeout(()=>{ card.classList.remove('fade'); render(); },280);
+setTimeout(()=>{ _goRunning=false; card.classList.remove('fade'); render(); },280);
 }
 function skipMs(){
+if(_goRunning) return;
 if(currentItems.length===1&&currentItems[0].isMsBlock){
+_goRunning=true;
 askedItems.add(currentItems[0].itemKey);
 qCount++;
 const card=document.getElementById('card');
 card.classList.add('fade');
-setTimeout(()=>{ card.classList.remove('fade'); render(); },280);
+setTimeout(()=>{ _goRunning=false; card.classList.remove('fade'); render(); },280);
 }
 }
 
@@ -2307,6 +2312,8 @@ document.getElementById('cb').disabled=false;
 }
 
 function go(){
+if(_goRunning) return;
+_goRunning=true;
 const pBefore=getProbs();
 pendingContradiction=null;
 
@@ -2370,6 +2377,7 @@ qCount++;
 const card=document.getElementById('card');
 card.classList.add('fade');
 setTimeout(()=>{
+  _goRunning=false;
   card.classList.remove('fade');
   const tp=topProb();
   const stopProb = extendedPhase ? STOP_PROB_EXTENDED : getAdaptiveStopProb();
@@ -2447,6 +2455,7 @@ qCount++;
 const card=document.getElementById('card');
 card.classList.add('fade');
 setTimeout(()=>{
+_goRunning=false;
 card.classList.remove('fade');
 const tp2=topProb();
 const stopProb2 = extendedPhase ? STOP_PROB_EXTENDED : getAdaptiveStopProb();
@@ -2469,14 +2478,16 @@ const sp1=SP[top2[0][0]]; const sp2=SP[top2[0][0]!==top2[1][0]?top2[1][0]:top2[0
 const pct1=Math.round(top2[0][1]*100); const pct2=Math.round(top2[1][1]*100);
 const col1=GC[sp1?.group]||'#c0392b'; const col2=GC[sp2?.group]||'#c0392b';
 
-document.getElementById('quiz-view').innerHTML=`<div class="card" style="text-align:center;padding:28px 22px"> <div style="font-size:2rem;margin-bottom:10px">🤔</div> <h2 style="font-family:'Playfair Display',serif;font-size:1.2rem;color:#2c1810;margin-bottom:8px"> Il tuo profilo è ancora un po' ambiguo </h2> <p style="font-size:.88rem;color:#666;line-height:1.6;margin-bottom:18px"> Le tue risposte non hanno ancora chiarito con certezza la tua specialità ideale.  In questo momento sei a metà tra <strong style="color:${col1}">${sp1?.icon} ${sp1?.name}</strong> (${pct1}%)  e <strong style="color:${col2}">${sp2?.icon} ${sp2?.name}</strong> (${pct2}%). </p> <p style="font-size:.85rem;color:#888;line-height:1.6;margin-bottom:22px"> Abbi pazienza -- ti faccio <strong>4-5 domande più precise</strong> per capire meglio  dove ti trovi. Rispondi con la massima onestà e vedrai un risultato molto più netto. </p> <div style="display:flex;gap:10px;justify-content:center;margin-bottom:8px"> <div style="background:${col1}15;border:1px solid ${col1}40;border-radius:10px;padding:10px 16px;font-size:.82rem;color:${col1};font-weight:700">${sp1?.icon} ${sp1?.name}</div> <div style="font-size:1.2rem;color:#bbb;padding:10px 4px">vs</div> <div style="background:${col2}15;border:1px solid ${col2}40;border-radius:10px;padding:10px 16px;font-size:.82rem;color:${col2};font-weight:700">${sp2?.icon} ${sp2?.name}</div> </div> <button class="btn" style="margin-top:18px;width:100%" onclick="startExtendedPhase()"> Continua con le domande finali → </button> <button class="restart-btn" style="margin-top:10px;width:100%;font-size:.8rem" onclick="showResult()"> Mostra comunque il risultato → </button> </div>`;
+document.getElementById('quiz-view').innerHTML=`<div class="card" style="text-align:center;padding:28px 22px"> <div style="font-size:2rem;margin-bottom:10px">🤔</div> <h2 style="font-family:'Playfair Display',serif;font-size:1.2rem;color:#2c1810;margin-bottom:8px"> Il tuo profilo è ancora un po' ambiguo </h2> <p style="font-size:.88rem;color:#666;line-height:1.6;margin-bottom:18px"> Le tue risposte non hanno ancora chiarito con certezza la tua specialità ideale.  In questo momento sei a metà tra <strong style="color:${col1}">${sp1?.icon} ${sp1?.name}</strong> (${pct1}%)  e <strong style="color:${col2}">${sp2?.icon} ${sp2?.name}</strong> (${pct2}%). </p> <p style="font-size:.85rem;color:#888;line-height:1.6;margin-bottom:22px"> Abbi pazienza -- ti faccio <strong>4-5 domande più precise</strong> per capire meglio  dove ti trovi. Rispondi con la massima onestà e vedrai un risultato molto più netto. </p> <div style="display:flex;gap:10px;justify-content:center;margin-bottom:8px"> <div style="background:${col1}15;border:1px solid ${col1}40;border-radius:10px;padding:10px 16px;font-size:.82rem;color:${col1};font-weight:700">${sp1?.icon} ${sp1?.name}</div> <div style="font-size:1.2rem;color:#bbb;padding:10px 4px">vs</div> <div style="background:${col2}15;border:1px solid ${col2}40;border-radius:10px;padding:10px 16px;font-size:.82rem;color:${col2};font-weight:700">${sp2?.icon} ${sp2?.name}</div> </div> <button class="btn" style="margin-top:18px;width:100%" onclick="this.disabled=true;startExtendedPhase()"> Continua con le domande finali → </button> <button class="restart-btn" style="margin-top:10px;width:100%;font-size:.8rem" onclick="showResult()"> Mostra comunque il risultato → </button> </div>`;
 }
 
 function startExtendedPhase(){
+if(_goRunning) return;
+_goRunning=true;
 extendedPhase=true;
 const card=document.getElementById('card');
 card.classList.add('fade');
-setTimeout(()=>{ card.classList.remove('fade'); render(); },280);
+setTimeout(()=>{ _goRunning=false; card.classList.remove('fade'); render(); },280);
 }
 
 function showResult(){
@@ -2853,6 +2864,7 @@ function showStoryPreview(dataUrl, spKey) {
 
 
 function restart(){
+_goRunning=false;
   _giornataSelettoOperare = false;
   _lifestyleProcessing = false;
   window._lifestyleExcluded = [];
