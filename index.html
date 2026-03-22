@@ -500,7 +500,7 @@ const POOL = [
 
 // ══ DOMANDA 0: ESCLUSIONE ATTIVA -- penalizza interi gruppi subito ══════════
 { id:"esclusione", type:"multiselect",
-text:"C'è qualcosa che sai già con certezza di NON voler fare? (opzionale -- salta se non sei sicuro)",
+text:"C'è qualcosa che sai già con certezza di non voler fare nella tua carriera? Seleziona ciò che escluderesti senza dubbi -- oppure salta se non sei ancora sicuro di nulla",
 options:[
 {label:"Non voglio mai operare né fare procedure invasive",
 scores:{chir_gen:-12,ortop:-12,neurochir:-12,chir_plast:-12,chir_card:-12,uro:-12,orl:-10,ocu:-10,gyn:-10,chir_vasc:-12}},
@@ -839,6 +839,12 @@ tag:"ama-pediatria",
 scores:{ped:22,neo:-10,npi:3}},
 ]},
 
+{ id:"mirati_nuc", items:[
+{stmt:"La fisica applicata alla medicina mi affascina: usare radiofarmaci per diagnosticare e curare, la PET che rivela il metabolismo in tempo reale, la teragnostica come frontiera assoluta",
+tag:"ama-nuc",
+scores:{nuc:22,rad:-4,anapat:-4,rad_onco:-4}},
+]},
+
 { id:"mirati_rad", items:[
 {stmt:"Interpretare immagini diagnostiche è la mia vocazione: TAC, risonanza magnetica, ecografia -- leggere il corpo attraverso le immagini e refertare con precisione, non medicina nucleare né radioterapia",
 tag:"ama-radiodiagnostica",
@@ -890,7 +896,7 @@ scores:{med_int:22,emerg:-6,chir_gen:-6,rad:-6,lab:-6,med_gen:-5}},
 // ══ MULTI-SELECT PAZIENTI ═════════════════════════════════════════════════
 
 { id:"vocazione_pazienti", type:"multiselect",
-text:"Con quale tipologia di paziente ti immagini di lavorare? (puoi scegliere più di una)",
+text:"Con quale tipo di paziente ti immagini di lavorare ogni giorno? (puoi scegliere più opzioni)",
 options:[
 {label:"Donne -- salute riproduttiva, maternità, menopausa",
 scores:{gyn:13,endo:9,onco:4}},
@@ -906,6 +912,8 @@ scores:{onco:13,emo:16,pal:4,rad_onco:7}},
 scores:{med_sport:17,ortop:3}},
 {label:"Nessuna preferenza -- mi interessa la sfida clinica indipendentemente da chi",
 scores:{med_int:6,emerg:2,chir_gen:2,rad:1,anapat:3,med_leg:5,med_lav:5,ig_san:5}},
+{label:"Pazienti motivati e consapevoli -- persone che vogliono stare meglio e collaborano attivamente",
+scores:{med_sport:10,psich:5,med_gen:5,endo:5,diab:5,emerg:-5,neo:-4}},
 ]},
 
 // ══ GIORNATA IDEALE -- costruisci la tua giornata tipo (multiselect) ════════
@@ -914,25 +922,121 @@ scores:{med_int:6,emerg:2,chir_gen:2,rad:1,anapat:3,med_leg:5,med_lav:5,ig_san:5
 // Il peso di ogni opzione viene scalato per 1/sqrt(n) come gli altri multiselect.
 
 { id:"giornata_ideale", type:"multiselect",
-text:"Come vorresti che fosse la tua giornata lavorativa ideale? Seleziona tutte le attività che vorresti fare",
+text:"Costruisci la tua giornata tipo ideale. Seleziona tutte le attività che vorresti fare (anche più di una)",
 options:[
-{label:"🔪 Operare -- sala operatoria, procedure chirurgiche, tecnica manuale",
-scores:{chir_gen:8,ortop:9,neurochir:9,chir_plast:11,chir_card:10,uro:8,orl:7,ocu:8,gyn:8,chir_vasc:6,anest:5}},
+{label:"🔪 Operare -- sala operatoria, procedure chirurgiche, tecnica manuale (anche microchirurgia, laser, endoscopia operativa)",
+scores:{chir_gen:8,ortop:9,neurochir:9,chir_plast:11,chir_card:10,uro:8,orl:7,ocu:8,gyn:8,chir_vasc:6,anest:5,cardio:4}},
 {label:"🏥 Reparto -- seguire pazienti ricoverati, visite, gestione terapia",
-scores:{med_int:11,cardio:5,neuro:7,emo:9,onco:8,mal_inf:8,ped:7,neo:8,pneumo:7,nefro:8,reum:6,psich:6,ger:6}},
+scores:{med_int:11,cardio:5,neuro:7,emo:9,onco:8,mal_inf:8,ped:7,neo:8,pneumo:7,nefro:8,reum:6,psich:6,ger:6,gyn:5,orl:4,uro:3}},
 {label:"🏃 Ambulatorio -- visite programmate, follow-up, pazienti cronici",
-scores:{med_gen:9,ger:9,psich:9,endo:10,diab:10,reum:8,med_sport:9,npi:8,pal:7,cardio:4,ocu:5,orl:5,gyn:5}},
+scores:{med_gen:9,ger:9,psich:9,endo:10,diab:10,reum:8,med_sport:9,npi:8,pal:7,cardio:4,ocu:5,orl:5,gyn:5,uro:6}},
 {label:"🎯 Procedure / Interventistica -- cateterismo, endoscopia, embolizzazione, ablazione",
-scores:{cardio:8,chir_vasc:8,rad:7,gastro:96,pneumo:7,neuro:5,uro:6,anest:5}},
+scores:{cardio:8,chir_vasc:8,rad:7,pneumo:7,neuro:5,uro:6,anest:5,orl:4,gyn:3}},
 {label:"🚨 Urgenze -- gestire emergenze, codici rossi, pazienti critici",
 scores:{emerg:14,anest:9,chir_card:6,chir_gen:4,ped:5,neo:4}},
-{label:"🖥️ Refertazione / Laboratorio -- analizzare immagini, campioni o dati lontano dal letto del paziente",
-scores:{rad:8,anapat:13,lab:13,nuc:-4,rad_onco:8}},
+{label:"🖥️ Refertazione / Laboratorio -- analizzare immagini, campioni o dati (include anche la radiologia interventistica)",
+scores:{rad:8,anapat:13,lab:13,nuc:8,rad_onco:8}},
 {label:"🏠 Territorio / Domicilio -- pazienti a casa, continuità di cura, relazione nel tempo",
 scores:{med_gen:11,pal:10,ger:8,psich:6,npi:5}},
 ]},
 
 // ══ DISCRIMINATORI GEMELLE ════════════════════════════════════════════════
+
+
+// ══ DISCRIMINATORI OVERLAP AVANZATI ════════════════════════════════════
+// Attivati automaticamente quando due specialità simili sono entrambe in top3
+
+{ id:"disc_overlap_medgen_ger", targets:["med_gen","ger","pal"],
+items:[
+{stmt:"Mi piace l'idea di seguire la stessa famiglia per vent'anni: conoscere i figli, i genitori e i nonni, essere il punto di riferimento del quartiere -- la continuità multigenerazionale è il cuore del mio lavoro",
+scores:{med_gen:18,ger:-6,pal:-4,psich:-3}},
+{stmt:"Preferisco focalizzarmi sull'anziano fragile come sistema complesso: polifarmacia, delirium, cadute, demenza -- la geriatria come specialità ospedaliera con alta intensità clinica",
+scores:{ger:18,med_gen:-6,pal:-3}},
+{stmt:"Il lavoro burocratico -- certificati, ricette, scartoffie -- non mi pesa: lo vedo come parte del servizio di fiducia che offro alla mia comunità",
+scores:{med_gen:10,ger:-4,med_lav:-3}},
+{stmt:"Aggiornarmi costantemente su nuovi farmaci, nuove linee guida, nuovi criteri diagnostici è per me un piacere, non un obbligo -- non posso immaginare di fare sempre le stesse cose",
+scores:{ger:8,med_int:6,cardio:5,reum:5,onco:5,med_gen:-6}},
+]},
+
+{ id:"disc_overlap_psich_ger", targets:["psich","ger","pal","med_gen"],
+items:[
+{stmt:"Sapere che in molti casi non potrò mai davvero 'guarire' il paziente -- solo accompagnarlo, ridurre i sintomi, migliorare la qualità di vita -- non mi frustra: per me è già una vittoria enorme",
+scores:{psich:12,pal:10,ger:8,med_gen:6,emerg:-5,chir_gen:-5}},
+{stmt:"Ho bisogno di vedere risultati tangibili: un paziente che guarisce, un tumore che si riduce, una frattura che consolida -- la medicina senza risultati oggettivi mi pesa",
+scores:{chir_gen:8,ortop:8,emerg:7,chir_plast:7,ocu:7,psich:-10,pal:-8,ger:-5}},
+{stmt:"La mente umana mi affascina proprio perché è imprevedibile: una psicosi che si stabilizza, un paziente borderline che costruisce una vita -- è una vittoria che nessuna TAC può misurare",
+scores:{psich:16,npi:8,neuro:4,ger:-4,med_gen:-4}},
+{stmt:"Preferisco lavorare con persone che hanno ancora davanti molti anni di vita attiva: giovani, adulti in forma, atleti -- la fragilità estrema e la dipendenza totale mi pesano emotivamente",
+scores:{med_sport:10,ped:8,emerg:5,psich:-5,ger:-10,pal:-10,neo:-4}},
+]},
+
+{ id:"disc_overlap_endo_diab", targets:["endo","diab","med_gen"],
+items:[
+{stmt:"Mi affascina la rarità: un feocromocitoma, una MEN2, una sindrome di Cushing -- quei casi che si vedono una volta nella carriera e che richiedono un ragionamento clinico eccezionale",
+scores:{endo:16,reum:8,neuro:6,mal_inf:6,diab:-8,med_gen:-6}},
+{stmt:"Preferisco l'impatto di scala: seguire migliaia di pazienti diabetici, prevenire complicanze cardiovascolari, usare la tecnologia per cambiare la vita quotidiana di molte persone",
+scores:{diab:14,med_gen:8,ig_san:6,endo:-6,reum:-4}},
+{stmt:"Educare un paziente cronico -- insegnargli a gestire la sua malattia giorno per giorno, anche quando non cambia le abitudini -- mi dà soddisfazione quanto una diagnosi brillante",
+scores:{diab:12,med_gen:10,ger:6,endo:-5,neurochir:-8,emerg:-6}},
+]},
+
+{ id:"disc_overlap_onco_emo", targets:["onco","emo","rad_onco"],
+items:[
+{stmt:"Mi affascina il lato biologico del cancro più di quello relazionale: le mutazioni driver, i meccanismi di resistenza, i nuovi target molecolari -- voglio capire il tumore prima ancora di curarlo",
+scores:{emo:14,lab:8,anapat:6,onco:-6,pal:-4}},
+{stmt:"Il rapporto umano con il paziente oncologico è il centro del mio lavoro: essere presente nelle fasi difficili, comunicare prognosi, costruire fiducia -- la biologia è lo strumento, non il fine",
+scores:{onco:14,pal:8,psich:4,emo:-6,rad_onco:-4}},
+{stmt:"Mi attira l'idea di lavorare con fisici, ingegneri e informatici per pianificare trattamenti di precisione -- la radioterapia come fusione di tecnologia e oncologia",
+scores:{rad_onco:16,nuc:6,emo:-4,onco:-4}},
+]},
+
+{ id:"disc_overlap_emerg_anest", targets:["emerg","anest","chir_card","neo"],
+items:[
+{stmt:"Mi piace essere il primo a vedere il paziente: fare diagnosi rapide con poche informazioni, gestire il caos iniziale, stabilizzare e poi passare -- il pronto soccorso come territorio di caccia",
+scores:{emerg:16,anest:-8,chir_card:-4}},
+{stmt:"Preferisco la fase di gestione critica prolungata: intubazione, sedazione, supporto d'organo in ICU -- essere il custode silenzioso della vita per ore o giorni, non il primo soccorritore",
+scores:{anest:14,neo:8,emerg:-8,chir_card:4}},
+{stmt:"Mi piace che il mio ruolo sia invisibile ma insostituibile: nessuno ricorda l'anestesista, ma senza di me niente funziona -- mi basta sapere che ho fatto la differenza",
+scores:{anest:12,rad:6,anapat:4,emerg:-6,chir_gen:-3}},
+]},
+
+{ id:"disc_overlap_ig_medlav", targets:["ig_san","med_lav","med_leg"],
+items:[
+{stmt:"Mi interessa la salute come diritto collettivo: campagne vaccinali, screening di popolazione, gestione di epidemie -- il sistema sanitario come oggetto di studio e miglioramento",
+scores:{ig_san:16,med_lav:-6,med_leg:-5}},
+{stmt:"Preferisco il contesto aziendale: entrare in fabbrica, valutare rischi reali, incontrare lavoratori veri -- la prevenzione che si fa sul campo, non sulle statistiche",
+scores:{med_lav:16,ig_san:-6,med_leg:-4}},
+{stmt:"Mi piace l'idea di avere un impatto su un individuo specifico attraverso una perizia o una valutazione: determinare un'invalidità, ricostruire una dinamica -- responsabilità su singoli casi, non su popolazioni",
+scores:{med_leg:14,med_lav:-5,ig_san:-6}},
+]},
+
+{ id:"disc_prestige_colleghi", targets:["neurochir","chir_card","cardio","emerg","rad","med_gen","pal"],
+items:[
+{stmt:"Il riconoscimento e la stima dei colleghi specialisti mi importa: voglio fare una specialità che gli altri medici considerino d'élite, tecnicamente difficile, non facilmente sostituibile",
+scores:{neurochir:10,chir_card:10,cardio:7,ocu:6,anest:5,med_gen:-8,pal:-6,ig_san:-6,med_lav:-5}},
+{stmt:"Non mi interessa il prestigio percepito dalla comunità medica: mi importa l'impatto reale sulla vita delle persone, anche se il mio ruolo è considerato 'di second piano' dai colleghi ospedalieri",
+scores:{med_gen:10,pal:9,ger:8,ig_san:7,med_lav:6,neurochir:-6,chir_card:-6}},
+{stmt:"Voglio una specialità dove posso diventare un punto di riferimento riconoscibile per i pazienti: che mi cerchino per nome, che tornino da me -- la reputazione personale più che il titolo",
+scores:{chir_plast:8,ocu:7,orl:7,cardio:6,endo:5,med_gen:8,psich:6,emerg:-6,rad:-6,anapat:-6}},
+]},
+
+{ id:"disc_frustrazione_limite", targets:["psich","pal","ger","med_gen","onco"],
+items:[
+{stmt:"Riesco a stare bene anche quando non posso 'risolvere': mi basta alleviare, accompagnare, ridurre la sofferenza -- la cura senza guarigione ha per me un valore profondo",
+scores:{pal:14,psich:12,ger:10,onco:8,med_gen:6,emerg:-7,chir_gen:-5,chir_card:-5}},
+{stmt:"Ho bisogno di sentire che posso fare qualcosa di concreto e risolutivo: intervenire, riparare, cambiare il decorso -- l'impotenza terapeutica mi toglie energie",
+scores:{chir_gen:8,ortop:8,ocu:7,emerg:7,chir_plast:7,uro:6,psich:-10,pal:-10,ger:-6}},
+]},
+
+{ id:"disc_aggiornamento_ricerca", targets:["med_gen","ger","med_int","emo","reum","onco"],
+items:[
+{stmt:"Leggere paper, seguire trial clinici, aggiornare la mia pratica ogni anno: la medicina che cambia velocemente è per me stimolante, non ansiogena",
+scores:{emo:10,onco:9,reum:8,cardio:7,neuro:7,mal_inf:7,med_int:6,med_gen:-6,ger:-4}},
+{stmt:"Preferisco una medicina più stabile: protocolli consolidati, linee guida condivise, poca sperimentazione -- la certezza terapeutica mi dà sicurezza",
+scores:{med_gen:8,ger:6,rad:5,anapat:5,med_lav:5,emo:-6,reum:-5,onco:-5}},
+{stmt:"Mi affascina il confine tra clinica e ricerca: i miei pazienti partecipano a trial, io contribuisco a scrivere le nuove linee guida -- il medico-ricercatore come identità",
+scores:{emo:12,onco:10,reum:8,neuro:8,mal_inf:7,nuc:6,rad_onco:6,med_gen:-8,ger:-5}},
+]},
 
 { id:"disc_anapat_lab", targets:["anapat","lab","rad"],
 items:[
@@ -1052,7 +1156,7 @@ scores:{med_sport:11,ortop:3,cardio:2,chir_gen:-6,chir_plast:-6}},
 
 { id:"disc_chir_tipo", type:"multiselect",
 targets:["chir_gen","ortop","neurochir","chir_card","chir_vasc","ocu","orl","chir_plast","gyn","uro","cardio"],
-text:"Sei orientato verso la chirurgia. Quali di questi ambiti senti più tuoi? (anche più di uno)",
+text:"Stai mostrando un profilo chirurgico. Quale territorio operatorio senti più tuo? Scegli uno o più ambiti che ti attraggono davvero",
 options:[
 {label:"Addome, visceri, apparato digerente, laparoscopia oncologica",
 scores:{chir_gen:18}},
@@ -1210,7 +1314,17 @@ scores:{neuro:9,rad:5,neurochir:4,chir_vasc:2}},
 
 // Cluster di specialità per attivare i discriminatori fini
 const CLUSTERS = {
-chir_maggiore: ['chir_gen','ortop','neurochir','chir_card','chir_vasc'],
+  // Cluster overlap avanzati — attivati quando due specialità simili sono in top3
+  overlap_medgen_ger:   ['med_gen','ger','pal'],
+  overlap_psich_ger:    ['psich','ger','pal','med_gen'],
+  overlap_endo_diab:    ['endo','diab'],
+  overlap_onco_emo:     ['onco','emo','rad_onco'],
+  overlap_emerg_anest:  ['emerg','anest'],
+  overlap_ig_medlav:    ['ig_san','med_lav','med_leg'],
+  overlap_prestige:     ['neurochir','chir_card','cardio','emerg','rad','med_gen','pal'],
+  overlap_frustrazione: ['psich','pal','ger','med_gen','onco'],
+  overlap_aggiornamento:['med_gen','ger','med_int','emo','reum','onco'],
+  chir_maggiore: ['chir_gen','ortop','neurochir','chir_card','chir_vasc'],
 chir_minore:   ['ocu','orl','chir_plast','gyn','uro'],
 chir_plast_cluster: ['chir_plast','ocu','orl'],
 med_mente:     ['neuro','psich','npi'],
@@ -1224,17 +1338,46 @@ med_organi:    ['cardio','pneumo','nefro','endo','diab','med_int'],
 const DISC_BLOCKS = {
 chir_maggiore:'disc_chir_tipo', chir_minore:'disc_chir_tipo',
 chir_plast_cluster:'mirati_chir_plast',
+overlap_medgen_ger:'disc_overlap_medgen_ger',
+overlap_psich_ger:'disc_overlap_psich_ger',
+overlap_endo_diab:'disc_overlap_endo_diab',
+overlap_onco_emo:'disc_overlap_onco_emo',
+overlap_emerg_anest:'disc_overlap_emerg_anest',
+overlap_ig_medlav:'disc_overlap_ig_medlav',
+overlap_prestige:'disc_prestige_colleghi',
+overlap_frustrazione:'disc_frustrazione_limite',
+overlap_aggiornamento:'disc_aggiornamento_ricerca',
 med_mente:'disc_med_mente',     med_onco:'disc_med_onco',
 med_imm:'disc_reum_malinf',     diagnostica:'disc_anapat_lab',
 urgenza:'disc_urgenza',         non_clinico:'disc_non_clinico',
 med_organi:'disc_metabolico',
 };
 
-const MAX_Q = 8;
-const MAX_Q_EXTENDED = 13; // fase 2: fino a 5 domande extra
+const MIN_Q = 5;  // minimo schermate prima di poter concludere
+const MAX_Q = 12;
+const MAX_Q_EXTENDED = 16; // fase 2: fino a 5 domande extra
 const STOP_PROB = 0.25;
-const STOP_PROB_EXTENDED = 0.30; // soglia più alta nella fase 2
+const STOP_PROB_EXTENDED = 0.30;
+
+// Soglia adattiva: specialità con cluster definito convergono prima
+// Specialità con molto overlap richiedono più confidenza
+const STOP_PROB_BY_GROUP = {
+  'Chirurgico':  0.55,  // chirurgie: cluster definito, 55% basta
+  'Urgenza':     0.55,  // emerg/anest: segnale forte
+  'Diagnostico': 0.50,  // diagnostica: cluster abbastanza definito
+  'Medico':      0.38,  // mediche: molto overlap, soglia più bassa
+  'Non clinico': 0.50,  // non clinico: abbastanza definito
+};
+
+function getAdaptiveStopProb() {
+  const top = topN(1)[0];
+  if (!top) return STOP_PROB;
+  const sp = SP[top.key];
+  if (!sp) return STOP_PROB;
+  return STOP_PROB_BY_GROUP[sp.group] || STOP_PROB;
+} // soglia più alta nella fase 2
 let extendedPhase = false; // true quando siamo in fase 2
+let _giornataSelettoOperare = false; // true se ha selezionato 'operare' in giornata_ideale
 const KEYS = Object.keys(SP);
 const N = KEYS.length;
 const LIKERT_SCALE = {1:-0.6, 2:-0.2, 3:0, 4:0.6, 5:1.0};
@@ -1374,6 +1517,7 @@ const INCOMPATIBILITY_MAP = {
   'vuole-ibrido':     {anti:['rad','anapat','lab','med_leg','med_lav','ig_san'], penalty:4},
   'vuole-interventistica':{anti:['med_gen','ger','pal','psich','med_lav','ig_san','anapat','lab'], penalty:5},
   'vuole-varieta':    {anti:['rad','anapat','lab','med_leg','med_lav','ig_san','med_gen'], penalty:4},
+  'ama-nuc':          {anti:['chir_gen','ortop','neurochir','chir_plast','emerg','gyn','uro','ped','neo','psich','med_gen'], penalty:8},
 };
 
 function itemIG(item) {
@@ -1415,21 +1559,21 @@ const tp=topProb();
 const activeDisc=tp>0.05?getActiveDiscriminators():new Set();
 const ITEMS_PER_ROUND=4;
 
-// Round 0: esclusione attiva
+// Round 0: esclusione attiva — peso massimo assoluto
 const msExcl=POOL.find(b=>b.type==='multiselect'&&b.id==='esclusione'&&!askedItems.has(b.id+':ms'));
 if(msExcl&&qCount===0) return [{isMsBlock:true,block:msExcl,itemKey:msExcl.id+':ms'}];
 
-// Round 1: lifestyle filter (after esclusione)
-const lsBlock=POOL.find(b=>b.type==='lifestyle'&&b.id==='lifestyle_filter'&&!askedItems.has(b.id+':ls'));
-if(lsBlock&&qCount===1) return [{isLifestyle:true,block:lsBlock,itemKey:lsBlock.id+':ls'}];
+// Round 1: giornata ideale — orienta il macro-cluster PRIMA del lifestyle
+const msGiornata=POOL.find(b=>b.type==='multiselect'&&b.id==='giornata_ideale'&&!askedItems.has(b.id+':ms'));
+if(msGiornata&&qCount===1) return [{isMsBlock:true,block:msGiornata,itemKey:msGiornata.id+':ms'}];
 
 // Round 2: multi-select pazienti
 const msPat=POOL.find(b=>b.type==='multiselect'&&b.id==='vocazione_pazienti'&&!askedItems.has(b.id+':ms'));
 if(msPat&&qCount===2) return [{isMsBlock:true,block:msPat,itemKey:msPat.id+':ms'}];
 
-// Round 3: giornata ideale
-const msGiornata=POOL.find(b=>b.type==='multiselect'&&b.id==='giornata_ideale'&&!askedItems.has(b.id+':ms'));
-if(msGiornata&&qCount===3) return [{isMsBlock:true,block:msGiornata,itemKey:msGiornata.id+':ms'}];
+// Round 3: lifestyle filter — DOPO giornata e vocazione, non prima
+const lsBlock=POOL.find(b=>b.type==='lifestyle'&&b.id==='lifestyle_filter'&&!askedItems.has(b.id+':ls'));
+if(lsBlock&&qCount===3) return [{isLifestyle:true,block:lsBlock,itemKey:lsBlock.id+':ls'}];
 
 // Round 3: se chirurgia è in top3, porta subito il disc_chir_tipo
 const msChirEarly=POOL.find(b=>b.type==='multiselect'&&b.id==='disc_chir_tipo'&&!askedItems.has(b.id+':ms'));
@@ -1437,7 +1581,8 @@ if(msChirEarly&&qCount===4){
 const top5keys=topN(5).map(e=>e.key);
 const chirKeys=['chir_gen','ortop','neurochir','chir_plast','chir_card','uro','orl','ocu','gyn','chir_vasc'];
 const chirInTop5=top5keys.some(k=>chirKeys.includes(k));
-if(chirInTop5) return [{isMsBlock:true,block:msChirEarly,itemKey:msChirEarly.id+':ms'}];
+// Mostra disc_chir_tipo se chirurgia in top5 OPPURE se utente ha selezionato 'operare'
+if(chirInTop5 || _giornataSelettoOperare) return [{isMsBlock:true,block:msChirEarly,itemKey:msChirEarly.id+':ms'}];
 }
 
 // Round 3: se non-clinico in top5, porta subito il disc_non_clinico_ms
@@ -1453,7 +1598,7 @@ if(ncInTop5) return [{isMsBlock:true,block:msNonClin,itemKey:msNonClin.id+':ms'}
 const msChir=POOL.find(b=>b.type==='multiselect'&&b.id==='disc_chir_tipo'&&!askedItems.has(b.id+':ms'));
 const top1=topN(1)[0];
 const topIsChir=top1&&SP[top1.key]&&SP[top1.key].group==='Chirurgico';
-if(msChir&&activeDisc.has('disc_chir_tipo')&&topIsChir)
+if(msChir&&(activeDisc.has('disc_chir_tipo')||_giornataSelettoOperare)&&(topIsChir||_giornataSelettoOperare))
 return [{isMsBlock:true,block:msChir,itemKey:msChir.id+':ms'}];
 
 // ── FASE ESTESA: forza tutti i discriminatori attivi, inclusi quelli sotto soglia ──
@@ -1608,15 +1753,17 @@ function applyLifestyleExclusions(prefs) {
   // Centralizziamo su 3: delta = (val - 3) / 2  →  range [-1, +1]
   // poi moltiplichiamo per il peso della specialità
 
-  const W = 2.0; // peso macro lifestyle
+  const W = 1.2; // peso lifestyle ridotto: non deve sovrастare esclusione e giornata
 
   // ── GUARDIE (1=zero ... 5=tutte) ──────────────────────────────────────
   if (prefs.guardie !== null) {
     const g = (prefs.guardie - 3) / 2; // -1..+1
     // g positivo → accetta molte guardie
     const guardie_scores = {
-      emerg: 12, anest: 10, chir_card: 8, neo: 7, ped: 5,
-      chir_gen: 5, gyn: 4, chir_vasc: 4, neurochir: 4,
+      // Chirurgie ad alta guardia: premiate se accetti guardie, NON penalizzate se no
+      // (chi vuole chir_vasc ma poche guardie: non deve essere penalizzato qui)
+      emerg: 12, anest: 10, chir_card: 6, neo: 5, ped: 4,
+      // Solo specialita' non-chirurgiche vengono penalizzate con poche guardie
       rad: -8, lab: -8, anapat: -7, med_lav: -8, med_leg: -8,
       ig_san: -8, endo: -6, diab: -6, med_gen: -5, ger: -4
     };
@@ -1630,11 +1777,13 @@ function applyLifestyleExclusions(prefs) {
     const w = (prefs.wlb - 3) / 2;
     // w positivo → wlb importante → premia specialità con orari umani
     const wlb_scores = {
+      // WLB buono: premia specialita' con orari umani
       rad: 10, med_gen: 9, endo: 9, diab: 9, med_sport: 8,
       anapat: 8, lab: 8, ocu: 7, orl: 6, med_lav: 8,
       med_leg: 8, ig_san: 8, reum: 6, psich: 5, ger: 5,
-      emerg: -10, anest: -9, chir_card: -8, neurochir: -6,
-      neo: -7, chir_gen: -4, ped: -4, gyn: -3
+      // Penalizza solo emerg/anest che hanno turni strutturalmente pesanti
+      // NON le chirurgie elettive (chir_vasc, chir_gen, ortop, etc. hanno orari programmati)
+      emerg: -8, anest: -7
     };
     const scaled = {};
     Object.entries(wlb_scores).forEach(([k,v]) => { scaled[k] = v * w; });
@@ -1661,8 +1810,9 @@ function applyLifestyleExclusions(prefs) {
     const stress_scores = {
       emerg: 12, anest: 10, chir_card: 10, neurochir: 8,
       chir_gen: 6, neo: 7, chir_vasc: 5, gyn: 4,
-      rad: -7, anapat: -7, lab: -8, med_leg: -7, med_lav: -8,
-      ig_san: -7, ger: -6, pal: -5, med_gen: -5, endo: -4
+      // Stress basso penalizza solo diagnostica/ufficio, NON le chirurgie elettive
+      rad: -5, anapat: -5, lab: -6, med_leg: -5, med_lav: -6,
+      ig_san: -5, ger: -4, pal: -3, med_gen: -5, endo: -4
     };
     const scaled = {};
     Object.entries(stress_scores).forEach(([k,v]) => { scaled[k] = v * s; });
@@ -1737,13 +1887,13 @@ if(selected.length===1&&selected[0].isLifestyle){
 currentItems=selected;
 const t1=topN(1)[0];
 const confPct=Math.round(topProb()*100);
-const STOP_PCT=Math.round(STOP_PROB*100);
+const STOP_PCT=Math.round(getAdaptiveStopProb()*100);
 likertValues={}; msSelected=new Set();
 
 document.getElementById('result-view').style.display='none';
 document.getElementById('quiz-view').style.display='';
 
-const topBar=` <div class="top-bar"> <span class="q-num">Domanda ${qCount+1}</span> ${qCount>=2&&t1?`<span class="hint-badge">${t1.icon} Candidata: <b>${t1.name}</b></span>`:''} </div> ${qCount>=1?`<div class="conf-row">
+const topBar=` <div class="top-bar"> <span class="q-num">Domanda ${qCount+1} / ${MAX_Q}</span> ${qCount>=2&&t1?`<span class="hint-badge">${t1.icon} Candidata: <b>${t1.name}</b></span>`:''} </div> ${qCount>=1?`<div class="conf-row">
 <div class="conf-track">
 <div class="conf-fill" style="width:${Math.min(confPct/STOP_PCT*100,100)}%"></div>
 <div class="conf-marker" style="left:100%"></div>
@@ -1844,6 +1994,12 @@ const block=currentItems[0].block;
 askedItems.add(currentItems[0].itemKey);
 
 
+// Traccia se ha selezionato 'operare' nella giornata_ideale
+if(block.id==='giornata_ideale'){
+  // opzione 0 = "Operare -- sala operatoria, procedure chirurgiche"
+  if(msSelected.has(0)) _giornataSelettoOperare = true;
+}
+
 if(block.id==='esclusione'){
   // HARD EXCLUSION: azzera completamente le specialità escluse (logP = -999)
   const EXCL_MAP = {
@@ -1892,10 +2048,10 @@ card.classList.add('fade');
 setTimeout(()=>{
   card.classList.remove('fade');
   const tp=topProb();
-  const stopProb = extendedPhase ? STOP_PROB_EXTENDED : STOP_PROB;
+  const stopProb = extendedPhase ? STOP_PROB_EXTENDED : getAdaptiveStopProb();
   const maxQ = extendedPhase ? MAX_Q_EXTENDED : MAX_Q;
-  if(tp>=stopProb||qCount>=maxQ){
-    if(!extendedPhase && qCount>=MAX_Q && tp<STOP_PROB){
+  if(qCount>=MIN_Q && (tp>=stopProb||qCount>=maxQ)){
+    if(!extendedPhase && qCount>=MAX_Q && tp<getAdaptiveStopProb()){
       showAmbiguousTransition();
     } else {
       showResult();
@@ -1969,10 +2125,10 @@ card.classList.add('fade');
 setTimeout(()=>{
 card.classList.remove('fade');
 const tp2=topProb();
-const stopProb2 = extendedPhase ? STOP_PROB_EXTENDED : STOP_PROB;
+const stopProb2 = extendedPhase ? STOP_PROB_EXTENDED : getAdaptiveStopProb();
 const maxQ2 = extendedPhase ? MAX_Q_EXTENDED : MAX_Q;
-if(tp2>=stopProb2||qCount>=maxQ2){
-if(!extendedPhase && qCount>=MAX_Q && tp2<STOP_PROB){
+if(qCount>=MIN_Q && (tp2>=stopProb2||qCount>=maxQ2)){
+if(!extendedPhase && qCount>=MAX_Q && tp2<getAdaptiveStopProb()){
 showAmbiguousTransition();
 } else {
 showResult();
@@ -2258,13 +2414,9 @@ ctx.fillText('emasanto0.github.io/ArcadiaQuiz',W/2,H-200);
 // Linea bottom
 ctx.fillStyle='rgba(255,255,255,0.2)'; ctx.fillRect(0,H-5,W,5);
 
-// Download
-const link=document.createElement('a');
-link.download=`ArcadiA_MED_${spKey}.png`;
-link.href=canvas.toDataURL('image/png',0.95);
-document.body.appendChild(link);
-link.click();
-document.body.removeChild(link);
+// Mostra preview modal invece di scaricare subito
+const dataUrl = canvas.toDataURL('image/png', 0.95);
+showStoryPreview(dataUrl, spKey);
 
 
 }
@@ -2321,7 +2473,62 @@ function fbSubmit() {
 }
 
 
+
+// ── STORY PREVIEW MODAL ─────────────────────────────────────────────
+function showStoryPreview(dataUrl, spKey) {
+  // Rimuovi modal esistente se c'è
+  const existing = document.getElementById('story-modal');
+  if (existing) existing.remove();
+
+  const modal = document.createElement('div');
+  modal.id = 'story-modal';
+  modal.style.cssText = [
+    'position:fixed','top:0','left:0','width:100%','height:100%',
+    'background:rgba(0,0,0,0.85)','z-index:9999',
+    'display:flex','flex-direction:column','align-items:center',
+    'justify-content:center','padding:20px','box-sizing:border-box',
+    'overflow-y:auto'
+  ].join(';');
+
+  modal.innerHTML = `
+    <div style="background:#1a1a1a;border-radius:16px;padding:20px;
+                max-width:420px;width:100%;text-align:center">
+      <p style="color:#aaa;font-size:.8rem;margin:0 0 12px">
+        Anteprima della tua Instagram Story
+      </p>
+      <img src="${dataUrl}"
+           style="width:100%;max-width:340px;border-radius:12px;
+                  display:block;margin:0 auto 16px"
+           alt="ArcadiA MED Story"/>
+      <a id="story-download-btn"
+         href="${dataUrl}"
+         download="ArcadiA_MED_${spKey}.png"
+         style="display:block;background:linear-gradient(135deg,#f9ce34,#ee2a7b,#6228d7);
+                color:#fff;font-weight:bold;padding:14px;border-radius:12px;
+                text-decoration:none;font-size:.95rem;margin-bottom:10px">
+        ⬇️ Scarica l'immagine
+      </a>
+      <p style="color:#888;font-size:.75rem;margin:0 0 14px;line-height:1.5">
+        Dopo il download, apri Instagram → Stories → scegli l'immagine dalla galleria
+      </p>
+      <button onclick="document.getElementById('story-modal').remove()"
+              style="background:rgba(255,255,255,0.1);color:#ccc;border:none;
+                     padding:10px 24px;border-radius:10px;cursor:pointer;
+                     font-size:.85rem;width:100%">
+        Chiudi
+      </button>
+    </div>
+  `;
+
+  document.body.appendChild(modal);
+  // Chiudi cliccando fuori
+  modal.addEventListener('click', function(e) {
+    if (e.target === modal) modal.remove();
+  });
+}
+
 function restart(){
+  _giornataSelettoOperare = false;
   window._lifestyleExcluded = [];
   window._lifestyleSoft = [];
   _lsSkip.clear();
