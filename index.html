@@ -227,11 +227,30 @@ body{
   <h1>Trova la tua specialità</h1>
   <p>Sistema adattivo · ArcadiA MED · Domande su di te, non sui libri</p>
 </div>
+<!-- ══ WELCOME PAGE ══════════════════════════════════════════════ -->
+<!-- ══ WELCOME PAGE ══════════════════════════════════════════════ -->
+<div id="welcome-overlay" style="position:fixed;top:0;left:0;right:0;bottom:0;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;box-sizing:border-box;">
+  <div style="position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(160deg,#7a0000 0%,#c0392b 50%,#6b1a0a 100%);"></div>
+  <div style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;width:100%;max-width:440px;text-align:center;">
+    <img id="welcome-logo" style="width:140px;height:140px;border-radius:50%;object-fit:cover;border:4px solid rgba(255,255,255,0.65);box-shadow:0 4px 20px rgba(0,0,0,0.45);margin-bottom:16px;" alt="ArcadiA MED"/>
+    <h1 style="color:#fff;font-family:'Playfair Display',Georgia,serif;font-size:1.9rem;font-weight:700;margin:0 0 2px 0;text-shadow:0 2px 6px rgba(0,0,0,0.35);">ArcadiA MED</h1>
+    <p style="color:rgba(255,255,255,0.7);font-style:italic;font-size:0.82rem;margin:0 0 18px 0;">Quiz di orientamento specialistico</p>
+    <div style="background:rgba(255,255,255,0.10);border:1px solid rgba(255,255,255,0.22);border-radius:14px;padding:16px 18px;margin-bottom:22px;text-align:left;">
+      <p style="color:rgba(255,255,255,0.93);font-size:0.875rem;line-height:1.65;margin:0 0 9px 0;">&#127919; <strong style="color:#fff;">Test orientativo</strong> basato su modelli probabilistici: prendi il risultato come uno spunto di riflessione, non come una verità assoluta.</p>
+      <p style="color:rgba(255,255,255,0.93);font-size:0.875rem;line-height:1.65;margin:0 0 9px 0;">&#129504; <strong style="color:#fff;">Per gli studenti dei primi anni</strong>: analizza la tua attitudine personale, non le tue nozioni.</p>
+      <p style="color:rgba(255,255,255,0.93);font-size:0.875rem;line-height:1.65;margin:0;">&#128260; Rifallo variando le risposte per scoprire sfumature diverse. Per qualsiasi dubbio, contattaci!</p>
+    </div>
+    <button onclick="startQuiz()" style="background:#fff;color:#8b0000;border:none;border-radius:50px;padding:14px 48px;font-size:1rem;font-weight:700;letter-spacing:0.4px;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,0.25);transition:transform 0.15s,box-shadow 0.15s;width:100%;max-width:260px;" onmouseover="this.style.transform='scale(1.04)';this.style.boxShadow='0 6px 20px rgba(0,0,0,0.32)'" onmouseout="this.style.transform='scale(1)';this.style.boxShadow='0 4px 14px rgba(0,0,0,0.25)'">Iniziamo &#8594;</button>
+    <p style="color:rgba(255,255,255,0.38);font-size:0.68rem;margin:12px 0 0;">Ottobre 2001 &middot; ArcadiA MED</p>
+  </div>
+</div>
+
 <div class="card" id="card">
   <div id="quiz-view"></div>
   <div id="result-view" style="display:none"></div>
 </div>
 <script>
+
 const SP = {
   chir_gen:   {name:"Chirurgia Generale",            icon:"🔪",group:"Chirurgico",
     mix:"🔪 Sala op. 70% · 🏥 Reparto 20% · 🏃 Ambulatorio 10%",
@@ -2832,6 +2851,7 @@ function showStoryPreview(dataUrl, spKey) {
   });
 }
 
+
 function restart(){
   _giornataSelettoOperare = false;
   _lifestyleProcessing = false;
@@ -2846,6 +2866,27 @@ likertValues={}; msSelected=new Set(); currentItems=[]; itemContributions=[];
 render();
 }
 render();
+
+
+
+// ── WELCOME PAGE ─────────────────────────────────────────────────────────────
+(function() {
+  var mainLogo = document.getElementById('logo');
+  var wLogo = document.getElementById('welcome-logo');
+  if (mainLogo && wLogo) { wLogo.src = mainLogo.src; }
+})();
+
+function startQuiz() {
+  var overlay = document.getElementById('welcome-overlay');
+  if (overlay) {
+    overlay.style.opacity = '0';
+    overlay.style.transition = 'opacity 0.4s ease';
+    setTimeout(function(){ overlay.style.display = 'none'; }, 400);
+  }
+}
+
+render();
+
 </script>
 
 </body>
