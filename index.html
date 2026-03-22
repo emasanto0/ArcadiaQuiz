@@ -177,6 +177,22 @@ body{
 .ms-option.ms-sel{border-color:var(--red);background:#fff5f5;box-shadow:0 2px 10px rgba(192,57,43,.15)}
 .ms-check{width:22px;height:22px;border-radius:5px;border:2px solid #e0d0d0;background:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:.8rem;transition:all .15s}
 .ms-option.ms-sel .ms-check{border-color:var(--red);background:var(--red);color:#fff}
+
+/* ── Lifestyle filter sliders ── */
+.ls-block{margin-bottom:18px;padding:13px 15px;border:1px solid #f0dede;border-radius:14px;background:#fff;transition:opacity .2s}
+.ls-label{font-size:.9rem;font-weight:700;color:#2c1810;margin-bottom:2px}
+.ls-hint{font-size:.7rem;color:#bbb;font-style:italic;margin-bottom:10px}
+.ls-row{display:flex;align-items:center;gap:9px}
+.ls-lo,.ls-hi{font-size:.68rem;color:#999;flex-shrink:0;max-width:80px;line-height:1.3}
+.ls-lo{text-align:right}
+.ls-slider{flex:1;-webkit-appearance:none;appearance:none;height:5px;border-radius:5px;outline:none;cursor:pointer}
+.ls-slider::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;background:var(--red);cursor:pointer;box-shadow:0 2px 6px rgba(192,57,43,.35)}
+.ls-slider::-moz-range-thumb{width:22px;height:22px;border-radius:50%;border:none;background:var(--red);cursor:pointer}
+.ls-val{font-size:.75rem;font-weight:700;color:var(--red);min-width:72px;text-align:left;font-family:sans-serif}
+.ls-skip{font-size:.7rem;color:#ccc;font-style:italic;cursor:pointer;text-decoration:underline;display:block;text-align:right;margin-top:5px}
+.ls-skip:hover{color:#aaa}
+.ls-skip.active{color:var(--red)!important;font-style:normal!important;text-decoration:none}
+
 </style>
 </head>
 <body>
@@ -437,6 +453,25 @@ const GC = {
 
 const POOL = [
 
+{ id:"lifestyle_filter", type:"lifestyle",
+  text:"Come immagini la tua vita da specialista? Imposta le tue preferenze, poi clicca Continua.",
+  dimensions:[
+    {key:"guardie",  label:"Guardie notturne e reperibilità",
+     lo:"Zero",  hi:"Tutte",
+     hint:"Quanto spesso sei disposto a fare notti e weekend in ospedale?"},
+    {key:"wlb",      label:"Equilibrio vita-lavoro",
+     lo:"Non conta",  hi:"Fondamentale",
+     hint:"Quanto è importante avere tempo per la vita fuori dal lavoro?"},
+    {key:"libprof",  label:"Libera professione",
+     lo:"Non mi interessa", hi:"Essenziale",
+     hint:"Vuoi poter lavorare in privato oltre al pubblico?"},
+    {key:"stress",   label:"Stress cronico accettabile",
+     lo:"Voglio basso stress", hi:"Adoro la pressione",
+     hint:"Quanto stress sostenuto sei disposto a reggere nel tempo?"},
+  ]
+},
+
+
 // ══ DOMANDA 0: ESCLUSIONE ATTIVA -- penalizza interi gruppi subito ══════════
 { id:"esclusione", type:"multiselect",
 text:"C'è qualcosa che sai già con certezza di NON voler fare? (opzionale -- salta se non sei sicuro)",
@@ -519,7 +554,7 @@ tag:"cronicita", excludes:["wlb_acuto"],
 scores:{med_gen:8,ger:7,psich:7,pal:6,ped:10,endo:14,diab:11,cardio:3,nefro:11}},
 {stmt:"Preferisco casi acuti: risolvo il problema e passo al prossimo",
 tag:"acuto", excludes:["wlb_ritmo","macro_persone"],
-scores:{chir_gen:5,ortop:7,emerg:8,chir_vasc:7,uro:8,orl:6,ocu:6,anest:6}},
+scores:{chir_gen:3,ortop:7,emerg:8,chir_vasc:7,uro:8,orl:6,ocu:6,anest:6,chir_plast:5}},
 ]},
 
 // ══ GUADAGNO E CARRIERA ══════════════════════════════════════════════════
@@ -556,7 +591,7 @@ tag:"futuro-territorio", excludes:["futuro_ospedale","futuro_laboratorio","futur
 scores:{med_gen:9,ger:7,psich:6,pal:6,endo:14,diab:11}},
 {stmt:"Tra 10 anni mi vedo in sala operatoria ogni giorno",
 tag:"futuro-sala-op", excludes:["futuro_territorio","futuro_laboratorio","futuro_ufficio","macro_dati"],
-scores:{chir_gen:7,ortop:8,neurochir:9,chir_card:12,chir_vasc:8,gyn:8,uro:10,orl:6,ocu:6,chir_plast:10}},
+scores:{chir_gen:4,ortop:8,neurochir:9,chir_card:12,chir_vasc:8,gyn:8,uro:10,orl:6,ocu:6,chir_plast:10}},
 {stmt:"Tra 10 anni mi vedo in laboratorio, sala refertazione o davanti a uno schermo",
 tag:"futuro-laboratorio", excludes:["futuro_ospedale","futuro_territorio","futuro_sala-op","macro_persone","macro_urgenza"],
 scores:{rad:6,anapat:9,lab:7,nuc:19,rad_onco:13}},
@@ -585,7 +620,7 @@ scores:{med_int:12,med_gen:7,ger:6,pal:4,onco:6}},
 { id:"carattere_errore", items:[
 {stmt:"Dopo un errore mi faccio carico subito e vado avanti: la resilienza è il mio punto di forza",
 tag:"resiliente", excludes:["carattere_evita-rischio"],
-scores:{emerg:7,chir_gen:4,anest:6,chir_vasc:5,ortop:5,cardio:3}},
+scores:{emerg:7,chir_gen:4,anest:6,chir_vasc:5,ortop:5,cardio:3,chir_plast:4}},
 {stmt:"Preferisco ambienti dove le conseguenze degli errori sono limitate e gestibili",
 tag:"evita-rischio", excludes:["carattere_resiliente","macro_urgenza","macro_mani"],
 scores:{rad:4,lab:6,med_leg:6,med_lav:9,ig_san:7,anapat:4}},
@@ -617,7 +652,7 @@ scores:{med_int:15,pneumo:8,nefro:8,cardio:7,neuro:7,reum:8,mal_inf:8,emo:9,onco
 chir_gen:-8,emerg:-4,rad:-6,lab:-6,anapat:-6,med_leg:-8,med_lav:-8,ig_san:-8}},
 {stmt:"Non mi vedo in corsia a gestire pazienti per giorni: voglio procedure, tecnica, risultati immediati e visibili",
 tag:"vuole-tecnica-procedurale",
-scores:{chir_gen:8,ortop:9,neurochir:9,chir_plast:10,chir_card:10,uro:9,orl:9,ocu:9,gyn:7,
+scores:{chir_gen:4,ortop:9,neurochir:9,chir_plast:10,chir_card:10,uro:9,orl:9,ocu:9,gyn:7,
 chir_vasc:8,emerg:6,anest:7,
 med_int:-10,pneumo:-5,neuro:-5,reum:-5,mal_inf:-5,emo:-5}},
 {stmt:"Non mi vedo né in corsia né in sala operatoria: voglio lavorare su immagini, campioni, dati o fuori dall'ospedale clinico",
@@ -671,13 +706,13 @@ tag:"ama-pneumologia",
 scores:{pneumo:28,anest:4,med_int:2}},
 {stmt:"Mi affascina l'idea di usare tecnologia indossabile per seguire in tempo reale il metabolismo di una persona: sensori glicemici, microinfusori, algoritmi che adattano la terapia ora per ora",
 tag:"ama-diabetologia",
-scores:{diab:24,endo:9,med_sport:6}},
+scores:{diab:24,endo:9,med_sport:6,chir_gen:-7,chir_plast:-7,neurochir:-5,chir_card:-5}},
 ]},
 
 { id:"mirati_sport_rene", items:[
 {stmt:"Lo sport è parte centrale della mia vita e voglio che lo sia anche del mio lavoro: performance, prevenzione degli infortuni, idoneità atletica, medicina dello sport ad alto livello",
 tag:"ama-med-sport",
-scores:{med_sport:21,ortop:3,cardio:2}},
+scores:{med_sport:21,ortop:3,cardio:2,chir_gen:-8,chir_plast:-8,chir_card:-6,neurochir:-6,emerg:-5}},
 {stmt:"Mi affascina la complessità dell'equilibrio interno: i reni come regolatori silenziosi del corpo -- la dialisi, il trapianto, gli squilibri elettrolitici che cambiano tutto",
 tag:"ama-nefrologia",
 scores:{nefro:26,med_int:6,cardio:2}},
@@ -696,6 +731,15 @@ scores:{ig_san:12,med_lav:4,med_leg:3}},
 ]},
 
 // ══ IDENTITY FIX BLOCKS ═══════════════════════════════════════════════════
+
+{ id:"mirati_chir_plast", items:[
+{stmt:"Il corpo come forma da modellare mi affascina: ricostruire un seno dopo una mastectomia, riparare un viso dopo un trauma, correggere una malformazione congenita -- chirurgia plastica come atto medico e artistico insieme",
+tag:"ama-chir-plast",
+scores:{chir_plast:20,ocu:-5,chir_gen:-5,ortop:-5}},
+{stmt:"L'estetica mi interessa clinicamente: non solo per i pazienti oncologici o traumatizzati, ma anche per chi vuole migliorare il proprio aspetto -- ricostruzione e medicina estetica come continuum",
+tag:"ama-chir-plast-est",
+scores:{chir_plast:16,chir_gen:-4,ortop:-4}},
+]},
 
 { id:"mirati_chir_card", items:[
 {stmt:"Operare sul cuore è la sfida tecnica più alta che esista: bypass aortocoronarico, sostituzione valvolare, ECMO -- cardiochirurgia come scelta estrema, non estetica né plastica",
@@ -790,7 +834,7 @@ scores:{neuro:22,emo:-8,psich:-3,neurochir:2}},
 { id:"mirati_endo_ormoni", items:[
 {stmt:"Gli ormoni come regolatori silenziosi del corpo mi affascinano: tiroide, surrene, ipofisi, gonadi -- endocrinologia classica con patologie rare e complesse, distinta dalla diabetologia quotidiana",
 tag:"ama-endocrinologia",
-scores:{endo:22,diab:-10,med_int:2,onco:2}},
+scores:{endo:22,diab:-10,med_int:2,onco:2,chir_gen:-7,chir_plast:-7,neurochir:-5}},
 ]},
 
 { id:"mirati_onco", items:[
@@ -825,7 +869,7 @@ options:[
 {label:"Donne -- salute riproduttiva, maternità, menopausa",
 scores:{gyn:13,endo:9,onco:4}},
 {label:"Bambini e neonati -- dalla nascita all'adolescenza",
-scores:{ped:14,neo:17,npi:12}},
+scores:{ped:14,neo:17,npi:12,chir_gen:-6,chir_card:-6,chir_vasc:-5,ortop:-4,rad:-4,med_leg:-6,med_lav:-6,ig_san:-6}},
 {label:"Anziani -- fragilità, cronicità, fine vita",
 scores:{ger:10,pal:7,med_gen:4}},
 {label:"Adulti con patologie acute o croniche -- senza preferenza di età",
@@ -965,17 +1009,17 @@ scores:{nefro:24,diab:-3,endo:-2}},
 {stmt:"Tra nefro, endo e diabetologia, mi affascinano di più ormoni e metabolismo: tiroide, surrene, ipofisi, osteoporosi",
 scores:{endo:20,diab:4,nefro:-3}},
 {stmt:"Tra nefro, endo e diabetologia, mi affascinano di più il diabete e l'obesità: tecnologia wearable, prevenzione cardiovascolare",
-scores:{diab:15,endo:7,nefro:-2}},
+scores:{diab:15,endo:7,nefro:-2,chir_gen:-5,chir_plast:-5}},
 ]},
 
 { id:"disc_med_sport", targets:["med_sport","ortop"],
 items:[
 {stmt:"Mi vedo come medico di squadra o medico sportivo: performance, idoneità atletica, prevenzione negli atleti",
-scores:{med_sport:14,ortop:2}},
+scores:{med_sport:14,ortop:2,chir_gen:-7,chir_plast:-7,chir_card:-5,neurochir:-5}},
 {stmt:"Tra medicina dello sport e ortopedia, preferisco la chirurgia: artroscopie, protesi, fratture",
 scores:{ortop:6,med_sport:-4}},
 {stmt:"Lo sport fa parte della mia vita personale e voglio che sia al centro del mio lavoro professionale",
-scores:{med_sport:11,ortop:3,cardio:2}},
+scores:{med_sport:11,ortop:3,cardio:2,chir_gen:-6,chir_plast:-6}},
 ]},
 
 // ══ MULTI-SELECT CHIRURGIA ════════════════════════════════════════════════
@@ -1087,9 +1131,9 @@ scores:{cardio:6,med_leg:6,rad:2,ortop:-3,med_sport:-4}},
 {stmt:"Nella vita fuori dal lavoro sono fisico e concreto: faccio sport, lavoro con le mani, mi piace riparare cose -- più pratico che teorico",
 scores:{ortop:8,chir_gen:4,med_sport:3,cardio:-4}},
 {stmt:"La mia vita personale ruota intorno allo sport -- alleno, gareggio, seguo squadre, leggo di performance atletica -- ed è difficile immaginare un lavoro che non la tocchi",
-scores:{med_sport:11,ortop:2,cardio:-5}},
+scores:{med_sport:11,ortop:2,cardio:-5,chir_gen:-6,chir_plast:-6}},
 {stmt:"Riparare qualcosa di rotto mi dà una soddisfazione che ottimizzare qualcosa di sano non mi darà mai",
-scores:{ortop:8,chir_gen:6,med_sport:-5,cardio:2}},
+scores:{ortop:8,chir_gen:6,chir_plast:5,med_sport:-5,cardio:2}},
 ]},
 
 // ══ ITEM IBRIDI -- specialità che mischiano più modalità ═══════════════════
@@ -1097,13 +1141,13 @@ scores:{ortop:8,chir_gen:6,med_sport:-5,cardio:2}},
 { id:"ibrido_varieta", items:[
 {stmt:"Non mi basta fare solo una cosa: voglio operare ma anche seguire i pazienti nel tempo, non solo in sala",
 tag:"vuole-ibrido",
-scores:{gyn:10,uro:8,orl:7,cardio:6,chir_vasc:5,ortop:8,chir_gen:5,ocu:6}},
+scores:{gyn:10,uro:8,orl:7,cardio:6,chir_vasc:5,ortop:8,chir_gen:5,ocu:6,chir_plast:7}},
 {stmt:"Mi affascina la medicina interventistica: fare qualcosa di concreto e tecnico sul paziente senza essere un chirurgo puro",
 tag:"vuole-interventistica",
 scores:{cardio:8,chir_vasc:7,rad:7,neuro:4,anest:5,chir_card:5}},
 {stmt:"Voglio una specialità dove una giornata non assomiglia mai all'altra: sala operatoria, ambulatorio, reparto, urgenza -- tutto nello stesso lavoro",
 tag:"vuole-varieta",
-scores:{gyn:8,uro:8,orl:6,cardio:5,chir_vasc:5,ortop:7,chir_gen:5,emerg:6}},
+scores:{gyn:8,uro:8,orl:6,cardio:5,chir_vasc:5,ortop:7,chir_gen:5,emerg:6,chir_plast:6}},
 ]},
 
 // ══ DISCRIMINATORE INTERVENTISTICA ════════════════════════════════════════
@@ -1142,6 +1186,7 @@ scores:{neuro:9,rad:5,neurochir:4,chir_vasc:2}},
 const CLUSTERS = {
 chir_maggiore: ['chir_gen','ortop','neurochir','chir_card','chir_vasc'],
 chir_minore:   ['ocu','orl','chir_plast','gyn','uro'],
+chir_plast_cluster: ['chir_plast','ocu','orl'],
 med_mente:     ['neuro','psich','npi'],
 med_onco:      ['onco','emo','rad_onco'],
 med_imm:       ['reum','mal_inf'],
@@ -1152,6 +1197,7 @@ med_organi:    ['cardio','pneumo','nefro','endo','diab','med_int'],
 };
 const DISC_BLOCKS = {
 chir_maggiore:'disc_chir_tipo', chir_minore:'disc_chir_tipo',
+chir_plast_cluster:'mirati_chir_plast',
 med_mente:'disc_med_mente',     med_onco:'disc_med_onco',
 med_imm:'disc_reum_malinf',     diagnostica:'disc_anapat_lab',
 urgenza:'disc_urgenza',         non_clinico:'disc_non_clinico',
@@ -1216,6 +1262,94 @@ function updateBayes(scores, mult) {
 KEYS.forEach(k => { logP[k]+=((scores[k]||0)*mult)/10.0; });
 }
 
+
+// ══════════════════════════════════════════════════════════════════════════
+// MAPPA DI INCOMPATIBILITÀ STRUTTURALE
+// Quando un tag viene confermato (val>=4), le specialità nella lista "anti"
+// ricevono una penalità aggiuntiva proporzionale a quanto il segnale è forte.
+// Quando un tag viene rifiutato (val<=2), le specialità nella lista "pro"
+// ricevono invece una penalità (il segnale opposto è presente).
+// ══════════════════════════════════════════════════════════════════════════
+const INCOMPATIBILITY_MAP = {
+  // MACRO CHIRURGIA vs DIAGNOSTICA/NON-CLINICO
+  'vuole-chirurgia':  {anti:['rad','anapat','lab','nuc','med_leg','med_lav','ig_san','psich','ger','pal','med_gen'], penalty:6},
+  'vuole-diagnostica':{anti:['chir_gen','ortop','neurochir','chir_plast','chir_card','emerg','gyn','uro','orl','ocu','chir_vasc'], penalty:7},
+  'vuole-urgenza':    {anti:['rad','anapat','lab','nuc','med_leg','med_lav','ig_san','ger','pal','med_gen','endo','diab'], penalty:7},
+  'vuole-ufficio':    {anti:['emerg','anest','chir_card','chir_gen','ped','neo','gyn','cardio','chir_vasc','neurochir'], penalty:8},
+  'vuole-relazione':  {anti:['rad','anapat','lab','nuc','med_leg','med_lav','ig_san'], penalty:6},
+  // STILE DI LAVORO
+  'acuto':            {anti:['med_gen','ger','psich','pal','endo','diab','reum','npi','med_lav','ig_san'], penalty:5},
+  'cronicita':        {anti:['emerg','anest','chir_card','chir_gen','ortop','chir_vasc','orl','ocu'], penalty:5},
+  'accetta-turni':    {anti:['rad','anapat','lab','med_leg','med_lav','ig_san','med_gen','endo','diab'], penalty:4},
+  'no-turni':         {anti:['emerg','anest','chir_card','chir_gen','ped','neo','gyn','cardio'], penalty:7},
+  'lavoro-programmato':{anti:['emerg','anest','chir_card','med_int','ger','pal','neo','ped'], penalty:5},
+  // CARATTERE
+  'ama-pressione':    {anti:['rad','anapat','lab','med_leg','med_lav','ig_san','ger','pal','med_gen'], penalty:5},
+  'ama-calma':        {anti:['emerg','anest','chir_card','chir_gen','chir_vasc','ped','neo'], penalty:5},
+  'ama-precisione':   {anti:['med_int','med_gen','ger','pal','ig_san','med_lav','psich'], penalty:4},
+  'ama-generalismo':  {anti:['neurochir','chir_card','ocu','orl','chir_plast','nuc','rad_onco','anapat','lab'], penalty:5},
+  'resiliente':       {anti:['rad','anapat','lab','med_leg','med_lav','ig_san'], penalty:3},
+  'evita-rischio':    {anti:['chir_card','neurochir','anest','emerg','chir_gen','gyn','neo'], penalty:6},
+  'logico-analitico': {anti:['psich','pal','ger','npi','med_gen','ped'], penalty:5},
+  'intelligenza-emotiva':{anti:['rad','anapat','lab','nuc','med_leg','med_lav','ig_san'], penalty:5},
+  // ECONOMIA
+  'vuole-libprof':    {anti:['emerg','anest','ger','pal','med_gen','ig_san','med_lav','med_leg','psich','npi'], penalty:6},
+  'vuole-missione':   {anti:['rad','anapat','lab','med_leg','med_lav','ig_san'], penalty:4},
+  'vuole-pubblico':   {anti:['chir_plast','ocu','orl','chir_gen','gyn','uro','neurochir'], penalty:5},
+  'vuole-ricerca':    {anti:['med_gen','med_leg','med_lav','ig_san','chir_plast','ocu','orl'], penalty:4},
+  'vuole-prestigio':  {anti:['med_gen','ger','pal','anapat','lab','med_lav','ig_san'], penalty:4},
+  // FUTURO AMBIENTE
+  'futuro-ospedale':  {anti:['med_gen','ger','med_lav','med_leg','ig_san','rad','anapat','lab','chir_plast','ocu'], penalty:5},
+  'futuro-territorio':{anti:['chir_gen','ortop','neurochir','chir_card','chir_vasc','emerg','anest','neo','emo'], penalty:6},
+  'futuro-sala-op':   {anti:['med_int','med_gen','ger','pal','psich','rad','anapat','lab','med_leg','med_lav','ig_san'], penalty:6},
+  'futuro-laboratorio':{anti:['chir_gen','ortop','neurochir','chir_card','emerg','gyn','uro','ped','neo','psich','ger','pal'], penalty:7},
+  'futuro-ufficio':   {anti:['chir_gen','ortop','neurochir','chir_card','emerg','gyn','uro','ped','neo','psich','ger','pal','cardio','neuro'], penalty:8},
+  // SPECIALITÀ SPECIFICHE
+  'ama-med-sport':    {anti:['chir_gen','chir_plast','chir_card','neurochir','emerg','anest','ger','pal'], penalty:7},
+  'ama-chirurgia':    {anti:['rad','anapat','lab','nuc','med_leg','med_lav','ig_san','psich','ger','pal','med_gen'], penalty:6},
+  'ama-chir-plast':   {anti:['ortop','chir_gen','chir_card','neurochir','uro','orl','ocu'], penalty:7},
+  'ama-chir-plast-est':{anti:['ortop','chir_gen','chir_card','neurochir','uro'], penalty:6},
+  'ama-ortopedia':    {anti:['chir_plast','med_sport','ocu','orl','uro','gyn','chir_card'], penalty:7},
+  'ama-cardiochirurgia':{anti:['chir_plast','ocu','orl','ortop','med_sport','chir_gen'], penalty:8},
+  'ama-neurochir':    {anti:['chir_plast','ocu','orl','ortop','uro','gyn','chir_gen'], penalty:8},
+  'ama-oculistica':   {anti:['ortop','chir_gen','chir_card','neurochir','uro','orl','chir_vasc'], penalty:8},
+  'ama-orl':          {anti:['ocu','chir_gen','chir_card','neurochir','uro','ortop','chir_vasc'], penalty:8},
+  'ama-ginecologia':  {anti:['uro','chir_gen','ocu','orl','chir_plast','neurochir'], penalty:8},
+  'ama-urologia':     {anti:['chir_plast','chir_gen','ocu','orl','gyn','neurochir'], penalty:8},
+  'ama-chir-gen':     {anti:['chir_plast','ocu','orl','ortop','uro','gyn','chir_vasc'], penalty:8},
+  'ama-chir-vasc':    {anti:['chir_plast','ocu','orl','ortop','uro','gyn','chir_card'], penalty:8},
+  'ama-cardiologia':  {anti:['chir_gen','ortop','ocu','orl','chir_plast','neurochir','uro'], penalty:7},
+  'ama-neurologia':   {anti:['chir_gen','ortop','chir_plast','ocu','orl','uro','gyn'], penalty:7},
+  'ama-neurologia-org':{anti:['chir_gen','ortop','chir_plast','ocu','orl','uro','gyn'], penalty:8},
+  'ama-psichiatria':  {anti:['rad','anapat','lab','med_leg','med_lav','ig_san','chir_gen','ortop','chir_plast'], penalty:7},
+  'ama-psichiatria-adulti':{anti:['npi','ped','neo','chir_gen','ortop','chir_plast','rad','lab'], penalty:8},
+  'ama-npi':          {anti:['psich','ger','rad','lab','med_leg','med_lav','ig_san','chir_gen','ortop'], penalty:8},
+  'ama-pediatria':    {anti:['neo','ger','rad','lab','med_leg','med_lav','ig_san','chir_gen','chir_card'], penalty:7},
+  'ama-geriatria':    {anti:['neo','ped','npi','chir_gen','chir_card','neurochir','emerg'], penalty:7},
+  'ama-palliativa':   {anti:['chir_gen','chir_card','neurochir','emerg','anest','rad','lab','anapat','ortop','ocu','orl','chir_plast','chir_vasc'], penalty:7},
+  'ama-med-gen':      {anti:['neurochir','chir_card','ocu','orl','chir_plast','nuc','rad_onco','anapat','lab','emerg'], penalty:7},
+  'ama-medicina-interna':{anti:['chir_gen','chir_plast','ocu','orl','rad','lab','med_gen','emerg'], penalty:7},
+  'ama-emergenza':    {anti:['rad','anapat','lab','med_leg','med_lav','ig_san','ger','pal','med_gen','endo','diab'], penalty:8},
+  'ama-radiodiagnostica':{anti:['chir_gen','ortop','neurochir','chir_plast','chir_card','emerg','gyn','uro'], penalty:8},
+  'ama-laboratorio':  {anti:['chir_gen','ortop','neurochir','chir_plast','emerg','gyn','uro','ped','neo'], penalty:8},
+  'ama-medicina-legale':{anti:['chir_gen','ortop','emerg','anest','ped','neo','gyn','uro'], penalty:8},
+  'ama-med-lavoro':   {anti:['chir_gen','ortop','emerg','anest','ped','neo','gyn','uro','neurochir'], penalty:8},
+  'ama-igiene':       {anti:['chir_gen','ortop','emerg','anest','ped','neo','gyn','uro','neurochir','psich'], penalty:8},
+  'ama-oncologia':    {anti:['rad','anapat','lab','med_leg','med_lav','ig_san','chir_gen','ortop','chir_plast'], penalty:6},
+  'ama-infettivologia':{anti:['rad','anapat','lab','med_leg','med_lav','ig_san','chir_gen','ortop','chir_plast'], penalty:6},
+  'ama-reumatologia': {anti:['rad','anapat','lab','med_leg','med_lav','ig_san','chir_gen','ortop','emerg'], penalty:7},
+  'ama-pneumologia':  {anti:['rad','anapat','lab','med_leg','med_lav','ig_san','chir_gen','ortop','chir_plast'], penalty:6},
+  'ama-nefrologia':   {anti:['rad','anapat','lab','med_leg','med_lav','ig_san','chir_gen','ortop','chir_plast'], penalty:7},
+  'ama-endocrinologia':{anti:['chir_gen','ortop','emerg','anest','rad','lab','anapat'], penalty:6},
+  'ama-diabetologia': {anti:['chir_gen','ortop','emerg','anest','rad','lab','anapat','chir_plast','neurochir'], penalty:6},
+  'vuole-tecnica-procedurale':{anti:['med_int','psich','pal','ger','med_gen','rad','anapat','lab','med_leg','med_lav','ig_san'], penalty:6},
+  'vuole-corsia-medica':{anti:['chir_gen','chir_plast','ortop','neurochir','chir_card','emerg','rad','lab','anapat','med_leg','med_lav','ig_san'], penalty:6},
+  'vuole-extraclinico':{anti:['chir_gen','ortop','neurochir','emerg','gyn','uro','ped','neo','psich','cardio'], penalty:7},
+  'vuole-ibrido':     {anti:['rad','anapat','lab','med_leg','med_lav','ig_san'], penalty:4},
+  'vuole-interventistica':{anti:['med_gen','ger','pal','psich','med_lav','ig_san','anapat','lab'], penalty:5},
+  'vuole-varieta':    {anti:['rad','anapat','lab','med_leg','med_lav','ig_san','med_gen'], penalty:4},
+};
+
 function itemIG(item) {
 const curH=entropy(getProbs());
 let wH=0;
@@ -1259,26 +1393,30 @@ const ITEMS_PER_ROUND=4;
 const msExcl=POOL.find(b=>b.type==='multiselect'&&b.id==='esclusione'&&!askedItems.has(b.id+':ms'));
 if(msExcl&&qCount===0) return [{isMsBlock:true,block:msExcl,itemKey:msExcl.id+':ms'}];
 
-// Round 1: multi-select pazienti
-const msPat=POOL.find(b=>b.type==='multiselect'&&b.id==='vocazione_pazienti'&&!askedItems.has(b.id+':ms'));
-if(msPat&&qCount===1) return [{isMsBlock:true,block:msPat,itemKey:msPat.id+':ms'}];
+// Round 1: lifestyle filter (after esclusione)
+const lsBlock=POOL.find(b=>b.type==='lifestyle'&&b.id==='lifestyle_filter'&&!askedItems.has(b.id+':ls'));
+if(lsBlock&&qCount===1) return [{isLifestyle:true,block:lsBlock,itemKey:lsBlock.id+':ls'}];
 
-// Round 2: giornata ideale
+// Round 2: multi-select pazienti
+const msPat=POOL.find(b=>b.type==='multiselect'&&b.id==='vocazione_pazienti'&&!askedItems.has(b.id+':ms'));
+if(msPat&&qCount===2) return [{isMsBlock:true,block:msPat,itemKey:msPat.id+':ms'}];
+
+// Round 3: giornata ideale
 const msGiornata=POOL.find(b=>b.type==='multiselect'&&b.id==='giornata_ideale'&&!askedItems.has(b.id+':ms'));
-if(msGiornata&&qCount===2) return [{isMsBlock:true,block:msGiornata,itemKey:msGiornata.id+':ms'}];
+if(msGiornata&&qCount===3) return [{isMsBlock:true,block:msGiornata,itemKey:msGiornata.id+':ms'}];
 
 // Round 3: se chirurgia è in top3, porta subito il disc_chir_tipo
 const msChirEarly=POOL.find(b=>b.type==='multiselect'&&b.id==='disc_chir_tipo'&&!askedItems.has(b.id+':ms'));
-if(msChirEarly&&qCount===3){
-const top3keys=topN(3).map(e=>e.key);
+if(msChirEarly&&qCount===4){
+const top5keys=topN(5).map(e=>e.key);
 const chirKeys=['chir_gen','ortop','neurochir','chir_plast','chir_card','uro','orl','ocu','gyn','chir_vasc'];
-const chirInTop3=top3keys.some(k=>chirKeys.includes(k));
-if(chirInTop3) return [{isMsBlock:true,block:msChirEarly,itemKey:msChirEarly.id+':ms'}];
+const chirInTop5=top5keys.some(k=>chirKeys.includes(k));
+if(chirInTop5) return [{isMsBlock:true,block:msChirEarly,itemKey:msChirEarly.id+':ms'}];
 }
 
 // Round 3: se non-clinico in top5, porta subito il disc_non_clinico_ms
 const msNonClin=POOL.find(b=>b.type==='multiselect'&&b.id==='disc_non_clinico_ms'&&!askedItems.has(b.id+':ms'));
-if(msNonClin&&qCount===3){
+if(msNonClin&&qCount===4){
 const top5keys=topN(5).map(e=>e.key);
 const ncKeys=['med_leg','med_lav','ig_san'];
 const ncInTop5=top5keys.some(k=>ncKeys.includes(k));
@@ -1357,9 +1495,151 @@ return candidates.slice(0,ITEMS_PER_ROUND);
 let likertValues={};
 let msSelected=new Set(); // indici selezionati nella domanda multi-select
 
+
+function renderLifestyle(block) {
+  document.getElementById('result-view').style.display='none';
+  document.getElementById('quiz-view').style.display='';
+  document.getElementById('quiz-view').innerHTML = `
+    <div class="top-bar">
+      <span class="q-num">Stile di vita</span>
+      <span class="hint-badge">🎚️ Filtro preferenze</span>
+    </div>
+    <div class="question">${block.text}</div>
+    <div id="ls-dims">
+    ${block.dimensions.map(d => `
+      <div class="ls-block" id="lsb-${d.key}">
+        <div class="ls-label">${d.label}</div>
+        <div class="ls-hint">${d.hint}</div>
+        <div class="ls-row">
+          <span class="ls-lo">${d.lo}</span>
+          <input type="range" class="ls-slider" id="lss-${d.key}"
+            min="1" max="5" value="3"
+            oninput="lsUpdate('${d.key}',this.value)" />
+          <span class="ls-hi">${d.hi}</span>
+          <span class="ls-val" id="lsv-${d.key}"></span>
+        </div>
+        <span class="ls-skip" id="lsk-${d.key}" onclick="lsToggleSkip('${d.key}')">
+          Non ho preferenze su questo
+        </span>
+      </div>`).join('')}
+    </div>
+    <button class="btn" style="margin-top:18px" onclick="goLifestyle()">
+      Applica e continua →
+    </button>
+    <button class="restart-btn" style="margin-top:8px;width:100%;font-size:.78rem" onclick="skipLifestyle()">
+      Salta questo filtro →
+    </button>
+  `;
+  // init
+  block.dimensions.forEach(d => lsUpdate(d.key, 3));
+}
+
+const _lsSkip = new Set();
+const _lsVal  = {guardie:3, wlb:3, libprof:3, stress:3};
+const _lsLabels = {
+  guardie:{1:'Nessuna',2:'Pochissime',3:'Moderate',4:'Frequenti',5:'Tutte'},
+  wlb:    {1:'Non conta',2:'Conta poco',3:'Abbastanza',4:'Importante',5:'Fondamentale'},
+  libprof:{1:'Nessuna',2:'Poca',3:'Discreta',4:'Molta',5:'Massima'},
+  stress: {1:'Basso',2:'Medio-basso',3:'Medio',4:'Alto',5:'Molto alto'},
+};
+
+function lsUpdate(key, val) {
+  val = parseInt(val);
+  _lsVal[key] = val;
+  const slider = document.getElementById('lss-'+key);
+  const valEl  = document.getElementById('lsv-'+key);
+  if (!slider || !valEl) return;
+  const pct = (val-1)/4*100;
+  slider.style.background = `linear-gradient(90deg,var(--red) 0%,var(--red) ${pct}%,#f0dede ${pct}%,#f0dede 100%)`;
+  valEl.textContent = (_lsLabels[key]||{})[val] || val;
+}
+
+function lsToggleSkip(key) {
+  const skipEl   = document.getElementById('lsk-'+key);
+  const sliderEl = document.getElementById('lss-'+key);
+  const valEl    = document.getElementById('lsv-'+key);
+  const blockEl  = document.getElementById('lsb-'+key);
+  if (_lsSkip.has(key)) {
+    _lsSkip.delete(key);
+    skipEl.classList.remove('active');
+    skipEl.textContent = 'Non ho preferenze su questo';
+    sliderEl.disabled = false;
+    [sliderEl, valEl, blockEl].forEach(el => el && (el.style.opacity='1'));
+  } else {
+    _lsSkip.add(key);
+    skipEl.classList.add('active');
+    skipEl.textContent = '✓ Saltato';
+    sliderEl.disabled = true;
+    sliderEl.style.opacity = '0.25';
+    valEl.style.opacity    = '0.25';
+  }
+}
+
+function goLifestyle() {
+  const prefs = {};
+  ['guardie','wlb','libprof','stress'].forEach(k => {
+    prefs[k] = _lsSkip.has(k) ? null : (_lsVal[k] || 3);
+  });
+  askedItems.add('lifestyle_filter:ls');
+  applyLifestyleExclusions(prefs);
+  qCount++;
+  const card = document.getElementById('card');
+  card.classList.add('fade');
+  setTimeout(() => { card.classList.remove('fade'); render(); }, 280);
+}
+
+function skipLifestyle() {
+  askedItems.add('lifestyle_filter:ls');
+  qCount++;
+  const card = document.getElementById('card');
+  card.classList.add('fade');
+  setTimeout(() => { card.classList.remove('fade'); render(); }, 280);
+}
+
+
+// ══════════════════════════════════════════════════════════════════════
+// SISTEMA DI PESI PER ROUND
+// I macro-filtri iniziali pesano di più perché catturano segnali forti
+// e strutturali. I discriminatori fini pesano meno (1.0x) perché
+// operano già su uno spazio ristretto di candidati.
+// ══════════════════════════════════════════════════════════════════════
+const MACRO_BLOCKS = new Set([
+  'vocazione_pazienti','giornata_ideale',
+  'macro_mani','macro_dati','macro_urgenza','macro_ufficio','macro_persone',
+  'macro_split_ospedale','wlb_turni','wlb_ritmo',
+  'economia_libprof','economia_ricerca',
+  'futuro_ambiente','carattere_pressione','carattere_relazione'
+]);
+const DISC_BLOCKS_SET = new Set([
+  'disc_chir_tipo','disc_non_clinico_ms'
+]);
+
+function getRoundWeight(blockId, currentQ) {
+  // Multiselect fondamentali → peso massimo
+  if(blockId==='vocazione_pazienti' || blockId==='giornata_ideale') return 2.5;
+  // Macro-filtri Likert nei primi 4 round
+  if(MACRO_BLOCKS.has(blockId)) {
+    if(currentQ <= 3) return 2.0;
+    if(currentQ <= 5) return 1.5;
+    return 1.2;
+  }
+  // Multiselect chirurgia/non-clinico
+  if(DISC_BLOCKS_SET.has(blockId)) return 2.0;
+  // Likert generico: peso decrescente con il round
+  if(currentQ <= 3) return 1.4;
+  if(currentQ <= 6) return 1.2;
+  return 1.0;
+}
+
 function render(){
 const selected=pickItems();
 if(!selected||!selected.length){showResult();return;}
+// Handle lifestyle filter block
+if(selected.length===1&&selected[0].isLifestyle){
+  askedItems.add(selected[0].itemKey);
+  renderLifestyle(selected[0].block);
+  return;
+}
 currentItems=selected;
 const t1=topN(1)[0];
 const confPct=Math.round(topProb()*100);
@@ -1499,8 +1779,9 @@ if(block.id==='esclusione'){
       combined[k]=(combined[k]||0)+v;
     });
   });
-  // Normalizza per numero di selezioni per evitare effetto cumulativo esagerato
-  const factor=1/Math.sqrt(msSelected.size);
+  // Normalizza per numero di selezioni + applica peso del round
+  const msWeight = getRoundWeight(block.id, qCount);
+  const factor=(1/Math.sqrt(msSelected.size)) * msWeight;
   updateBayes(combined, factor);
   // Traccia contributo
   const pA=getProbs();
@@ -1536,13 +1817,37 @@ return;
 currentItems.forEach((c,i)=>{
 const val=likertValues[i]!==undefined?likertValues[i]:3;
 const mult=LIKERT_SCALE[val]||0;
-updateBayes(c.item.scores,mult);
+const rw=getRoundWeight(c.block?c.block.id:'', qCount);
+updateBayes(c.item.scores, mult * rw);
 askedItems.add(c.itemKey);
-if(val!==3&&Math.abs(mult)>0.1){
+
+// ── Applica incompatibilità strutturale basata su tag ──────────────────
+if(c.item.tag && INCOMPATIBILITY_MAP[c.item.tag]){
+  const imap = INCOMPATIBILITY_MAP[c.item.tag];
+  if(val>=4){
+    // Utente conferma il tag → penalizza le specialità strutturalmente opposte
+    const penalty = imap.penalty * (val===5 ? 1.0 : 0.6);
+    const antiScores = {};
+    imap.anti.forEach(sp => { antiScores[sp] = -penalty; });
+    updateBayes(antiScores, 1.0);
+  } else if(val<=2){
+    // Utente nega il tag → le specialità "anti" diventano relativamente più probabili
+    const boost = imap.penalty * (val===1 ? 0.5 : 0.25);
+    const boostScores = {};
+    imap.anti.forEach(sp => { boostScores[sp] = boost; });
+    updateBayes(boostScores, 1.0);
+  }
+}
+
+if(val>=4&&Math.abs(mult)>0.1){
 const pA=getProbs();
-let maxD=0,maxSp='';
-KEYS.forEach(k=>{ const d=(pA[k]-pBefore[k])*100; if(d>maxD){maxD=d;maxSp=k;} });
-if(maxD>0.3) itemContributions.push({stmt:c.item.stmt,value:val,topSp:maxSp,deltaTop:Math.round(maxD*10)/10});
+KEYS.forEach(k=>{
+  const directScore=(c.item.scores[k]||0);
+  if(directScore>0){
+    const d=(pA[k]-pBefore[k])*100;
+    if(d>0.3) itemContributions.push({stmt:c.item.stmt,value:val,topSp:k,deltaTop:Math.round(d*10)/10});
+  }
+});
 }
 if(val>=4&&c.item.excludes) c.item.excludes.forEach(bid=>excludedBlocks.add(bid));
 if(val>=4&&c.item.tag){
@@ -1689,6 +1994,14 @@ ${sorted.length>1&&sorted[1].prob>0.05?`
       </div>`).join('')}
   </div>
 </div>
+${(window._lifestyleExcluded && window._lifestyleExcluded.length>0)?`
+<div class="why-box" style="background:#fff8f0;border:1px solid #f5c6c6;margin:12px 0">
+  <h3 style="color:#c0392b">🚫 Escluse per stile di vita (${window._lifestyleExcluded.length})</h3>
+  <p style="font-size:.78rem;color:#888;margin-bottom:8px;line-height:1.5">
+    Non compatibili con le tue preferenze su guardie, work-life balance o libera professione:
+  </p>
+  <div>${window._lifestyleExcluded.map(sp=>SP[sp]?`<span class="why-tag" style="background:#fff0f0;color:#c0392b;border-color:#f5c6c6">${SP[sp].icon} ${SP[sp].name}</span>`:'').join('')}</div>
+</div>`:''}
 <p class="res-note">Risultato orientativo · inferenza bayesiana · ${qCount} domande. Confrontati con i tuoi tutor.</p>
 <button class="restart-btn" onclick="restart()">↩ Ricomincia</button>
 
@@ -1863,6 +2176,10 @@ drawCard(null);
 }
 
 function restart(){
+  window._lifestyleExcluded = [];
+  window._lifestyleSoft = [];
+  _lsSkip.clear();
+  Object.assign(_lsVal, {guardie:3,wlb:3,libprof:3,stress:3});
 initLogP();
 askedItems=new Set(); excludedBlocks=new Set();
 qCount=0; answerTags=[]; pendingContradiction=null; extendedPhase=false;
