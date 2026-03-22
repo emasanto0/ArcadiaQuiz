@@ -1868,35 +1868,34 @@ const tp=topProb();
 const activeDisc=tp>0.05?getActiveDiscriminators():new Set();
 const ITEMS_PER_ROUND=4;
 
-// Round 0: esclusione attiva — peso massimo assoluto
+// Round 0: esclusione attiva — prima domanda sempre
 const msExcl=POOL.find(b=>b.type==='multiselect'&&b.id==='esclusione'&&!askedItems.has(b.id+':ms'));
-if(msExcl&&qCount===0) return [{isMsBlock:true,block:msExcl,itemKey:msExcl.id+':ms'}];
+if(msExcl&&!askedItems.has('esclusione:ms')) return [{isMsBlock:true,block:msExcl,itemKey:msExcl.id+':ms'}];
 
-// Round 1: giornata ideale — orienta il macro-cluster PRIMA del lifestyle
+// Round 1: giornata ideale — dopo esclusione
 const msGiornata=POOL.find(b=>b.type==='multiselect'&&b.id==='giornata_ideale'&&!askedItems.has(b.id+':ms'));
-if(msGiornata&&qCount===1) return [{isMsBlock:true,block:msGiornata,itemKey:msGiornata.id+':ms'}];
+if(msGiornata&&askedItems.has('esclusione:ms')) return [{isMsBlock:true,block:msGiornata,itemKey:msGiornata.id+':ms'}];
 
-// Round 2: multi-select pazienti
+// Round 2: multi-select pazienti — dopo giornata
 const msPat=POOL.find(b=>b.type==='multiselect'&&b.id==='vocazione_pazienti'&&!askedItems.has(b.id+':ms'));
-if(msPat&&qCount===2) return [{isMsBlock:true,block:msPat,itemKey:msPat.id+':ms'}];
+if(msPat&&askedItems.has('giornata_ideale:ms')) return [{isMsBlock:true,block:msPat,itemKey:msPat.id+':ms'}];
 
-// Round 3: lifestyle filter — DOPO giornata e vocazione, non prima
+// Round 3: lifestyle filter — dopo vocazione pazienti
 const lsBlock=POOL.find(b=>b.type==='lifestyle'&&b.id==='lifestyle_filter'&&!askedItems.has(b.id+':ls'));
-if(lsBlock&&qCount===3) return [{isLifestyle:true,block:lsBlock,itemKey:lsBlock.id+':ls'}];
+if(lsBlock&&askedItems.has('vocazione_pazienti:ms')) return [{isLifestyle:true,block:lsBlock,itemKey:lsBlock.id+':ls'}];
 
-// Round 3: se chirurgia è in top3, porta subito il disc_chir_tipo
+// Round 4a: se chirurgia è in top5, porta disc_chir_tipo — dopo lifestyle
 const msChirEarly=POOL.find(b=>b.type==='multiselect'&&b.id==='disc_chir_tipo'&&!askedItems.has(b.id+':ms'));
-if(msChirEarly&&qCount===4){
+if(msChirEarly&&askedItems.has('lifestyle_filter:ls')){
 const top5keys=topN(5).map(e=>e.key);
 const chirKeys=['chir_gen','ortop','neurochir','chir_plast','chir_card','uro','orl','ocu','gyn','chir_vasc'];
 const chirInTop5=top5keys.some(k=>chirKeys.includes(k));
-// Mostra disc_chir_tipo se chirurgia in top5 OPPURE se utente ha selezionato 'operare'
 if(chirInTop5 || _giornataSelettoOperare) return [{isMsBlock:true,block:msChirEarly,itemKey:msChirEarly.id+':ms'}];
 }
 
-// Round 3: se non-clinico in top5, porta subito il disc_non_clinico_ms
+// Round 4b: se non-clinico in top5, porta disc_non_clinico_ms — dopo lifestyle
 const msNonClin=POOL.find(b=>b.type==='multiselect'&&b.id==='disc_non_clinico_ms'&&!askedItems.has(b.id+':ms'));
-if(msNonClin&&qCount===4){
+if(msNonClin&&askedItems.has('lifestyle_filter:ls')){
 const top5keys=topN(5).map(e=>e.key);
 const ncKeys=['med_leg','med_lav','ig_san'];
 const ncInTop5=top5keys.some(k=>ncKeys.includes(k));
@@ -2203,7 +2202,6 @@ const selected=pickItems();
 if(!selected||!selected.length){showResult();return;}
 // Handle lifestyle filter block
 if(selected.length===1&&selected[0].isLifestyle){
-  askedItems.add(selected[0].itemKey);
   renderLifestyle(selected[0].block);
   return;
 }
@@ -2476,9 +2474,9 @@ const allP=getProbs();
 const top2=Object.entries(allP).sort((a,b)=>b[1]-a[1]).slice(0,2);
 const sp1=SP[top2[0][0]]; const sp2=SP[top2[0][0]!==top2[1][0]?top2[1][0]:top2[0][0]];
 const pct1=Math.round(top2[0][1]*100); const pct2=Math.round(top2[1][1]*100);
-const col1=GC[sp1?.group]||'#c0392b'; const col2=GC[sp2?.group]||'#c0392b';
+const col1=GC[(sp1 && sp1.group)]||'#c0392b'; const col2=GC[(sp2 && sp2.group)]||'#c0392b';
 
-document.getElementById('quiz-view').innerHTML=`<div class="card" style="text-align:center;padding:28px 22px"> <div style="font-size:2rem;margin-bottom:10px">🤔</div> <h2 style="font-family:'Playfair Display',serif;font-size:1.2rem;color:#2c1810;margin-bottom:8px"> Il tuo profilo è ancora un po' ambiguo </h2> <p style="font-size:.88rem;color:#666;line-height:1.6;margin-bottom:18px"> Le tue risposte non hanno ancora chiarito con certezza la tua specialità ideale.  In questo momento sei a metà tra <strong style="color:${col1}">${sp1?.icon} ${sp1?.name}</strong> (${pct1}%)  e <strong style="color:${col2}">${sp2?.icon} ${sp2?.name}</strong> (${pct2}%). </p> <p style="font-size:.85rem;color:#888;line-height:1.6;margin-bottom:22px"> Abbi pazienza -- ti faccio <strong>4-5 domande più precise</strong> per capire meglio  dove ti trovi. Rispondi con la massima onestà e vedrai un risultato molto più netto. </p> <div style="display:flex;gap:10px;justify-content:center;margin-bottom:8px"> <div style="background:${col1}15;border:1px solid ${col1}40;border-radius:10px;padding:10px 16px;font-size:.82rem;color:${col1};font-weight:700">${sp1?.icon} ${sp1?.name}</div> <div style="font-size:1.2rem;color:#bbb;padding:10px 4px">vs</div> <div style="background:${col2}15;border:1px solid ${col2}40;border-radius:10px;padding:10px 16px;font-size:.82rem;color:${col2};font-weight:700">${sp2?.icon} ${sp2?.name}</div> </div> <button class="btn" style="margin-top:18px;width:100%" onclick="this.disabled=true;startExtendedPhase()"> Continua con le domande finali → </button> <button class="restart-btn" style="margin-top:10px;width:100%;font-size:.8rem" onclick="showResult()"> Mostra comunque il risultato → </button> </div>`;
+document.getElementById('quiz-view').innerHTML=`<div class="card" style="text-align:center;padding:28px 22px"> <div style="font-size:2rem;margin-bottom:10px">🤔</div> <h2 style="font-family:'Playfair Display',serif;font-size:1.2rem;color:#2c1810;margin-bottom:8px"> Il tuo profilo è ancora un po' ambiguo </h2> <p style="font-size:.88rem;color:#666;line-height:1.6;margin-bottom:18px"> Le tue risposte non hanno ancora chiarito con certezza la tua specialità ideale.  In questo momento sei a metà tra <strong style="color:${col1}">${(sp1 && sp1.icon)||'🏥'} ${(sp1 && sp1.name)||''}</strong> (${pct1}%)  e <strong style="color:${col2}">${(sp2 && sp2.icon)||'🏥'} ${(sp2 && sp2.name)||''}</strong> (${pct2}%). </p> <p style="font-size:.85rem;color:#888;line-height:1.6;margin-bottom:22px"> Abbi pazienza -- ti faccio <strong>4-5 domande più precise</strong> per capire meglio  dove ti trovi. Rispondi con la massima onestà e vedrai un risultato molto più netto. </p> <div style="display:flex;gap:10px;justify-content:center;margin-bottom:8px"> <div style="background:${col1}15;border:1px solid ${col1}40;border-radius:10px;padding:10px 16px;font-size:.82rem;color:${col1};font-weight:700">${(sp1 && sp1.icon)||'🏥'} ${(sp1 && sp1.name)||''}</div> <div style="font-size:1.2rem;color:#bbb;padding:10px 4px">vs</div> <div style="background:${col2}15;border:1px solid ${col2}40;border-radius:10px;padding:10px 16px;font-size:.82rem;color:${col2};font-weight:700">${(sp2 && sp2.icon)||'🏥'} ${(sp2 && sp2.name)||''}</div> </div> <button class="btn" style="margin-top:18px;width:100%" onclick="this.disabled=true;startExtendedPhase()"> Continua con le domande finali → </button> <button class="restart-btn" style="margin-top:10px;width:100%;font-size:.8rem" onclick="showResult()"> Mostra comunque il risultato → </button> </div>`;
 }
 
 function startExtendedPhase(){
@@ -2510,15 +2508,18 @@ const uncertaintyMsg = isUncertain
 
 // Rileva contraddizioni tra esclusioni hard e risposte Likert
 const hardExcluded = new Set(
-[...Array(12).keys()].flatMap(i => {
-const EMAP = {
+[...Array(12).keys()].reduce(function(acc, i) {
+var EMAP = {
 0:['chir_gen','ortop','neurochir','chir_plast','chir_card','uro','orl','ocu','gyn','chir_vasc'],
 1:['emerg','anest','chir_card','ped','neo'],
 4:['emerg','anest','chir_card','chir_gen'],
 };
-return allP[Object.keys(allP)[0]] !== undefined && logP[Object.keys(logP)[0]] === -999
-? (EMAP[i]||[]) : [];
-})
+var keys = Object.keys(allP);
+if(keys.length > 0 && allP[keys[0]] !== undefined && logP[keys[0]] === -999) {
+  return acc.concat(EMAP[i]||[]);
+}
+return acc;
+}, [])
 );
 
 document.getElementById('quiz-view').style.display='none';
@@ -2553,12 +2554,12 @@ ${sorted.length>1&&sorted[1].prob>0.05?`
   <div class="vs-grid">
     <div class="vs-col">
       <div class="vs-sp-name" style="color:${GC[sorted[0].group]}">${sorted[0].icon} ${sorted[0].name} <span class="vs-pct">${Math.round(sorted[0].prob*100)}%</span></div>
-      <ul class="vs-list">${(SP[sorted[0].key]?.why||[]).map(w=>`<li>✓ ${w}</li>`).join('')}</ul>
+      <ul class="vs-list">${((SP[sorted[0].key] && SP[sorted[0].key].why)||[]).map(function(w){return '<li>✓ '+w+'</li>';}).join('')}</ul>
     </div>
     <div class="vs-divider">vs</div>
     <div class="vs-col">
       <div class="vs-sp-name" style="color:${GC[sorted[1].group]}">${sorted[1].icon} ${sorted[1].name} <span class="vs-pct">${Math.round(sorted[1].prob*100)}%</span></div>
-      <ul class="vs-list">${(SP[sorted[1].key]?.why||[]).map(w=>`<li>✓ ${w}</li>`).join('')}</ul>
+      <ul class="vs-list">${((SP[sorted[1].key] && SP[sorted[1].key].why)||[]).map(function(w){return '<li>✓ '+w+'</li>';}).join('')}</ul>
     </div>
   </div>
   <p class="vs-note">Se senti che la seconda ti rappresenta di più, considera di rifare il quiz con più attenzione a quelle caratteristiche.</p>
