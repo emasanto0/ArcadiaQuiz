@@ -3,7 +3,7 @@
 <html lang="it">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>ArcadiA MED – Trova la tua specialità</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
 <style>
@@ -218,6 +218,8 @@ body{
 .fb-comment textarea{width:100%;border:1px solid #f0dede;border-radius:10px;padding:10px;
   font-family:'Lora',serif;font-size:.84rem;resize:vertical;min-height:68px;box-sizing:border-box}
 .fb-thanks{display:none;font-size:.85rem;color:#1a6b3a;margin-top:10px}
+button,a{touch-action:manipulation;-webkit-tap-highlight-color:transparent;}
+.ms-option,.likert-dot,.ls-skip{touch-action:manipulation;-webkit-tap-highlight-color:transparent;}
 </style>
 <script data-goatcounter="https://arcadiaquiz.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </head>
@@ -2762,11 +2764,14 @@ const logoEl=document.getElementById('logo');
 if(logoEl && logoEl.src){
 const img=new Image();
 img.crossOrigin='anonymous';
-img.onload=()=>drawCard(img);
-img.onerror=()=>drawCard(null);
 img.src=logoEl.src;
-// se già in cache onload non scatta -- forziamo
-if(img.complete && img.naturalWidth>0) { drawCard(img); img.onload=null; }
+// Se già in cache, complete è true subito — gestisci senza onload
+if(img.complete && img.naturalWidth>0){
+  drawCard(img);
+} else {
+  img.onload=()=>drawCard(img);
+  img.onerror=()=>drawCard(null);
+}
 } else {
 drawCard(null);
 }
@@ -2815,6 +2820,7 @@ function showStoryPreview(dataUrl, spKey) {
   // Rimuovi modal esistente se c'è
   const existing = document.getElementById('story-modal');
   if (existing) existing.remove();
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
 
   const modal = document.createElement('div');
   modal.id = 'story-modal';
@@ -2842,10 +2848,12 @@ function showStoryPreview(dataUrl, spKey) {
          style="display:block;background:linear-gradient(135deg,#f9ce34,#ee2a7b,#6228d7);
                 color:#fff;font-weight:bold;padding:14px;border-radius:12px;
                 text-decoration:none;font-size:.95rem;margin-bottom:10px">
-        ⬇️ Scarica l'immagine
+        ⬇️ ${isIOS ? 'Tieni premuta l\'immagine → Salva' : 'Scarica l\'immagine'}
       </a>
-      <p style="color:#888;font-size:.75rem;margin:0 0 14px;line-height:1.5">
-        Dopo il download, apri Instagram → Stories → scegli l'immagine dalla galleria
+      <p style="color:#888;font-size:.75rem;margin:0 0 14px;line-height:1.5" id="story-dl-hint">
+        ${isIOS
+          ? '📱 Su iPhone: tieni premuta l\'immagine → Salva foto. Poi apri Instagram → Stories.'
+          : 'Dopo il download, apri Instagram → Stories → scegli l\'immagine dalla galleria'}
       </p>
       <button onclick="document.getElementById('story-modal').remove()"
               style="background:rgba(255,255,255,0.1);color:#ccc;border:none;
