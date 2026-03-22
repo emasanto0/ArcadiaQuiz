@@ -1984,7 +1984,7 @@ function renderLifestyle(block) {
         </span>
       </div>`).join('')}
     </div>
-    <button class="btn" style="margin-top:18px" onclick="goLifestyle()">
+    <button class="btn" style="margin-top:18px" onclick="this.disabled=true;this.textContent='→ ';goLifestyle()">
       Applica e continua →
     </button>
     <button class="restart-btn" style="margin-top:8px;width:100%;font-size:.78rem" onclick="skipLifestyle()">
@@ -2109,7 +2109,10 @@ function applyLifestyleExclusions(prefs) {
     updateBayes(scaled, W);
   }
 }
+let _lifestyleProcessing = false;
 function goLifestyle() {
+  if (_lifestyleProcessing) return;  // guard: previene doppio tap
+  _lifestyleProcessing = true;
   const prefs = {};
   ['guardie','wlb','libprof','stress'].forEach(k => {
     prefs[k] = _lsSkip.has(k) ? null : (_lsVal[k] || 3);
@@ -2119,15 +2122,25 @@ function goLifestyle() {
   qCount++;
   const card = document.getElementById('card');
   card.classList.add('fade');
-  setTimeout(() => { card.classList.remove('fade'); render(); }, 280);
+  setTimeout(() => {
+    card.classList.remove('fade');
+    _lifestyleProcessing = false;
+    render();
+  }, 280);
 }
 
 function skipLifestyle() {
+  if (_lifestyleProcessing) return;
+  _lifestyleProcessing = true;
   askedItems.add('lifestyle_filter:ls');
   qCount++;
   const card = document.getElementById('card');
   card.classList.add('fade');
-  setTimeout(() => { card.classList.remove('fade'); render(); }, 280);
+  setTimeout(() => {
+    card.classList.remove('fade');
+    _lifestyleProcessing = false;
+    render();
+  }, 280);
 }
 
 
@@ -2821,6 +2834,7 @@ function showStoryPreview(dataUrl, spKey) {
 
 function restart(){
   _giornataSelettoOperare = false;
+  _lifestyleProcessing = false;
   window._lifestyleExcluded = [];
   window._lifestyleSoft = [];
   _lsSkip.clear();
