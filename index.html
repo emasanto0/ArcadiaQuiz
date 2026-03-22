@@ -2261,7 +2261,6 @@ ${[1,2,3,4,5].map(v=>`<button class="likert-dot" id="ldot-${i}-${v}" onclick="se
 </div>`).join('')} </div> <button class="btn" id="cb" disabled onclick="go()">Continua →</button> `;
 pendingContradiction=null;
 }
-
 function toggleMs(i){
 const btn=document.getElementById(`ms-${i}`);
 const chk=document.getElementById(`msc-${i}`);
@@ -2358,6 +2357,7 @@ if(block.id==='esclusione'){
   // Combina i pesi di tutte le opzioni selezionate
   const combined={};
   msSelected.forEach(i=>{
+    if(!block.options[i]){console.error('disc_chir: options['+i+'] undefined');return;}
     Object.entries(block.options[i].scores).forEach(([k,v])=>{
       combined[k]=(combined[k]||0)+v;
     });
@@ -2372,7 +2372,7 @@ if(block.id==='esclusione'){
   const pA=getProbs();
   let maxD=0,maxSp='';
   KEYS.forEach(k=>{ const d=(pA[k]-pBefore[k])*100; if(d>maxD){maxD=d;maxSp=k;} });
-  const labelsSelected=[...msSelected].map(i=>block.options[i].label).join(', ');
+  const labelsSelected=[...msSelected].filter(i=>block.options[i]).map(i=>block.options[i].label).join(', ');
   if(maxD>0.3) itemContributions.push({
     stmt:'Tipologia preferita: '+labelsSelected, value:5, topSp:maxSp, deltaTop:Math.round(maxD*10)/10
   });
@@ -2476,6 +2476,7 @@ showResult();
 } else { render(); }
 }catch(e){ console.error('go lk branch:',e); render(); }
 },280);
+
 }
 
 function showAmbiguousTransition(){
@@ -2911,6 +2912,21 @@ function startQuiz() {
     overlay.style.transition = 'opacity 0.4s ease';
     setTimeout(function(){ overlay.style.display = 'none'; }, 400);
   }
+}
+
+// ── RECOVERY: se go() crasha silenziosamente e _goRunning resta true,
+// dopo 1.5s forziamo il reset e riabilitiamo il pulsante
+function _goSafeCall(fn) {
+  fn();
+  // Safety net: dopo 1500ms, se _goRunning è ancora true → reset
+  setTimeout(function() {
+    if (_goRunning) {
+      console.warn('go() recovery: _goRunning stuck, resetting');
+      _goRunning = false;
+      var cb = document.getElementById('cb');
+      if (cb && cb.disabled) { cb.disabled = false; cb.textContent = 'Continua →'; }
+    }
+  }, 1500);
 }
 
 render();
