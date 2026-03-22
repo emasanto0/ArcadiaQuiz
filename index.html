@@ -2132,36 +2132,60 @@ function applyLifestyleExclusions(prefs) {
 let _lifestyleProcessing = false;
 let _goRunning = false;
 function goLifestyle() {
-  if (_lifestyleProcessing) return;  // guard: previene doppio tap
+  if (_lifestyleProcessing) return;
   _lifestyleProcessing = true;
-  const prefs = {};
-  ['guardie','wlb','libprof','stress'].forEach(k => {
-    prefs[k] = _lsSkip.has(k) ? null : (_lsVal[k] || 3);
-  });
-  askedItems.add('lifestyle_filter:ls');
-  applyLifestyleExclusions(prefs);
-  qCount++;
-  const card = document.getElementById('card');
-  card.classList.add('fade');
-  setTimeout(() => {
-    card.classList.remove('fade');
+  setTimeout(function() {
+    if (_lifestyleProcessing) {
+      console.warn('goLifestyle watchdog: stuck, resetting');
+      _lifestyleProcessing = false;
+      var btn = document.querySelector('.btn[onclick*="goLifestyle"]');
+      if (btn) { btn.disabled = false; btn.textContent = 'Applica e continua →'; }
+    }
+  }, 1500);
+  try {
+    const prefs = {};
+    ['guardie','wlb','libprof','stress'].forEach(k => {
+      prefs[k] = _lsSkip.has(k) ? null : (_lsVal[k] || 3);
+    });
+    askedItems.add('lifestyle_filter:ls');
+    applyLifestyleExclusions(prefs);
+    qCount++;
+    const card = document.getElementById('card');
+    if (!card) { _lifestyleProcessing = false; render(); return; }
+    card.classList.add('fade');
+    setTimeout(() => {
+      card.classList.remove('fade');
+      _lifestyleProcessing = false;
+      render();
+    }, 280);
+  } catch(e) {
+    console.error('goLifestyle error:', e);
     _lifestyleProcessing = false;
+    var btn = document.querySelector('.btn[onclick*="goLifestyle"]');
+    if (btn) { btn.disabled = false; btn.textContent = 'Applica e continua →'; }
     render();
-  }, 280);
+  }
 }
 
 function skipLifestyle() {
   if (_lifestyleProcessing) return;
   _lifestyleProcessing = true;
-  askedItems.add('lifestyle_filter:ls');
-  qCount++;
-  const card = document.getElementById('card');
-  card.classList.add('fade');
-  setTimeout(() => {
-    card.classList.remove('fade');
+  try {
+    askedItems.add('lifestyle_filter:ls');
+    qCount++;
+    const card = document.getElementById('card');
+    if (!card) { _lifestyleProcessing = false; render(); return; }
+    card.classList.add('fade');
+    setTimeout(() => {
+      card.classList.remove('fade');
+      _lifestyleProcessing = false;
+      render();
+    }, 280);
+  } catch(e) {
+    console.error('skipLifestyle error:', e);
     _lifestyleProcessing = false;
     render();
-  }, 280);
+  }
 }
 
 
@@ -2285,6 +2309,7 @@ if(logP[k]===-999) logP[k]=Math.log(1/N)-3; // ri-abilita ma con penalità
 }
 // In entrambi i casi prosegue il quiz
 const card=document.getElementById('card');
+if (!card) { render(); return; }
 card.classList.add('fade');
 setTimeout(()=>{ _goRunning=false; card.classList.remove('fade'); render(); },280);
 }
@@ -2295,6 +2320,7 @@ _goRunning=true;
 askedItems.add(currentItems[0].itemKey);
 qCount++;
 const card=document.getElementById('card');
+if (!card) { render(); return; }
 card.classList.add('fade');
 setTimeout(()=>{ _goRunning=false; card.classList.remove('fade'); render(); },280);
 }
@@ -2495,6 +2521,7 @@ if(_goRunning) return;
 _goRunning=true;
 extendedPhase=true;
 const card=document.getElementById('card');
+if (!card) { render(); return; }
 card.classList.add('fade');
 setTimeout(()=>{ _goRunning=false; card.classList.remove('fade'); render(); },280);
 }
