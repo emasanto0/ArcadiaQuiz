@@ -2134,58 +2134,24 @@ let _goRunning = false;
 function goLifestyle() {
   if (_lifestyleProcessing) return;
   _lifestyleProcessing = true;
-  setTimeout(function() {
-    if (_lifestyleProcessing) {
-      console.warn('goLifestyle watchdog: stuck, resetting');
-      _lifestyleProcessing = false;
-      var btn = document.querySelector('.btn[onclick*="goLifestyle"]');
-      if (btn) { btn.disabled = false; btn.textContent = 'Applica e continua →'; }
-    }
-  }, 1500);
-  try {
-    const prefs = {};
-    ['guardie','wlb','libprof','stress'].forEach(k => {
-      prefs[k] = _lsSkip.has(k) ? null : (_lsVal[k] || 3);
-    });
-    askedItems.add('lifestyle_filter:ls');
-    applyLifestyleExclusions(prefs);
-    qCount++;
-    const card = document.getElementById('card');
-    if (!card) { _lifestyleProcessing = false; render(); return; }
-    card.classList.add('fade');
-    setTimeout(() => {
-      card.classList.remove('fade');
-      _lifestyleProcessing = false;
-      render();
-    }, 280);
-  } catch(e) {
-    console.error('goLifestyle error:', e);
-    _lifestyleProcessing = false;
-    var btn = document.querySelector('.btn[onclick*="goLifestyle"]');
-    if (btn) { btn.disabled = false; btn.textContent = 'Applica e continua →'; }
-    render();
-  }
+  const prefs = {};
+  ['guardie','wlb','libprof','stress'].forEach(k => {
+    prefs[k] = _lsSkip.has(k) ? null : (_lsVal[k] || 3);
+  });
+  askedItems.add('lifestyle_filter:ls');
+  applyLifestyleExclusions(prefs);
+  qCount++;
+  _lifestyleProcessing = false;
+  render();
 }
 
 function skipLifestyle() {
   if (_lifestyleProcessing) return;
   _lifestyleProcessing = true;
-  try {
-    askedItems.add('lifestyle_filter:ls');
-    qCount++;
-    const card = document.getElementById('card');
-    if (!card) { _lifestyleProcessing = false; render(); return; }
-    card.classList.add('fade');
-    setTimeout(() => {
-      card.classList.remove('fade');
-      _lifestyleProcessing = false;
-      render();
-    }, 280);
-  } catch(e) {
-    console.error('skipLifestyle error:', e);
-    _lifestyleProcessing = false;
-    render();
-  }
+  askedItems.add('lifestyle_filter:ls');
+  qCount++;
+  _lifestyleProcessing = false;
+  render();
 }
 
 
@@ -2343,15 +2309,6 @@ if(cb) cb.disabled=false;
 function go(){
 if(_goRunning) return;
 _goRunning=true;
-// Watchdog: se go() crasha, dopo 2s reset automatico
-var _goWatchdog=setTimeout(function(){
-  if(_goRunning){
-    console.warn('go() watchdog fired');
-    _goRunning=false;
-    var _cb=document.getElementById('cb');
-    if(_cb&&_cb.disabled){_cb.disabled=false;_cb.textContent='Continua →';}
-  }
-},500);
 const pBefore=getProbs();
 pendingContradiction=null;
 
@@ -2360,15 +2317,11 @@ if(currentItems.length===1&&currentItems[0].isMsBlock){
 const block=currentItems[0].block;
 askedItems.add(currentItems[0].itemKey);
 
-
-// Traccia se ha selezionato 'operare' nella giornata_ideale
 if(block.id==='giornata_ideale'){
-  // opzione 0 = "Operare -- sala operatoria, procedure chirurgiche"
   if(msSelected.has(0)) _giornataSelettoOperare = true;
 }
 
 if(block.id==='esclusione'){
-  // HARD EXCLUSION: azzera completamente le specialità escluse (logP = -999)
   const EXCL_MAP = {
     0:['chir_gen','ortop','neurochir','chir_plast','chir_card','uro','orl','ocu','gyn','chir_vasc'],
     1:['emerg','anest','chir_card','ped','neo'],
@@ -2389,53 +2342,29 @@ if(block.id==='esclusione'){
     });
   });
 } else if(msSelected.size>0){
-  // Combina i pesi di tutte le opzioni selezionate
   const combined={};
   msSelected.forEach(i=>{
-    if(!block.options[i]){console.error('disc_chir: options['+i+'] undefined');return;}
+    if(!block.options||!block.options[i]) return;
     Object.entries(block.options[i].scores).forEach(([k,v])=>{
       combined[k]=(combined[k]||0)+v;
     });
   });
-  // Normalizza per numero di selezioni + applica peso del round
-  // Vocazione pazienti ha peso maggiore: è il filtro demografico più forte
   const baseWeight = getRoundWeight(block.id, qCount);
   const msWeight = block.id === 'vocazione_pazienti' ? Math.max(baseWeight, 3.5) : baseWeight;
-  const factor=(1/Math.sqrt(msSelected.size)) * msWeight;
+  const factor=(1/Math.sqrt(Math.max(1,msSelected.size))) * msWeight;
   updateBayes(combined, factor);
-  // Traccia contributo
   const pA=getProbs();
   let maxD=0,maxSp='';
   KEYS.forEach(k=>{ const d=(pA[k]-pBefore[k])*100; if(d>maxD){maxD=d;maxSp=k;} });
-  const labelsSelected=[...msSelected].filter(i=>block.options[i]).map(i=>block.options[i].label).join(', ');
+  const labelsSelected=[...msSelected].filter(i=>block.options&&block.options[i]).map(i=>block.options[i].label).join(', ');
   if(maxD>0.3) itemContributions.push({
     stmt:'Tipologia preferita: '+labelsSelected, value:5, topSp:maxSp, deltaTop:Math.round(maxD*10)/10
   });
 }
 qCount++;
-const card=document.getElementById('card');
-if(!card){ _goRunning=false; render(); return; }
-card.classList.add('fade');
-setTimeout(()=>{
-  clearTimeout(_goWatchdog);
-  _goRunning=false;
-  card.classList.remove('fade');
-  try{
-    const tp=topProb();
-    const stopProb = extendedPhase ? STOP_PROB_EXTENDED : getAdaptiveStopProb();
-    const maxQ = extendedPhase ? MAX_Q_EXTENDED : MAX_Q;
-    if(qCount>=MIN_Q && (tp>=stopProb||qCount>=maxQ)){
-      if(!extendedPhase && qCount>=MAX_Q && tp<getAdaptiveStopProb()){
-        showAmbiguousTransition();
-      } else {
-        showResult();
-      }
-    } else { render(); }
-  }catch(e){ console.error('go ms branch:',e); render(); }
-},280);
+_goRunning=false;
+render();
 return;
-
-
 }
 
 // ── Likert handling ──────────────────────────────────────────────────────
@@ -2445,25 +2374,20 @@ const mult=LIKERT_SCALE[val]||0;
 const rw=getRoundWeight(c.block?c.block.id:'', qCount);
 updateBayes(c.item.scores, mult * rw);
 askedItems.add(c.itemKey);
-
-// ── Applica incompatibilità strutturale basata su tag ──────────────────
 if(c.item.tag && INCOMPATIBILITY_MAP[c.item.tag]){
   const imap = INCOMPATIBILITY_MAP[c.item.tag];
   if(val>=4){
-    // Utente conferma il tag → penalizza le specialità strutturalmente opposte
     const penalty = imap.penalty * (val===5 ? 1.0 : 0.6);
     const antiScores = {};
     imap.anti.forEach(sp => { antiScores[sp] = -penalty; });
     updateBayes(antiScores, 1.0);
   } else if(val<=2){
-    // Utente nega il tag → le specialità "anti" diventano relativamente più probabili
     const boost = imap.penalty * (val===1 ? 0.5 : 0.25);
     const boostScores = {};
     imap.anti.forEach(sp => { boostScores[sp] = boost; });
     updateBayes(boostScores, 1.0);
   }
 }
-
 if(val>=4&&Math.abs(mult)>0.1){
 const pA=getProbs();
 KEYS.forEach(k=>{
@@ -2480,7 +2404,6 @@ const contr=detectContradiction(c.item.tag);
 if(contr) pendingContradiction=contr;
 answerTags.push(c.item.tag);
 }
-// Fix 3: rileva contraddizione tra esclusione hard e risposta Likert forte
 if(val>=4&&!pendingContradiction){
 const EXCL_CONTR=[
 {excl:['emerg','anest'],trig:['emerg','anest'],msg:"Hai escluso le urgenze all'inizio, ma alcune risposte mostrano che ami adrenalina e situazioni critiche. Sei sicuro di voler escludere PS e rianimazione?"},
@@ -2495,29 +2418,10 @@ pendingContradiction=ec.msg; break;
 }
 });
 qCount++;
-const card=document.getElementById('card');
-if(!card){ _goRunning=false; render(); return; }
-card.classList.add('fade');
-setTimeout(()=>{
-clearTimeout(_goWatchdog);
 _goRunning=false;
-card.classList.remove('fade');
-try{
-const tp2=topProb();
-const stopProb2 = extendedPhase ? STOP_PROB_EXTENDED : getAdaptiveStopProb();
-const maxQ2 = extendedPhase ? MAX_Q_EXTENDED : MAX_Q;
-if(qCount>=MIN_Q && (tp2>=stopProb2||qCount>=maxQ2)){
-if(!extendedPhase && qCount>=MAX_Q && tp2<getAdaptiveStopProb()){
-showAmbiguousTransition();
-} else {
-showResult();
+render();
 }
-} else { render(); }
-}catch(e){ console.error('go lk branch:',e); render(); }
-},280);
 
-
-}
 function showAmbiguousTransition(){
 // Mostra le due specialità più probabili attualmente
 const allP=getProbs();
@@ -2968,6 +2872,20 @@ function _goSafeCall(fn) {
     }
   }, 1500);
 }
+
+// ── Page Visibility: resetta flag se la tab torna in foreground ────────────
+document.addEventListener('visibilitychange', function() {
+  if (!document.hidden) {
+    if (_goRunning) {
+      _goRunning = false;
+      var cb = document.getElementById('cb');
+      if (cb && cb.disabled) { cb.disabled = false; cb.textContent = 'Continua →'; }
+    }
+    if (_lifestyleProcessing) {
+      _lifestyleProcessing = false;
+    }
+  }
+});
 
 render();
 
