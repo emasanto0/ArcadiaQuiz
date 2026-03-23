@@ -240,7 +240,7 @@ button,a{touch-action:manipulation;-webkit-tap-highlight-color:transparent;}
     <div style="background:rgba(255,255,255,0.10);border:1px solid rgba(255,255,255,0.22);border-radius:14px;padding:16px 18px;margin-bottom:22px;text-align:left;">
       <p style="color:rgba(255,255,255,0.93);font-size:0.875rem;line-height:1.65;margin:0 0 9px 0;">&#127919; <strong style="color:#fff;">Test orientativo</strong> basato su modelli probabilistici: prendi il risultato come uno spunto di riflessione, non come una verità assoluta.</p>
       <p style="color:rgba(255,255,255,0.93);font-size:0.875rem;line-height:1.65;margin:0 0 9px 0;">&#129504; <strong style="color:#fff;">Per gli studenti dei primi anni</strong>: analizza la tua attitudine personale, non le tue nozioni.</p>
-      <p style="color:rgba(255,255,255,0.93);font-size:0.875rem;line-height:1.65;margin:0;">&#128260; Rifallo variando le risposte per scoprire sfumature diverse. Se metti troppe opzioni confonderai il risultato. Per qualsiasi dubbio, contattaci!</p>
+      <p style="color:rgba(255,255,255,0.93);font-size:0.875rem;line-height:1.65;margin:0;">&#128260; Rifallo variando le risposte per scoprire sfumature diverse. Per qualsiasi dubbio, contattaci!</p>
     </div>
     <button onclick="startQuiz()" style="background:#fff;color:#8b0000;border:none;border-radius:50px;padding:14px 48px;font-size:1rem;font-weight:700;letter-spacing:0.4px;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,0.25);transition:transform 0.15s,box-shadow 0.15s;width:100%;max-width:260px;" onmouseover="this.style.transform='scale(1.04)';this.style.boxShadow='0 6px 20px rgba(0,0,0,0.32)'" onmouseout="this.style.transform='scale(1)';this.style.boxShadow='0 4px 14px rgba(0,0,0,0.25)'">Iniziamo &#8594;</button>
     <p style="color:rgba(255,255,255,0.38);font-size:0.68rem;margin:12px 0 0;">Ottobre 2001 &middot; ArcadiA MED</p>
@@ -1120,9 +1120,9 @@ scores:{med_int:18,reum:6,neuro:5,mal_inf:5,chir_gen:-8,emerg:-5,rad:-7}},
 { id:"vocazione_pazienti", type:"multiselect",
 text:"Con quale tipo di paziente ti immagini di lavorare ogni giorno? (puoi scegliere più opzioni)",
 options:[
-{label:"Solo donne -- salute riproduttiva, gravidanza, menopausa, ginecologia",
+{label:"Donne -- salute riproduttiva, gravidanza, menopausa, ginecologia",
 scores:{gyn:24,endo:3,onco:3,neo:4,ped:-4,ger:-6,med_lav:-5,med_leg:-5,chir_vasc:-4,neurochir:-5,chir_card:-6}},
-{label:"Solo uomini -- salute maschile, andrologia, urologia, prostata",
+{label:"Uomini -- salute maschile, andrologia, urologia, prostata",
 scores:{uro:22,chir_vasc:3,med_sport:3,gyn:-12,neo:-8,ped:-6,ger:-5,npi:-5,med_leg:-4}},
 {label:"Bambini e adolescenti -- dalla prima infanzia ai 18 anni",
 scores:{ped:22,npi:12,neo:-8,ger:-10,pal:-8,rad:-5,med_leg:-8,med_lav:-8,ig_san:-5,chir_gen:-5,chir_card:-5}},
@@ -2351,7 +2351,7 @@ var _goWatchdog=setTimeout(function(){
     var _cb=document.getElementById('cb');
     if(_cb&&_cb.disabled){_cb.disabled=false;_cb.textContent='Continua →';}
   }
-},2000);
+},500);
 const pBefore=getProbs();
 pendingContradiction=null;
 
@@ -2516,8 +2516,8 @@ showResult();
 }catch(e){ console.error('go lk branch:',e); render(); }
 },280);
 
-}
 
+}
 function showAmbiguousTransition(){
 // Mostra le due specialità più probabili attualmente
 const allP=getProbs();
