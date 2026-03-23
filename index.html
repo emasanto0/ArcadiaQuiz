@@ -2343,6 +2343,15 @@ if(cb) cb.disabled=false;
 function go(){
 if(_goRunning) return;
 _goRunning=true;
+// Watchdog: se go() crasha, dopo 2s reset automatico
+var _goWatchdog=setTimeout(function(){
+  if(_goRunning){
+    console.warn('go() watchdog fired');
+    _goRunning=false;
+    var _cb=document.getElementById('cb');
+    if(_cb&&_cb.disabled){_cb.disabled=false;_cb.textContent='Continua →';}
+  }
+},2000);
 const pBefore=getProbs();
 pendingContradiction=null;
 
@@ -2405,8 +2414,10 @@ if(block.id==='esclusione'){
 }
 qCount++;
 const card=document.getElementById('card');
+if(!card){ _goRunning=false; render(); return; }
 card.classList.add('fade');
 setTimeout(()=>{
+  clearTimeout(_goWatchdog);
   _goRunning=false;
   card.classList.remove('fade');
   try{
@@ -2485,8 +2496,10 @@ pendingContradiction=ec.msg; break;
 });
 qCount++;
 const card=document.getElementById('card');
+if(!card){ _goRunning=false; render(); return; }
 card.classList.add('fade');
 setTimeout(()=>{
+clearTimeout(_goWatchdog);
 _goRunning=false;
 card.classList.remove('fade');
 try{
